@@ -1,0 +1,136 @@
+@import "tailwindcss" prefix(tw);
+@source "./index.html";
+@source "./index.js";
+
+:root {
+    --primary-100: #d6e4ef;
+    --primary-200: #adc8e0;
+    --primary-300: #84add0;
+    --primary-400: #5b91c1;
+    --primary: #3276b1;
+    --primary-600: #2d6a9f;
+    --primary-700: #285e8e;
+    --primary-800: #23537c;
+    --primary-900: #1e476a;
+
+    --primary-foreground: #ffffff;
+}
+
+@theme {
+    --color-primary-100: var(--primary-100);
+    --color-primary-200: var(--primary-200);
+    --color-primary-300: var(--primary-300);
+    --color-primary-400: var(--primary-400);
+    --color-primary: var(--primary);
+    --color-primary-600: var(--primary-600);
+    --color-primary-700: var(--primary-700);
+    --color-primary-800: var(--primary-800);
+    --color-primary-900: var(--primary-900);
+
+    --color-primary-foreground: var(--primary-foreground);
+}
+
+@layer components {
+    .tw-accordion {
+        @apply tw:border-2 tw:border-primary
+        tw:shadow-md tw:mt-8 tw:rounded-lg;
+    }
+    .tw-accordion > * {
+        @apply tw:py-2 tw:px-4;
+    }
+    .tw-accordion > summary {
+        @apply tw:text-2xl tw:font-semibold tw:text-primary-foreground tw:bg-primary tw:cursor-default;
+        @variant focus {
+            @apply tw:bg-primary-300;
+        }
+    }
+    .tw-accordion > .tw-accordion-content {
+        @apply tw:flex tw:flex-col tw:gap-4
+            /*tw:grid-cols-2 tw:lg:grid-cols-3*/
+            tw:px-10 tw:py-8
+            tw:transition-[max-height,opacity];
+
+        max-height: 0;
+        opacity: 0;
+        transition-timing-function: ease;
+        transition-duration: 0.3s;
+    }
+    .tw-accordion[open] > .tw-accordion-content {
+        max-height: fit-content;
+        opacity: 1;
+    }
+    .tw-accordion-content > fieldset {
+        @apply tw:grid! tw:w-full tw:grid-cols-2 tw:gap-4;
+    }
+    .tw-accordion-content > .tw-accordion-content-title {
+        @apply tw:text-lg
+            tw:font-bold
+            tw:col-span-2 tw:lg:col-span-3
+            tw:border-b;
+    }
+
+    .tw-form-field {
+        @apply tw:flex tw:flex-col tw:space-y-2;
+    }
+    .tw-form-field input:not(.datepicker):not(.timepicker),
+    .tw-form-field select {
+        @apply tw:p-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40;
+    }
+    .tw-form-field input:focus-visible:not([readonly]) {
+        @apply tw:bg-primary-100/80;
+    }
+    .tw-form-field input[readonly]:not(.input-date input) {
+        @apply tw:border-gray-500 tw:bg-gray-200 tw:select-none;
+    }
+
+    .tw-form-field .input-date {
+        @apply tw:flex tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40 tw:focus-within:bg-primary-100/80;
+    }
+    .tw-form-field .input-date > input {
+        @apply tw:flex-1 tw:p-2 tw:focus:border-none;
+    }
+    .tw-form-field .input-date > span[role="flags"] {
+        @apply tw:p-2 tw:text-center tw:flex tw:justify-center tw:content-center tw:bg-primary tw:text-primary-foreground;
+    }
+    .tw-form-field .input-date > span[role="flags"].fa,
+    .tw-form-field .input-date > span[role="flags"].glyphicon {
+        @apply tw:px-3;
+    }
+    .tw-form-field .input-date > span[role="flags"].glyphicon {
+        top: 0 !important;
+    }
+
+    .tw-form-field output {
+        @apply tw:py-1 tw:px-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40;
+    }
+
+    .tw-form-field > .tw-field-title {
+        @apply tw:flex! tw:flex-col;
+    }
+    .tw-form-field .tw-field-label {
+        @apply tw:text-lg tw:font-semibold!;
+    }
+    .tw-form-field.required .tw-field-label::before {
+        content: "*";
+        @apply tw:text-red-700 tw:pr-0.5;
+    }
+    .tw-field-label.sm {
+        @apply tw:text-sm;
+    }
+    .tw-form-field .tw-field-desc {
+        @apply tw:inline-block tw:text-xs tw:text-gray-500;
+    }
+}
+
+/*.select2-container {
+    @apply tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40 tw:overflow-hidden;
+}
+.select2-selection {
+    @apply tw:bg-transparent tw:h-auto tw:border-none;
+}
+.select2-selection__arrow {
+    @apply tw:bg-primary tw:text-primary-foreground tw:border-none;
+}
+.select2-dropdown {
+    @apply tw:absolute tw:block tw:w-auto tw:box-border tw:bg-white tw:border-solid tw:border-2 tw:border-primary tw:z-50 tw:float-left;
+}*/

@@ -1,0 +1,25 @@
+{
+    "name": "tailwindcss4",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "form": "node ./scripts",
+        "build:antenatal": "pnpm dlx @tailwindcss/cli --cwd ./forms/antenatal -o ../../dist/forms/antenatal/index.css -i index.css --minify",
+        "watch": "vite build -w"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.20.0",
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.16",
+        "@tailwindcss/vite": "^4.1.16",
+        "commander": "^14.0.2",
+        "ssh2": "^1.17.0",
+        "tailwindcss": "^4.1.16",
+        "vite": "^7.2.0",
+        "vite-plugin-singlefile": "^2.3.0",
+        "yaml": "^2.8.1"
+    }
+}

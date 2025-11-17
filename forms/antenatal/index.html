@@ -1,0 +1,1218 @@
+<style>
+    /* Custom utility to hide scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+</style>
+
+<div id="antenatal-form" class="tw:w-full tw:mx-auto tw:px-10 tw:py-8">
+    <form name="antenatal" class="tw:gap-8">
+        <div
+            slot="header"
+            class="tw:flex tw:justify-start tw:items-center tw:content-center"
+        >
+            <div class="tw:flex-1">
+                <span class="tw:text-4xl tw:font-bold tw:text-primary">
+                    Formulir Antenatal Care (ANC)
+                </span>
+            </div>
+
+            <div class="tw:px-4 tw:py-2 tw:border tw:border-primary">
+                <table
+                    class="tw:[&_th,&_td]:px-2! tw:[&_th]:font-bold tw:[&_th]:text-primary-700"
+                >
+                    <tbody>
+                        <tr>
+                            <th>Nama</th>
+                            <td>{NAME_REAL}</td>
+                        </tr>
+                        <tr>
+                            <th>No RM</th>
+                            <td>{NO_RM}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--<div>
+                    <span class="tw:font-semibold tw:text-primary-700">
+                        Nama:
+                    </span>
+                    <span>{NAME_REAL}</span>
+                </div>
+                <div>
+                    <span class="tw:font-semibold tw:text-primary-700">
+                        No RM:
+                    </span>
+                    <span>{NO_RM}</span>
+                </div>-->
+            </div>
+        </div>
+
+        <details class="tw-accordion" open>
+            <summary>
+                <!---->
+                Status G-P-A & Perkiraan Lahir
+            </summary>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Status Obstetri (Riwayat Kehamilan Sebelumnya)</span>
+                </div>
+                <fieldset class="tw:grid-cols-4">
+                    <!-- form -->
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="obstetri_gravida">
+                            <span class="tw-field-label"> Gravida (G) </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="obstetri_gravida"
+                            name="obstetri_gravida"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="obstetri_partus">
+                            <span class="tw-field-label required">
+                                Partus (P)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="obstetri_partus"
+                            name="obstetri_partus"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="obstetri_abortus">
+                            <span class="tw-field-label"> Abortus (A) </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="obstetri_abortus"
+                            name="obstetri_abortus"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="obstetri_pregnancy_range"
+                        >
+                            <!---->
+                            <span class="tw-field-label">
+                                Jarak Kehamilan dengan kehamilan sebelumnya
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="obstetri_pregnancy_range"
+                            name="obstetri_pregnancy_range"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Data Kunjungan & Perkiraan Kehamilan (EOC)</span>
+                </div>
+                <fieldset class="tw:grid-cols-2">
+                    <!-- form -->
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="eoc_visite">
+                            <span class="tw-field-label"> Kunjungan Ke- </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="eoc_visite"
+                            name="eoc_visite"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="eoc_visit_date">
+                            <span class="tw-field-label">
+                                Tanggal dan Waktu Kunjungan
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <input
+                                type="hidden"
+                                myid="eoc_visit"
+                                name="eoc_visit"
+                            />
+                            <div class="input-date">
+                                <input
+                                    id="eoc_visit_date"
+                                    name="eoc_visit_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="eoc_visit_date"
+                                    name="eoc_visit_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="HH:MM"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="eoc_hpht">
+                            <span class="tw-field-label">
+                                Tanggal HPHT (Hari Pertama Haid Terakhir)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div class="input-date">
+                            <input
+                                id="eoc_hpht"
+                                name="eoc_hpht"
+                                myid="check_cara"
+                                class="datepicker hasDatepicker"
+                                placeholder="dd-mm-yyyy"
+                            />
+                            <span role="flags" class="fa fa-calendar"></span>
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="eoc_hpl">
+                            <span class="tw-field-label">
+                                Hari Perkiraan Lahir (HPL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div class="input-date">
+                            <input
+                                id="eoc_hpl"
+                                name="eoc_hpl"
+                                myid="check_cara"
+                                class="datepicker"
+                                placeholder="dd-mm-yyyy"
+                                data-disabled="1"
+                                readonly
+                            />
+                            <span role="flags" class="fa fa-calendar"></span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Data Fisik Dasar</span>
+                </div>
+                <fieldset class="tw:grid-cols-3">
+                    <!-- form -->
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="physic_weight">
+                            <span class="tw-field-label">
+                                Berat Badan Sebelum Hamil (Kg)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="physic_weight"
+                            name="physic_weight"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="physic_height">
+                            <span class="tw-field-label">
+                                Tinggi Badan (Cm)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="physic_height"
+                            name="physic_height"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <!-- bbi = berat badan increase -->
+                        <label class="tw-field-title" for="physic_weight_inc">
+                            <span class="tw-field-label">
+                                Target Kenaikan Berat Badan
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="physic_weight_inc"
+                            name="physic_weight_inc"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <details class="tw-accordion" open>
+            <summary>
+                <!---->
+                Pemeriksaan 10T & Fisik Ibu
+            </summary>
+
+            <div class="tw-accordion-content">
+                <span class="tw-accordion-content-title">
+                    Tanda - Tanda Vital (TTV) & Pemeriksaan Fisik Ibu
+                </span>
+                <fieldset class="tw:grid-cols-3">
+                    <!-- form -->
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">
+                                Tekanan Darah (Sistolik / Diastolik)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div
+                            class="tw:flex tw:gap-2 tw:[&>input]:w-[30%] tw:[&>input]:min-w-32"
+                        >
+                            <input
+                                name="ttv_bp_systolic"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                                placeholder="systolic"
+                            />
+                            <input
+                                name="ttv_bp_diastolic"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                                placeholder="diastolic"
+                            />
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">Suhu / Nadi</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div
+                            class="tw:flex tw:gap-2 tw:[&>input]:w-[30%] tw:[&>input]:min-w-32"
+                        >
+                            <input
+                                name="ttv_temp"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                                placeholder="suhu (c)"
+                            />
+                            <input
+                                name="ttv_pulse"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                                placeholder="pulse (bpm)"
+                            />
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">
+                                Berat Badan (Kg) / LILA (Cm)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <div
+                            class="tw:flex tw:gap-2 tw:[&>input]:w-[30%] tw:[&>input]:min-w-32"
+                        >
+                            <input
+                                name="ttv_weight"
+                                myid="check_cara"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                            />
+                            <input
+                                name="ttv_lila"
+                                myid="check_cara"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                readonly
+                            />
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">Konjungtiva</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            name="ttv_konjungtiva"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">
+                                Interpretasi LILA
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            name="ttv_lila_intr"
+                            myid="check_cara"
+                            type="text"
+                            readonly
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">Sklera</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            name="ttv_sklera"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            readonly
+                        />
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span> Pemeriksaan 10T & Janin </span>
+                </div>
+                <fieldset name="fetus" class="tw:grid-cols-3 tw:lg:grid-cols-5">
+                    <!-- form -->
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title">
+                            <span class="tw-field-label">
+                                Presentasi/Posisi Janin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="fetus_pos_intrp"
+                            name="fetus_pos_intrp"
+                            myid="fetus_pos_intrp"
+                        />
+                        <select
+                            id="fetus_pos"
+                            name="fetus_pos"
+                            myid="check_cara"
+                            data-interpretation="fetus_pos_intrp"
+                        >
+                            <option
+                                selected
+                                value="1209182005"
+                                data-display="Cephalic fetal presentation"
+                            >
+                                Presentasi Kepala
+                            </option>
+                            <option
+                                value="6096002"
+                                data-display="Breech presentation"
+                            >
+                                Presentasi Bokong
+                            </option>
+                            <option
+                                value="288203005"
+                                data-display="Transverse/oblique lie"
+                            >
+                                Letak Lintang
+                            </option>
+                        </select>
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fetus_hr">
+                            <span class="tw-field-label">
+                                Denyut Jantung Janin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="fetus_hr"
+                            name="fetus_hr"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fetus_tfu">
+                            <span class="tw-field-label">
+                                Tinggi Fundus Uteri (TFU)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="fetus_tfu"
+                            name="fetus_tfu"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fetus_bb">
+                            <span class="tw-field-label">
+                                Taksiran Berat Janin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="fetus_bb"
+                            name="fetus_bb"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fetus_pap">
+                            <span class="tw-field-label">
+                                Kepala Terhadap PAP
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <select
+                            id="fetus_pap"
+                            name="fetus_pap"
+                            myid="check_cara"
+                            data-interpretation="fetus_pap_intrp"
+                        >
+                            <option
+                                selected
+                                value="249112006"
+                                data-display="Head engaged"
+                            >
+                                Masuk Panggul
+                            </option>
+                            <option
+                                selected
+                                value="62098001"
+                                data-display="Head not engaged"
+                            >
+                                Belum masuk panggul
+                            </option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <span class="tw-accordion-content-title">
+                    Pemeriksaan Penunjang (Lab & USG)
+                </span>
+                <fieldset class="tw:grid-cols-4">
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_ugd">
+                            <span class="tw-field-label">
+                                Gestational Sac (GS)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_gsd"
+                            name="usg_gsd"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_crl">
+                            <span class="tw-field-label">
+                                Crown Lump Length (CRL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_crl"
+                            name="usg_crl"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_age">
+                            <span class="tw-field-label">Usia Kehamilan</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_age"
+                            name="usg_age"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_weight">
+                            <span class="tw-field-label">
+                                Taksiran Berat Janin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_weight"
+                            name="usg_weight"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_pos">
+                            <span class="tw-field-label">Letak Janin</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="usg_pos_intrp"
+                            name="usg_pos_intrp"
+                            myid="check_cara"
+                        />
+                        <select
+                            id="usg_pos"
+                            name="usg_pos"
+                            myid="check_cara"
+                            data-interpretation="usg_pos_intrp"
+                        >
+                            <option
+                                selected
+                                value="398236008"
+                                data-display="Intrauterine"
+                            >
+                                Intrauteri
+                            </option>
+                            <option
+                                selected
+                                value="298109001"
+                                data-display="Ectopic"
+                            >
+                                Ekstrauteri
+                            </option>
+                        </select>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_bpd">
+                            <span class="tw-field-label">
+                                Biparietal Diameter (BPD)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_bpd"
+                            name="usg_bpd"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_hc">
+                            <span class="tw-field-label">
+                                Head Circumference (HC)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_hc"
+                            name="usg_hc"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_fl">
+                            <span class="tw-field-label">
+                                Femur Length (FL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_fl"
+                            name="usg_fl"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_ac">
+                            <span class="tw-field-label">
+                                Abdominal Circumference (AC)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_ac"
+                            name="usg_ac"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_crl">
+                            <span class="tw-field-label">
+                                Crown Lump Length (CRL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_crl"
+                            name="usg_crl"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_weight">
+                            <span class="tw-field-label">
+                                Berat Janin (USG)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_weight"
+                            name="usg_weight"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="usg_crl">
+                            <span class="tw-field-label">
+                                Crown Lump Length (CRL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="usg_crl"
+                            name="usg_crl"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="lab_bs">
+                            <span class="tw-field-label">
+                                Pemeriksaan Gula Darah
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="lab_bs"
+                            name="lab_bs"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="lab_hgb">
+                            <span class="tw-field-label">
+                                Pemeriksaan Hemoglobin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="lab_hgb"
+                            name="lab_hgb"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="lab_urin_protein">
+                            <span class="tw-field-label">
+                                Pemeriksaan Protein Urin
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="lab_urin_protein"
+                            name="lab_urin_protein"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="lab_urin_protein">
+                            <span class="tw-field-label">
+                                Status Imunisasi TT/Td Terakhir
+                            </span>
+                            <span class="tw-field-desc">Immunization</span>
+                        </label>
+
+                        <input
+                            id="lab_urin_protein"
+                            name="lab_urin_protein"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <span class="tw-accordion-content-title">
+                    Pemeriksaan Penunjang (Lab & USG)
+                </span>
+
+                <fieldset class="tw:grid-cols-2 tw:lg:grid-cols-4">
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="skrining_rpr">
+                            <span class="tw-field-label">
+                                Skrining PPIA Sifilis (RPR)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="skrining_rpr"
+                            name="skrining_rpr"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="skrining_vdrl">
+                            <span class="tw-field-label">
+                                Skrining PPIA Sifilis (VDRL)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="skrining_vdrl"
+                            name="skrining_vdrl"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="skrining_hepatitis_b"
+                        >
+                            <span class="tw-field-label">
+                                Skrining PPIA Hepatitis B
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="skrining_hepatitis_b"
+                            name="skrining_hepatitis_b"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="skrining_hiv">
+                            <span class="tw-field-label">
+                                Skrining PPIA HIV
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="skrining_hiv"
+                            name="skrining_hiv"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <details class="tw-accordion" open>
+            <summary>
+                <!---->
+                Diagnosis & Tata Laksana Lanjutan
+            </summary>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Riwayat Penyakit dan Resiko</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-4">
+                    <!-- Complication Pregnancy -->
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="risk_comp_pregnancy">
+                            <span class="tw-field-label">
+                                Komplikasi/Penyulit Kehamilan
+                            </span>
+                            <span class="tw-field-desc">Condition</span>
+                        </label>
+                        <input
+                            id="risk_comp_pregnancy"
+                            name="risk_comp_pregnancy"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <!-- Zymotic Disease -->
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="risk_zym_disease">
+                            <span class="tw-field-label">
+                                Riwayat Penyakit Menular
+                            </span>
+                            <span class="tw-field-desc">Encounter</span>
+                        </label>
+                        <input
+                            id="obstetri_comp_pregnancy"
+                            name="obstetri_comp_pregnancy"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <!-- Family Medical History -->
+                    <div
+                        slot="form-field"
+                        class="tw-form-field required tw:col-span-2"
+                    >
+                        <label class="tw-field-title" for="risk_fam_medical">
+                            <span class="tw-field-label">
+                                Riwayat Penyakit Keluarga
+                            </span>
+                            <span class="tw-field-desc">Encounter</span>
+                        </label>
+                        <input
+                            id="risk_fam_medical"
+                            name="risk_fam_medical"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                            class="tw:lg:w-[50%]"
+                        />
+                    </div>
+
+                    <!-- Smoker / Perokok -->
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="risk_smoker">
+                            <span class="tw-field-label"> Merokok </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="risk_smoker_intrp"
+                            name="risk_smoker_intrp"
+                            myid="check_cara"
+                        />
+                        <select
+                            id="risk_smoker"
+                            name="risk_smoker"
+                            myid="check_cara"
+                            data-interpretation="risk_smoker_intrp"
+                        >
+                            <option value="8392000" data-display="Non Smoker">
+                                Tidak Merokok
+                            </option>
+                            <option
+                                selected
+                                value="43381005"
+                                data-display="Passive Smoker"
+                            >
+                                Passive
+                            </option>
+                            <option value="77176002" data-display="Smoker">
+                                Aktif
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Smoker / Perokok -->
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="risk_alcoholic">
+                            <span class="tw-field-label">
+                                Konsumsi Alkohol
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            id="risk_alcoholic_intrp"
+                            type="hidden"
+                            name="risk_alcoholic_intrp"
+                            myid="risk_alcoholic_intrp"
+                        />
+                        <select
+                            id="risk_alcoholic"
+                            name="risk_alcoholic"
+                            myid="check_cara"
+                            data-interpretation="risk_alcoholic_intrp"
+                        >
+                            <option
+                                selected
+                                value="105542008"
+                                data-display="Non - drinker"
+                            >
+                                Tidak
+                            </option>
+                            <option
+                                value="219006"
+                                data-display="Current drinker"
+                            >
+                                Ya
+                            </option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Status Obstetri (Riwayat Kehamilan Sebelumnya)</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-3">
+                    <!-- form -->
+                    <!--<div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="obstetri_revel_pregnancy"
+                        >
+                            <span class="tw-field-label">
+                                Kondisi saat keluar RS
+                            </span>
+                            <span class="tw-field-desc">Encounter</span>
+                        </label>
+                        <select
+                            id="obstetri_comp_pregnancy"
+                            name="obstetri_comp_pregnancy"
+                            myid="check_cara"
+                            required
+                        >
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>-->
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label
+                            class="tw-field-title"
+                            for="obstetri_revel_pregnancy"
+                        >
+                            <span class="tw-field-label">
+                                Tujuan Tindak Lanjut
+                            </span>
+                            <span class="tw-field-desc">ServiceRequest</span>
+                        </label>
+                        <input
+                            id="obstetri_comp_pregnancy"
+                            name="obstetri_comp_pregnancy"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="obstetri_revel_pregnancy"
+                        >
+                            <span class="tw-field-label">
+                                Sarana Transportasi (Jika Rujuk)
+                            </span>
+                            <span class="tw-field-desc">ServiceRequest</span>
+                        </label>
+                        <input
+                            id="obstetri_comp_pregnancy"
+                            name="obstetri_comp_pregnancy"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <div class="tw:mt-10">
+            <div>Penutupan Episode Kehamilan (EOC)</div>
+            <div>
+                <label for="eoc_ended">
+                    <input
+                        type="checkbox"
+                        id="eoc_ended"
+                        name="eoc_ended"
+                        myid="check_cara"
+                    />
+                    Tutup Episode kehamilan
+                </label>
+            </div>
+        </div>
+    </form>
+</div>

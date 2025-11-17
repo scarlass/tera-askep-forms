@@ -1,0 +1,53 @@
+# connection profile(s)
+# to use different profile, run the sync command with:
+#   tera-askep sync --profile <profile-name> ...target
+profile:
+    # profile name are case-insensitive
+    default:
+        # ssh connection
+        # this settings is used if ur local system don't have "psql" command installed
+        # the idea was, if no local "psql" executable, than the "psql" command will be execute in your preferred ssh server
+        # but of course, u need to make sure the ssh server can connect to the database server
+        ssh:
+            host: 192.168.0.11
+            port: 22
+            user: zakyannafi
+            password: darkmega12
+
+        # database connection
+        database:
+            host: 192.168.0.15
+            port: 5432
+            user: terakorp
+            password: teramed1k@bDgV5
+            database: teramedik_master
+
+target:
+    antenatal:
+        alid: 842
+        html: "forms/{{ .target }}/index.html"
+        script: "forms/{{ .target }}/index.js"
+        stylesheet: "dist/forms/{{ .target }}/index.css"
+        # options:
+        #     force-ssh: true
+    iseng:
+        alid: 842
+        html: "forms/{{ .target }}/index.html"
+
+    # target name are case-insensitive
+    # this entry only for example and will be count as non-exist at runtime
+    "*":
+        # askep list row id
+        alid: 123
+
+        # the paths here can use go template and it can be an absolute path or relative path to "cwd"
+        # available template variables are:
+        # - "cwd" or current working directory relative to the configuration file directory
+        # - "target" name of the target
+
+        # html entry, make sure it's a valid path
+        html: "{{ .target }}/index.html"
+        # script entry, will embed the content to html and script tag if the file exist
+        script: "{{ .target }}/index.js"
+        # stylesheet entry, same as script except it will add style tag in the html
+        stylesheet: "{{ .cwd }}/index.css"
