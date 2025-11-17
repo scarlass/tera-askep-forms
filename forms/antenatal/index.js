@@ -137,7 +137,7 @@
         $(root)
             .find("select[data-interpretation]")
             .each(function (i, /** @type {HTMLSelectElement} */ select) {
-                const fn = function (/** @type {Event} */ e) {
+                const fn = function () {
                     const opt = select.selectedOptions.item(0);
                     if (!opt) return;
 
@@ -152,6 +152,7 @@
                     elem.dispatchEvent(new Event("change"));
                 };
 
+                fn();
                 select.addEventListener("change", fn);
             });
     }
@@ -160,7 +161,9 @@
      *
      * @param {HTMLFormElement} root
      */
-    function initPrefill(root) {}
+    function initSoapPrefill(root) {
+        $(root).find("");
+    }
 
     /**
      *

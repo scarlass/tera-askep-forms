@@ -44,7 +44,7 @@
             @apply tw:bg-primary-300;
         }
     }
-    .tw-accordion > .tw-accordion-content {
+    .tw-accordion .tw-accordion-content {
         @apply tw:flex tw:flex-col tw:gap-4
             /*tw:grid-cols-2 tw:lg:grid-cols-3*/
             tw:px-10 tw:py-8
@@ -55,7 +55,7 @@
         transition-timing-function: ease;
         transition-duration: 0.3s;
     }
-    .tw-accordion[open] > .tw-accordion-content {
+    .tw-accordion[open] .tw-accordion-content {
         max-height: fit-content;
         opacity: 1;
     }
@@ -134,3 +134,11 @@
 .select2-dropdown {
     @apply tw:absolute tw:block tw:w-auto tw:box-border tw:bg-white tw:border-solid tw:border-2 tw:border-primary tw:z-50 tw:float-left;
 }*/
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

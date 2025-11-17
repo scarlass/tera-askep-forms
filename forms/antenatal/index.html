@@ -1,13 +1,10 @@
-<style>
-    /* Custom utility to hide scrollbars */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
-</style>
+<!--
+Author: Zaky Annafi
+Git: github.com/scarlass/tera-askep-forms
+
+Reviewer: Naufal
+
+-->
 
 <div id="antenatal-form" class="tw:w-full tw:mx-auto tw:px-10 tw:py-8">
     <form name="antenatal" class="tw:gap-8">
@@ -36,18 +33,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <!--<div>
-                    <span class="tw:font-semibold tw:text-primary-700">
-                        Nama:
-                    </span>
-                    <span>{NAME_REAL}</span>
-                </div>
-                <div>
-                    <span class="tw:font-semibold tw:text-primary-700">
-                        No RM:
-                    </span>
-                    <span>{NO_RM}</span>
-                </div>-->
             </div>
         </div>
 
@@ -314,7 +299,7 @@
                 <span class="tw-accordion-content-title">
                     Tanda - Tanda Vital (TTV) & Pemeriksaan Fisik Ibu
                 </span>
-                <fieldset class="tw:grid-cols-3">
+                <fieldset class="tw:grid-cols-4">
                     <!-- form -->
 
                     <div slot="form-field" class="tw-form-field required">
@@ -421,7 +406,7 @@
                     </div>
 
                     <div slot="form-field" class="tw-form-field">
-                        <label class="tw-field-title">
+                        <label class="tw-field-title" for="ttv_lila">
                             <span class="tw-field-label">
                                 Interpretasi LILA
                             </span>
@@ -431,9 +416,32 @@
                         <input
                             name="ttv_lila_intr"
                             myid="check_cara"
-                            type="text"
+                            type="hidden"
                             readonly
                         />
+                        <select
+                            id="ttv_lila"
+                            name="ttv_lila"
+                            myid="check_cara"
+                            data-interpretation="ttv_lila_intr"
+                        >
+                            <option value=""></option>
+                            <option
+                                value="OI000018"
+                                data-display="Kurang Energi Kronis (KEK)"
+                            >
+                                Kurang Energi Kronis (&lt 23 cm)
+                            </option>
+                            <option
+                                value="OI000035"
+                                data-display="LiLA 23 - <23,5 cm"
+                            >
+                                Risiko Kurang Energi Kronis (&lt 23,5 cm)
+                            </option>
+                            <option value="N" data-display="Normal">
+                                Normal (&gt 23,5)
+                            </option>
+                        </select>
                     </div>
 
                     <div slot="form-field" class="tw-form-field required">
@@ -443,12 +451,24 @@
                         </label>
 
                         <input
-                            name="ttv_sklera"
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]"
-                            readonly
+                            type="hidden"
+                            id="ttv_sklera_intrp"
+                            name="ttv_sklera_intrp"
+                            myid="check_cara"
                         />
+                        <select
+                            id="ttv_sklera"
+                            name="ttv_sklera"
+                            myid="check_cara"
+                            data-interpretation="#ttv_sklera_intrp"
+                        >
+                            <option value="N" data-display="Normal">
+                                Normal
+                            </option>
+                            <option value="A" data-display="Abnormal">
+                                Tidak Normal
+                            </option>
+                        </select>
                     </div>
                 </fieldset>
             </div>
@@ -477,7 +497,7 @@
                             id="fetus_pos"
                             name="fetus_pos"
                             myid="check_cara"
-                            data-interpretation="fetus_pos_intrp"
+                            data-interpretation="#fetus_pos_intrp"
                         >
                             <option
                                 selected
@@ -559,11 +579,17 @@
                             <span class="tw-field-desc">Observation</span>
                         </label>
 
+                        <input
+                            type="hidden"
+                            id="fetus_pap_intrp"
+                            name="fetus_pap_intrp"
+                            myid="fetus_pap_intrp"
+                        />
                         <select
                             id="fetus_pap"
                             name="fetus_pap"
                             myid="check_cara"
-                            data-interpretation="fetus_pap_intrp"
+                            data-interpretation="#fetus_pap_intrp"
                         >
                             <option
                                 selected
@@ -675,7 +701,7 @@
                             id="usg_pos"
                             name="usg_pos"
                             myid="check_cara"
-                            data-interpretation="usg_pos_intrp"
+                            data-interpretation="#usg_pos_intrp"
                         >
                             <option
                                 selected
@@ -1051,6 +1077,8 @@
                         />
                     </div>
 
+                    <div class="tw:col-span-2"></div>
+
                     <!-- Smoker / Perokok -->
                     <div slot="form-field" class="tw-form-field">
                         <label class="tw-field-title" for="risk_smoker">
@@ -1068,7 +1096,7 @@
                             id="risk_smoker"
                             name="risk_smoker"
                             myid="check_cara"
-                            data-interpretation="risk_smoker_intrp"
+                            data-interpretation="#risk_smoker_intrp"
                         >
                             <option value="8392000" data-display="Non Smoker">
                                 Tidak Merokok
@@ -1105,7 +1133,7 @@
                             id="risk_alcoholic"
                             name="risk_alcoholic"
                             myid="check_cara"
-                            data-interpretation="risk_alcoholic_intrp"
+                            data-interpretation="#risk_alcoholic_intrp"
                         >
                             <option
                                 selected
@@ -1124,77 +1152,123 @@
                     </div>
                 </fieldset>
             </div>
+        </details>
+
+        <details class="tw-accordion" open>
+            <summary>Kuisioner</summary>
 
             <div class="tw-accordion-content">
                 <div class="tw-accordion-content-title">
-                    <span>Status Obstetri (Riwayat Kehamilan Sebelumnya)</span>
+                    <span>Makanan tambahan Ibu Hamil</span>
                 </div>
 
-                <fieldset class="tw:grid-cols-3">
-                    <!-- form -->
-                    <!--<div slot="form-field" class="tw-form-field">
-                        <label
-                            class="tw-field-title"
-                            for="obstetri_revel_pregnancy"
-                        >
-                            <span class="tw-field-label">
-                                Kondisi saat keluar RS
-                            </span>
-                            <span class="tw-field-desc">Encounter</span>
-                        </label>
-                        <select
-                            id="obstetri_comp_pregnancy"
-                            name="obstetri_comp_pregnancy"
-                            myid="check_cara"
-                            required
-                        >
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                        </select>
-                    </div>-->
-
-                    <div slot="form-field" class="tw-form-field required">
-                        <label
-                            class="tw-field-title"
-                            for="obstetri_revel_pregnancy"
-                        >
-                            <span class="tw-field-label">
-                                Tujuan Tindak Lanjut
-                            </span>
-                            <span class="tw-field-desc">ServiceRequest</span>
-                        </label>
-                        <input
-                            id="obstetri_comp_pregnancy"
-                            name="obstetri_comp_pregnancy"
-                            myid="check_cara"
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]"
-                            required
-                        />
-                    </div>
-
+                <!---->
+                <fieldset>
                     <div slot="form-field" class="tw-form-field">
                         <label
                             class="tw-field-title"
                             for="obstetri_revel_pregnancy"
                         >
                             <span class="tw-field-label">
-                                Sarana Transportasi (Jika Rujuk)
+                                <input
+                                    id="quest_mt_addition"
+                                    name="quest_mt_addition"
+                                    myid="check_cara"
+                                    type="checkbox"
+                                    required
+                                />
+                                Mendapatkan Tambahan MT, jika LILA &LT 23.5
                             </span>
-                            <span class="tw-field-desc">ServiceRequest</span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse 1.1
+                            </span>
                         </label>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="mtih_mt_jenis">
+                            <span class="tw-field-label">
+                                Jenis Makanan Tambahan
+                            </span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse 1.2
+                            </span>
+                        </label>
+
                         <input
-                            id="obstetri_comp_pregnancy"
-                            name="obstetri_comp_pregnancy"
+                            type="hidden"
+                            id="quest_mt_jenis_intrp"
+                            name="quest_mt_jenis_intrp"
                             myid="check_cara"
-                            type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]"
-                            required
                         />
+                        <select
+                            id="quest_mt_jenis"
+                            name="quest_mt_jenis"
+                            myid="check_cara"
+                            data-interpretation="#mtih_mt_jenis_intrp"
+                            required
+                        >
+                            <option value="" selected></option>
+                            <option value="FO000001" data-display="MT Lokal">
+                                MT Lokal
+                            </option>
+                            <option value="FO000002" data-display="MT Pabrik">
+                                MT Pabrik
+                            </option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Kondisi Lainnya</span>
+                </div>
+
+                <fieldset>
+                    <div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="quest_other_disability"
+                        >
+                            <span class="tw-field-label">Disabilitas</span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse (3.1)
+                            </span>
+                        </label>
+                        <select
+                            id="quest_other_disability"
+                            name="quest_other_disability"
+                            myid="check_cara"
+                        >
+                            <option value="" selected></option>
+                            <option value="no">Tidak</option>
+                            <option value="yes">Ya</option>
+                        </select>
+                        <!---->
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label
+                            class="tw-field-title"
+                            for="quest_other_pregnancy_class"
+                        >
+                            <span class="tw-field-label">
+                                Mengikuti kelas Ibu Hamil ?
+                            </span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse (3.2)
+                            </span>
+                        </label>
+                        <select
+                            id="quest_other_pregnancy_class"
+                            name="quest_other_pregnancy_class"
+                            myid="check_cara"
+                        >
+                            <option value="" selected></option>
+                            <option value="no">Tidak</option>
+                            <option value="yes">Ya</option>
+                        </select>
+                        <!---->
                     </div>
                 </fieldset>
             </div>
