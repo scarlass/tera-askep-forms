@@ -1,25 +1,84 @@
-(function (win, $) {
-    let DATAJSON = "{MYJSON}";
+(function (win, $, mod) {
+    try {
+        win.SatusehatAntenatal = mod(win, $);
+    } catch (err) {
+        console.error("namespace initialization", err);
+    }
+})(window, jQuery, function (win, $) {
+    const ce = new Event("change");
 
-    const url = new URL(window.location.href);
-    function init() {
-        try {
-            DATAJSON = JSON.parse(DATAJSON);
-        } catch (e) {
-            // console.error(e);
-            DATAJSON = {};
+    /**
+     *
+     * @param {string} tmpl
+     * @param {string} name
+     */
+    const isUnresolved = (tmpl, name) => {
+        const s = tmpl.slice(1, -1);
+        return s === name;
+    };
+
+    const normalize = (tmpl, name, defal = {}) => {
+        return isUnresolved(tmpl, name) ? defal : JSON.parse(tmpl);
+    };
+
+    let PATH = `{RELPATH}`;
+
+    let PREFILL = `{ANC_PREFILL}`;
+    PREFILL = normalize(PREFILL, "ANC_PREFILL");
+
+    let DATAJSON = `{MYJSON}`;
+    DATAJSON = normalize(DATAJSON, "MYJSON");
+    // const url = new URL(window.location.href);
+
+    // console.log("templated values =>", { PATH, PREFILL, DATAJSON });
+
+    /**
+     *
+     * @param {HTMLFormElement} root
+     */
+    function init(root) {
+        // console.log(root.elements);
+        // const $form = $(root);
+
+        PREFILL.eoc_visite = Number(PREFILL.eoc_visite ?? 0) + 1;
+        // console.log("Last Data =>", PREFILL);
+
+        const autofills = {
+            eoc_visite: 0,
+            obstetri_gravida: 0,
+            obstetri_partus: 0,
+            obstetri_abortus: 0,
+            ttv_bp_systolic: 0,
+            ttv_bp_diastolic: 0,
+            ttv_temp: 0,
+            ttv_pulse: 0,
+            ttv_weight: 0,
+            ttv_lila: 0,
+            ttv_lila_intrp: 0,
+        };
+
+        for (const [key, def] of Object.entries(autofills)) {
+            const input = root.elements[key];
+
+            if (input instanceof HTMLInputElement && !input.value) {
+                input.value = PREFILL[key] || String(def);
+                input.dispatchEvent(new Event("change"));
+            }
         }
     }
 
+    /**
+     *
+     * @param {HTMLFormElement} root
+     */
     function initElements(root) {
         initDatepickers(root);
         initTimepickers(root);
         initSelectors(root);
         initSelectDisplayInterpretation(root);
 
-        // Disable input non-numeric for type="tel"
         $(root)
-            .find("form[name=antenatal] input[inputmode=numeric]")
+            .find("input[inputmode=numeric]")
             .each(function (i, /** @type {HTMLInputElement} */ el) {
                 const $el = $(el);
 
@@ -38,31 +97,24 @@
                 });
             });
 
-        $(root)
-            .find("#eoc_hpht")
-            .change(function (e) {
-                /** @type {HTMLInputElement} */
-                const self = $(this);
+        root.elements["eoc_hpht"].addEventListener("change", (e) => {
+            const current = e.currentTarget.value;
+            if (current) {
+                const date = new Date(Date.parse(current + "T00:00"));
 
-                const current = this.value;
-                // console.log("#eoc_hpht", self.val());
-                if (current) {
-                    const date = new Date(Date.parse(current + "T00:00"));
+                const birthday = naegeleBirthDayPredict(date);
+                if (!birthday) return;
 
-                    // console.log("hpht ->", date);
-                    const birthday = naegeleBirthDayPredict(date);
-                    if (!birthday) return;
+                root.elements["eoc_hpl"].value = [
+                    `${birthday.getFullYear()}`,
+                    `${birthday.getMonth()}`.padStart(2, "0"),
+                    `${birthday.getDate()}`.padStart(2, "0"),
+                ].join("-");
+            }
+        });
 
-                    // console.log("hpl ->", birthday);
-                    $("#eoc_hpl").val(
-                        [
-                            `${birthday.getFullYear()}`,
-                            `${birthday.getMonth()}`.padStart(2, "0"),
-                            `${birthday.getDate()}`.padStart(2, "0"),
-                        ].join("-"),
-                    );
-                }
-            });
+        integrateInit.lilaAndMt(root);
+        integrateInit.consul(root);
     }
 
     function initDatepickers(root) {
@@ -72,12 +124,9 @@
             .off("click.datepicker");
 
         if ($.fn.datepicker) {
-            console.log("applying datepicker");
             $(root)
                 .find(".datepicker")
                 .each(function (i) {
-                    console.log(this);
-
                     const self = $(this);
 
                     if (self.data("disabled")) return;
@@ -157,17 +206,123 @@
             });
     }
 
-    /**
-     *
-     * @param {HTMLFormElement} root
-     */
-    function initSoapPrefill(root) {
-        $(root).find("");
-    }
+    const integrateInit = {
+        /**
+         *
+         * @param {HTMLFormElement} root
+         */
+        lilaAndMt(root) {
+            const inputs = root.elements;
+
+            // const lila = inputs["ttv_lila"];
+            // const intrp = inputs["ttv_lila_intrp"];
+            // const intrpDisp = inputs["ttv_lila_intrp_display"];
+            const mtAddt = inputs["quest_q1s1"];
+            const mtType = inputs["quest_q1s2"];
+
+            const syncLilaIntrpAndDisplay = function () {
+                intrpDisp.value = intrp.value;
+                intrpDisp.dispatchEvent(ce);
+            };
+
+            const syncLilaAndMtAddt = function () {
+                const v = Number(lila.value);
+                if (Number.isNaN(v) || v >= 23.5) {
+                    mtAddt.disabled = true;
+                    mtAddt.value = "";
+                    mtAddt.dispatchEvent(ce);
+                } else {
+                    mtAddt.disabled = false;
+                }
+            };
+
+            const syncMts = function () {
+                mtType.disabled = !boolIntrpretation(mtAddt.value);
+            };
+
+            // syncLilaAndMtAddt();
+            // lila.addEventListener("change", syncLilaAndMtAddt);
+
+            // syncLilaIntrpAndDisplay();
+            // intrp.addEventListener("change", syncLilaIntrpAndDisplay);
+
+            syncMts();
+            mtAddt.addEventListener("change", syncMts);
+        },
+        /**
+         *
+         * @param {HTMLFormElement} root
+         */
+        consul(root) {
+            console.log("consul integration");
+
+            const size = 7;
+
+            const get = (n) => root.elements[`consul-${n + 1}`];
+            const each = function (cb, from = 0) {
+                for (let i = from; i < size; i++) {
+                    cb?.(get(i));
+                }
+            };
+            const prep = function (/** @type {HTMLElement} */ elm) {
+                if (!elm) return;
+
+                const id = elm.id;
+
+                if (!id.startsWith("consul-")) return;
+
+                // root.classList.remove;
+                const accessibility = (elm, disable = false) => {
+                    if (disable) {
+                        elm.checked = false;
+                        elm.disabled = true;
+                        if (
+                            !elm.parentElement.classList.contains("tw-disabled")
+                        )
+                            elm.parentElement.classList.add("tw-disabled");
+                    } else {
+                        elm.disabled = false;
+                        if (elm.parentElement.classList.contains("tw-disabled"))
+                            elm.parentElement.classList.remove("tw-disabled");
+                    }
+                };
+
+                switch (id) {
+                    case "consul-1":
+                        //prettier-ignore
+                        if (elm.checked)
+                            each((e) => accessibility(e, true), 1);
+                        else
+                            each((e) => accessibility(e, false), 1);
+
+                        break;
+                    default:
+                        if (elm.checked) {
+                            accessibility(get(0), true);
+                        } else {
+                            const data = new FormData(root);
+                            const size = data.getAll("consul[]").length;
+                            if (size === 0) accessibility(get(0), false);
+                        }
+                }
+            };
+
+            each((elm) => {
+                elm.addEventListener("change", () => prep(elm));
+            });
+
+            if (get(0).checked) {
+                prep(get(0));
+            } else {
+                each((e) => prep(e), 1);
+            }
+
+            console.log("consul integration done");
+        },
+    };
 
     /**
-     *
-     * @param {Date} hpht
+     *     * @param {Date} hpht
      */
     function naegeleBirthDayPredict(hpht) {
         if (!hpht || !(hpht instanceof Date)) {
@@ -181,16 +336,37 @@
         return date;
     }
 
-    win.SatusehatAntenatal = {
+    function boolIntrpretation(val) {
+        if (typeof val === "string") {
+            if (Number.isNaN(Number(val))) {
+                return val.toLowerCase() === "on";
+            }
+        }
+
+        if (typeof val === "number") {
+            return val > 0;
+        }
+
+        return typeof val === "boolean" ? val : false;
+    }
+
+    return {
         get Data() {
             return DATAJSON;
         },
         init: init,
         initElements: initElements,
     };
-})(window, jQuery);
+});
 
 $(document).ready(function () {
-    SatusehatAntenatal.init();
-    SatusehatAntenatal.initElements(document.getElementById("antenatal-form"));
+    setTimeout(() => {
+        const form = document.getElementById("antenatal-form");
+        try {
+            SatusehatAntenatal.init(form);
+            SatusehatAntenatal.initElements(form);
+        } catch (err) {
+            console.error("initialization error", err);
+        }
+    }, 1000);
 });

@@ -74,7 +74,7 @@
     }
     .tw-form-field input:not(.datepicker):not(.timepicker),
     .tw-form-field select {
-        @apply tw:p-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40;
+        @apply tw:p-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40 tw:disabled:border-gray-500 tw:disabled:bg-gray-200;
     }
     .tw-form-field input:focus-visible:not([readonly]) {
         @apply tw:bg-primary-100/80;
@@ -120,6 +120,17 @@
     .tw-form-field .tw-field-desc {
         @apply tw:inline-block tw:text-xs tw:text-gray-500;
     }
+
+    .tw-form-field.tw-checkbox {
+        @apply tw:transition-colors tw:hover:bg-primary-100/50 tw:px-3 tw:rounded-md;
+    }
+    .tw-form-field.tw-checkbox > .tw-field-title {
+        @apply tw:flex-row tw:gap-2;
+    }
+}
+
+.tw-field-title.tw-disabled .tw-field-label {
+    @apply tw:text-gray-400;
 }
 
 /*.select2-container {
