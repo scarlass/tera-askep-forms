@@ -1,26 +1,36 @@
 # connection profile(s)
 # to use different profile, run the sync command with:
-#   tera-askep sync --profile <profile-name> ...target
+#   tera-askep sync --profile <profile-name> [...target]
 profile:
     # profile name are case-insensitive
     default:
+        # keeping profile structure/name when reading
+        # use this only if u omit all settings key (ssh, database), just like current settings
+        env: true
+
+        # by default the application also search for matching env key in format:
+        # PROFILE_<profile-name-uppercase>_<setting>_<field>
+        #
+        # example:
+        # PROFILE_DEFAULT_SSH_HOST=...
+
         # ssh connection
-        # this settings is used if ur local system don't have "psql" command installed
+        # this settings is used if your local system don't have "psql" command installed
         # the idea was, if no local "psql" executable, than the "psql" command will be execute in your preferred ssh server
         # but of course, u need to make sure the ssh server can connect to the database server
-        ssh:
-            host: 192.168.0.11
-            port: 22
-            user: zakyannafi
-            password: darkmega12
+        # ssh:
+        #     host: <changeme>
+        #     port: 22
+        #     user: <changeme>
+        #     password: <changeme>
 
         # database connection
-        database:
-            host: 192.168.0.15
-            port: 5432
-            user: terakorp
-            password: teramed1k@bDgV5
-            database: teramedik_master
+        # database:
+        #     host: <changeme>
+        #     port: <changeme>
+        #     user: <changeme>
+        #     password: <changeme>
+        #     database: <changeme>
 
 target:
     antenatal:
@@ -28,11 +38,6 @@ target:
         html: "forms/{{ .target }}/index.html"
         script: "forms/{{ .target }}/index.js"
         stylesheet: "dist/forms/{{ .target }}/index.css"
-        # options:
-        #     force-ssh: true
-    iseng:
-        alid: 842
-        html: "forms/{{ .target }}/index.html"
 
     # target name are case-insensitive
     # this entry only for example and will be count as non-exist at runtime
@@ -42,12 +47,13 @@ target:
 
         # the paths here can use go template and it can be an absolute path or relative path to "cwd"
         # available template variables are:
-        # - "cwd" or current working directory relative to the configuration file directory
+        # - "cwd" or current working directory, is the configuration file directory location
         # - "target" name of the target
 
         # html entry, make sure it's a valid path
         html: "{{ .target }}/index.html"
         # script entry, will embed the content to html and script tag if the file exist
+        # can be an array of paths to your scripts, each path will have independent script tag
         script: "{{ .target }}/index.js"
         # stylesheet entry, same as script except it will add style tag in the html
         stylesheet: "{{ .cwd }}/index.css"
