@@ -1,0 +1,182 @@
+<div class="tw:w-full tw:mx-auto tw:px-10 tw:py-8">
+    <form id="inc-form" name="inc" class="tw:gap-8 tw:ml-20 tw:mr-20">
+        <div
+            slot="header"
+            class="tw:flex tw:justify-start tw:items-center tw:content-center"
+        >
+            <div class="tw:flex-1">
+                <span class="tw:text-4xl tw:font-bold tw:text-primary">
+                    Formulir Initial Neonatal Care (INC)
+                </span>
+            </div>
+
+            <div
+                class="tw:px-4 tw:py-2 tw:border tw:border-primary tw:rounded-md"
+            >
+                <table
+                    class="tw:[&_th,&_td]:px-2! tw:[&_th]:font-bold tw:[&_th]:text-primary-700"
+                >
+                    <tbody>
+                        <tr>
+                            <th>Nama</th>
+                            <td>{NAME_REAL}</td>
+                        </tr>
+                        <tr>
+                            <th>No RM</th>
+                            <td>{NO_RM}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!---->
+
+        <details class="tw-accordion" open>
+            <summary>Data Persalinan</summary>
+
+            <div class="tw-accordion-content">
+                <!--<div class="tw-accordion-content-title">
+                    <span>Data Kunjungan & Perkiraan Kehamilan (EOC)</span>
+                </div>-->
+
+                <!--<div slot="form-field" class="tw-form-field">
+                    <label class="tw-field-title" for="eoc_visite">
+                        <span class="tw-field-label">Gravida</span>
+                    </label>
+                </div>-->
+
+                <fieldset class="tw:grid-cols-4">
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="gravida">
+                            <span class="tw-field-label">Gravida (G)</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="gravida"
+                            name="gravida"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="partus">
+                            <span class="tw-field-label required">
+                                Partus (P)
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="partus"
+                            name="partus"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="abortus">
+                            <span class="tw-field-label"> Abortus (A) </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="abortus"
+                            name="abortus"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <!-- sengaja kosong -->
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="pregnancy_age">
+                            <span class="tw-field-label">Usia Kehamilan</span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+                        <input
+                            id="pregnancy_age"
+                            name="pregnancy_age"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]"
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="labor_date">
+                            <span class="tw-field-label">
+                                Tanggal & Jam persalinan
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="labor_datetime"
+                            name="labor_datetime"
+                            myid="labor_datetime"
+                            onchange="SatusehatInc.syncLaborDateTime('all', this)"
+                        />
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <div class="input-date">
+                                <input
+                                    id="labor_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                    onchange="SatusehatInc.syncLaborDateTime('date', this)"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="labor_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="--:--"
+                                    onchange="SatusehatInc.syncLaborDateTime('time', this)"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <details class="tw-accordion" open>
+            <summary>Kondisi Ibu & Proses Persalinan</summary>
+
+            <div class="tw-accordion-content">
+                <!--<div class="tw-accordion-content-title">
+                    <span>Data Kunjungan & Perkiraan Kehamilan (EOC)</span>
+                </div>-->
+
+                <div slot="form-field" class="tw-form-field">
+                    <label class="tw-field-title" for="eoc_visite">
+                        <span class="tw-field-label">Gravida</span>
+                        <!--<span class="tw-field-desc"></span>-->
+                    </label>
+                </div>
+            </div>
+        </details>
+    </form>
+</div>

@@ -33,7 +33,14 @@ profile:
         #     database: <changeme>
 
 target:
-    antenatal:
+    inc:
+        alid: 850
+        html: forms/{{ .target }}/index.html
+        script:
+            - forms/{{ .target }}/index.js
+        stylesheet:
+            - dist/forms/{{ .target }}/index.css
+    anc:
         alid: 842
         html: "forms/{{ .target }}/index.html"
         script: "forms/{{ .target }}/index.js"

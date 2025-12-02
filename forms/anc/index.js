@@ -72,6 +72,10 @@
      * @param {HTMLFormElement} root
      */
     function initElements(root) {
+        root.addEventListener("change", (e) => {
+            console.log("changed on field", e.target.name);
+        });
+
         initDatepickers(root);
         initTimepickers(root);
         initSelectors(root);
@@ -97,19 +101,26 @@
                 });
             });
 
-        root.elements["eoc_hpht"].addEventListener("change", (e) => {
+        const hpht = root.elements["eoc_hpht"];
+
+        hpht.addEventListener("change", (e) => {
             const current = e.currentTarget.value;
+
+            console.log(current);
             if (current) {
                 const date = new Date(Date.parse(current + "T00:00"));
 
                 const birthday = naegeleBirthDayPredict(date);
+                console.log(birthday);
                 if (!birthday) return;
 
-                root.elements["eoc_hpl"].value = [
+                const hpl = root.elements["eoc_hpl"];
+                hpl.value = [
                     `${birthday.getFullYear()}`,
                     `${birthday.getMonth()}`.padStart(2, "0"),
                     `${birthday.getDate()}`.padStart(2, "0"),
                 ].join("-");
+                hpl.dispatchEvent(ce);
             }
         });
 

@@ -6,8 +6,10 @@
     "scripts": {
         "form": "node ./scripts",
         "watch": "vite build -w",
-        "anc:build": "npx @tailwindcss/cli --cwd ./forms/antenatal -o ../../dist/forms/antenatal/index.css -i index.css --minify",
-        "anc:watch": "npm run anc:build -- -w"
+        "anc:build": "npx @tailwindcss/cli --cwd ./forms/anc -o ../../dist/forms/anc/index.css -i index.css --minify",
+        "anc:watch": "npm run anc:build -- -w",
+        "inc:build": "npx @tailwindcss/cli --cwd ./forms/inc -o ../../dist/forms/inc/index.css -i index.css --minify",
+        "inc:watch": "npm run inc:build -- -w"
     },
     "keywords": [],
     "author": "",
