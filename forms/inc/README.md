@@ -1,4 +1,4 @@
-## Form Satusehat Antenatal Care (ANC)
+# Form Satusehat Initial Neonatal Care (INC)
 
 ### Primary Files
 - [HTML form](./index.html)
@@ -7,23 +7,23 @@
 
 terpisah menjadi 3, dan hasil akhirnya perlu diconcat atau digabungkan kedalam 1 html, teruntuk css dikarenakan menggunakan tailwind perlu dicompile terlebih dahulu.
 
-### Usage
+### Build
 compile css:
 ```bash
 # jalankan di root directory repo ini
-$ npm run anc:build
+$ npm run inc:build
 ```
 ```bash
 # atau build secara incremental
-$ npm run anc:watch
+$ npm run inc:watch
 ```
 
 compile output css berada di:
-```
-<repo-dir>/dist/forms/anc/index.css
+```bash
+<repo-dir>/dist/forms/inc/index.css
 ```
 
-lalu gabungkan 3 file yg dibutuhkan kedalam 1 file:
+lalu gabungkan 3 file yg tersebut kedalam 1 file:
 ```html
 <style>
     /**

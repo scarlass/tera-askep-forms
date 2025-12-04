@@ -3,6 +3,32 @@
 })(function (/** @type {Window & globalThis} */ win) {
     const ce = new Event("change");
 
+    const isUnresolved = (tmpl, name) => {
+        const s = tmpl.slice(1, -1);
+        return s === name;
+    };
+
+    const normalize = (tmpl, name, defal = {}) => {
+        return isUnresolved(tmpl, name) ? defal : JSON.parse(tmpl);
+    };
+
+    /** @type {{id: number; display: string}[]} */
+    let INC_APGAR_SCORE_INTRP = `{INC_APGAR_SCORE_INTRP}`;
+    INC_APGAR_SCORE_INTRP = normalize(
+        INC_APGAR_SCORE_INTRP,
+        "INC_APGAR_SCORE_INTRP",
+        [],
+    );
+
+    let INC_BAYI_BB_INTRP = `{INC_BAYI_BB_INTRP}`;
+    INC_BAYI_BB_INTRP = normalize(INC_BAYI_BB_INTRP, "INC_BAYI_BB_INTRP", []);
+    INC_BAYI_BB_INTRP = Object.fromEntries(
+        INC_BAYI_BB_INTRP.map((v) => {
+            const key = v.display.split(" ", 2)[0];
+            return [key, v];
+        }),
+    );
+
     /**
      * @template T
      * @param {T} v
@@ -66,10 +92,132 @@
             });
     }
 
+    function initNumericOnly(root) {
+        $(root)
+            .find("input[inputmode=numeric]")
+            .each(function (i, /** @type {HTMLInputElement} */ el) {
+                const $el = $(el);
+
+                // $el.attribute("mytype", "int");
+                $el.keypress(function (je) {
+                    /** @type {KeyboardEvent} */
+                    const e = je.originalEvent;
+                    if (!/[.0-9]/.test(e.key)) {
+                        e.preventDefault();
+                        return;
+                    } else {
+                        if (e.key == "." && el.value.includes(".")) {
+                            e.preventDefault();
+                        }
+                    }
+                });
+            });
+    }
+
+    /**
+     *
+     * @param {HTMLFormElement} root
+     */
+    function syncChildFeeding(root) {
+        /** @type {HTMLInputElement} */
+        const src = root.elements["child_feed"];
+
+        /** @type {HTMLSelectElement} */
+        const dest = root.elements["child_feed_timespan"];
+
+        src.addEventListener("change", () => {
+            console.log({ src, dest });
+            dest.disabled = !src.checked;
+        });
+        dest.disabled = !src.checked;
+    }
+
+    function syncChildBb(root) {
+        const bb = root.elements["child_bb"];
+
+        /** @type {HTMLSelectElement} */
+        const intrp = root.elements["child_bb_intrp"];
+
+        const proc = () => {
+            const v = Number(bb.value);
+            if (Number.isNaN(v)) {
+                intrp.value = "";
+            } else {
+                console.log("bb score =>%d", v);
+                // prettier-ignore
+                const index =
+                    v >= 4000 ? 1 :
+                    v >= 2500 ? 2 :
+                    v >= 1500 ? 3 :
+                    v >= 1000 ? 4 : 5;
+
+                console.log(
+                    "bb score => %d / %d",
+                    v,
+                    index,
+                    intrp.options.length,
+                );
+
+                // const index =
+                //     v < 1000 ? 5 :
+                //     v < 1500 ? 4 :
+                //     v < 2500 ? 3 :
+                //     v < 4000 ? 2 : 1
+
+                intrp.value = intrp.options.item(index)?.value;
+            }
+        };
+
+        bb.addEventListener("input", proc);
+        proc();
+    }
+
+    /**
+     *
+     * @param {HTMLFormElement} root
+     * @param {1|5|10} minute
+     */
+    function syncApgarScore(root, minute) {
+        const prefix = `apgar${minute}_score`;
+
+        const score = root.elements[prefix];
+
+        /** @type {HTMLSelectElement} */
+        const intrp = root.elements[prefix + "_intrp"];
+
+        const proc = () => {
+            const v = Number(score.value);
+            if (Number.isNaN(v)) {
+                intrp.value = "";
+            } else {
+                const get = (n) => intrp.options.item(n).value;
+
+                // prettier-ignore
+                const index =
+                    v < 4 ? 1 :
+                    v < 7 ? 2 :
+                    v < 10 ? 3 : 0
+
+                intrp.value = get(index);
+            }
+        };
+
+        score.addEventListener("input", proc);
+        proc();
+    }
+
     return {
         init(root) {
+            initNumericOnly(root);
             initDatepickers(root);
             initTimepickers(root);
+
+            syncChildFeeding(root);
+            syncChildBb(root);
+
+            syncApgarScore(root, 1);
+            syncApgarScore(root, 5);
+            syncApgarScore(root, 10);
         },
 
         /**
@@ -145,7 +293,5 @@
 
 $(document).ready(function () {
     const root = document.getElementById("inc-form");
-    setTimeout(() => {
-        SatusehatInc.init(root);
-    }, 1000);
+    setTimeout(() => SatusehatInc.init(root), 1000);
 });

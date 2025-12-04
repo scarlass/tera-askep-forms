@@ -153,3 +153,9 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+select.readonly,
+select[aria-readonly="true"] {
+    pointer-events: none;
+    @apply tw:border-gray-500 tw:bg-gray-200 tw:select-none;
+}

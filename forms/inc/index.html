@@ -1,3 +1,26 @@
+<!--
+Author:
+- Zaky Annafi P
+
+# Form INC (Initial Neonatal Care)
+
+askep_list settings:
+- askep_list.addt_ctx = t
+- askep_list.addt_ctx_loc = classes/modules/satusehat/satusehat.inc.php
+- askep_list.addt_ctx_fn = sub_inc_metadata
+- askep_list.addt_ctx_cls = SatuSehat
+
+pengambilan data/rendering tambahan bisa dilihat di class SatuSehat#sub_inc_metadata(), fungsi tersebut
+akan dipanggil otomatis saat dilakukan pengisian.
+
+CSS digenerate menggunakan tailwind.
+
+Mungkin jika perlu, silahkan lihat code sourcenya di:
+- https://github.com/scarlass/tera-askep-forms/forms/inc
+
+
+-->
+
 <div class="tw:w-full tw:mx-auto tw:px-10 tw:py-8">
     <form id="inc-form" name="inc" class="tw:gap-8 tw:ml-20 tw:mr-20">
         <div
@@ -50,7 +73,7 @@
                     <div slot="form-field" class="tw-form-field required">
                         <label class="tw-field-title" for="gravida">
                             <span class="tw-field-label">Gravida (G)</span>
-                            <span class="tw-field-desc">Observation</span>
+                            <!--<span class="tw-field-desc">Observation</span>-->
                         </label>
                         <input
                             id="gravida"
@@ -59,6 +82,7 @@
                             type="text"
                             inputmode="numeric"
                             pattern="[0-9]"
+                            value="{INC_GRAVIDA}"
                             required
                         />
                     </div>
@@ -68,7 +92,7 @@
                             <span class="tw-field-label required">
                                 Partus (P)
                             </span>
-                            <span class="tw-field-desc">Observation</span>
+                            <!--<span class="tw-field-desc">Observation</span>-->
                         </label>
                         <input
                             id="partus"
@@ -77,6 +101,7 @@
                             type="text"
                             inputmode="numeric"
                             pattern="[0-9]"
+                            value="{INC_PARTUS}"
                             required
                         />
                     </div>
@@ -84,7 +109,7 @@
                     <div slot="form-field" class="tw-form-field required">
                         <label class="tw-field-title" for="abortus">
                             <span class="tw-field-label"> Abortus (A) </span>
-                            <span class="tw-field-desc">Observation</span>
+                            <!--<span class="tw-field-desc">Observation</span>-->
                         </label>
                         <input
                             id="abortus"
@@ -93,6 +118,7 @@
                             type="text"
                             inputmode="numeric"
                             pattern="[0-9]"
+                            value="{INC_ABORTUS}"
                             required
                         />
                     </div>
@@ -104,7 +130,7 @@
                     <div slot="form-field" class="tw-form-field required">
                         <label class="tw-field-title" for="pregnancy_age">
                             <span class="tw-field-label">Usia Kehamilan</span>
-                            <span class="tw-field-desc">Observation</span>
+                            <!--<span class="tw-field-desc">Observation</span>-->
                         </label>
                         <input
                             id="pregnancy_age"
@@ -116,12 +142,15 @@
                         />
                     </div>
 
-                    <div slot="form-field" class="tw-form-field required">
+                    <div
+                        slot="form-field"
+                        class="tw-form-field required tw:col-span-2"
+                    >
                         <label class="tw-field-title" for="labor_date">
                             <span class="tw-field-label">
                                 Tanggal & Jam persalinan
                             </span>
-                            <span class="tw-field-desc">Observation</span>
+                            <!--<span class="tw-field-desc">Observation</span>-->
                         </label>
 
                         <input
@@ -129,7 +158,9 @@
                             id="labor_datetime"
                             name="labor_datetime"
                             myid="labor_datetime"
-                            onchange="SatusehatInc.syncLaborDateTime('all', this)"
+                            onchange="
+                                SatusehatInc.syncLaborDateTime('all', this)
+                            "
                         />
                         <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
                             <div class="input-date">
@@ -137,7 +168,12 @@
                                     id="labor_date"
                                     class="datepicker hasDatepicker"
                                     placeholder="dd-mm-yyyy"
-                                    onchange="SatusehatInc.syncLaborDateTime('date', this)"
+                                    onchange="
+                                        SatusehatInc.syncLaborDateTime(
+                                            'date',
+                                            this,
+                                        )
+                                    "
                                 />
                                 <span
                                     role="flags"
@@ -149,7 +185,12 @@
                                     id="labor_time"
                                     class="timepicker hasTimepicker"
                                     placeholder="--:--"
-                                    onchange="SatusehatInc.syncLaborDateTime('time', this)"
+                                    onchange="
+                                        SatusehatInc.syncLaborDateTime(
+                                            'time',
+                                            this,
+                                        )
+                                    "
                                 />
                                 <span
                                     role="flags"
@@ -170,12 +211,793 @@
                     <span>Data Kunjungan & Perkiraan Kehamilan (EOC)</span>
                 </div>-->
 
-                <div slot="form-field" class="tw-form-field">
-                    <label class="tw-field-title" for="eoc_visite">
-                        <span class="tw-field-label">Gravida</span>
-                        <!--<span class="tw-field-desc"></span>-->
-                    </label>
+                <fieldset class="tw:grid-cols-4">
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="labor_helper">
+                            <span class="tw-field-label">
+                                Penolong Persalinan
+                            </span>
+                            <!--<span class="tw-field-desc"></span>-->
+                        </label>
+
+                        <select
+                            id="labor_helper"
+                            name="labor_helper"
+                            myid="labor_helper"
+                        >
+                            <!---->
+                            {INC_PERSALINAN_PENOLONG}
+                        </select>
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="labor_condition">
+                            <span class="tw-field-label">
+                                <!---->
+                                Kondisi Ibu
+                            </span>
+                        </label>
+
+                        <select
+                            id="labor_condition"
+                            name="labor_condition"
+                            myid="labor_condition"
+                        >
+                            <!---->
+                            {INC_KEADAAN_IBU}
+                        </select>
+                    </div>
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="labor_procedure">
+                            <span class="tw-field-label">
+                                Cara Persalinan
+                            </span>
+                        </label>
+
+                        <select
+                            id="labor_procedure"
+                            name="labor_procedure"
+                            myid="labor_procedure"
+                        >
+                            <!---->
+                            {INC_PERSALINAN_PROSEDUR}
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Waktu Onset Kala Persalinan</span>
                 </div>
+
+                <fieldset class="tw:grid-cols-2 gap-5">
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="kala1_date">
+                            <span class="tw-field-label"> Kala 1 </span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="kala1_datetime"
+                            name="kala1_datetime"
+                            myid="kala1_datetime"
+                            onchange="
+                                SatusehatInc.syncLaborDateTime('all', this)
+                            "
+                        />
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <div class="input-date">
+                                <input
+                                    id="kala1_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="kala1_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="--:--"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="kala2_date">
+                            <span class="tw-field-label"> Kala 2 </span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="kala2_datetime"
+                            name="kala2_datetime"
+                            myid="kala2_datetime"
+                        />
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <div class="input-date">
+                                <input
+                                    id="kala2_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="kala2_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="--:--"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="kala3_date">
+                            <span class="tw-field-label"> Kala 3 </span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="kala3_datetime"
+                            name="kala3_datetime"
+                            myid="kala3_datetime"
+                        />
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <div class="input-date">
+                                <input
+                                    id="kala3_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="kala3_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="--:--"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field required">
+                        <label class="tw-field-title" for="kala4_date">
+                            <span class="tw-field-label"> Kala 4 </span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="kala4_datetime"
+                            name="kala4_datetime"
+                            myid="kala4_datetime"
+                        />
+                        <div class="tw:flex tw:gap-2 tw:[&_input]:w-[45%]">
+                            <div class="input-date">
+                                <input
+                                    id="kala4_date"
+                                    class="datepicker hasDatepicker"
+                                    placeholder="dd-mm-yyyy"
+                                />
+                                <span
+                                    role="flags"
+                                    class="fa fa-calendar"
+                                ></span>
+                            </div>
+                            <div class="input-date">
+                                <input
+                                    id="kala4_time"
+                                    class="timepicker hasTimepicker"
+                                    placeholder="--:--"
+                                />
+                                <span
+                                    role="flags"
+                                    class="glyphicon glyphicon-time"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Waktu Onset Kala Persalinan</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-4">
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fisik_bb_before">
+                            <span class="tw-field-label">
+                                Berat Badan Sebelum Hamil (Kg)
+                            </span>
+                        </label>
+
+                        <input
+                            id="fisik_bb_before"
+                            name="fisik_bb_before"
+                            myid="fisik_bb_before"
+                            readonly
+                        />
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="fisik_tb">
+                            <span class="tw-field-label">
+                                Tinggi Badan (Cm)
+                            </span>
+                        </label>
+                        <input
+                            id="fisik_tb"
+                            name="fisik_tb"
+                            myid="fisik_tb"
+                            readonly
+                        />
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+
+        <details class="tw-accordion" open>
+            <summary>Skor APGAR & Data Bayi Pasca-Persalinan</summary>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>APGAR Menit ke - 1</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-5">
+                    <!---->
+
+                    <div class="tw:col-span-3 tw:grid tw:gap-3 tw:grid-cols-3">
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar1_skin">
+                                <span class="tw-field-label">
+                                    Warna Kulit (Appreance)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar1_skin"
+                                name="apgar1_skin"
+                                myid="apgar1_skin"
+                            >
+                                <!---->
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar1_grimace">
+                                <span class="tw-field-label">
+                                    Refleks (Grimace)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar1_grimace"
+                                name="apgar1_grimace"
+                                myid="apgar1_grimace"
+                            >
+                                <!---->
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label
+                                class="tw-field-title"
+                                for="apgar1_respiration"
+                            >
+                                <span class="tw-field-label">
+                                    Pernapasan (Respiration)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar1_respiration"
+                                name="apgar1_respiration"
+                                myid="apgar1_respiration"
+                            >
+                                <!---->
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar1_pulse">
+                                <span class="tw-field-label">
+                                    Denyut Jantung (Pulse)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar1_pulse"
+                                name="apgar1_pulse"
+                                myid="apgar1_pulse"
+                            >
+                                <!---->
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar1_activity">
+                                <span class="tw-field-label">
+                                    Tonus Otot (Activity)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar1_activity"
+                                name="apgar1_activity"
+                                myid="apgar1_activity"
+                            >
+                                <!---->
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        slot="form-field"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                    >
+                        <label class="tw-field-title" for="apgar1_score">
+                            <span class="tw-field-label">APGAR Skor</span>
+                        </label>
+
+                        <div class="tw:grid tw:gap-5 tw:w-full">
+                            <input
+                                id="apgar1_score"
+                                name="apgar1_score"
+                                myid="apgar1_score"
+                                type="number"
+                                min="0"
+                                max="10"
+                                placeholder="skor 0-10"
+                                inputmode="numeric"
+                                pattern="^(\d*)$"
+                            />
+
+                            <select
+                                id="apgar1_score_intrp"
+                                name="apgar1_score_intrp"
+                                myid="apgar1_score_intrp"
+                                class="readonly"
+                                placeholder="score interpretation"
+                            >
+                                <option selected value=""></option>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>APGAR Menit ke - 5</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-5">
+                    <!---->
+
+                    <div class="tw:col-span-3 tw:grid tw:gap-3 tw:grid-cols-3">
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar5_skin">
+                                <span class="tw-field-label">
+                                    Warna Kulit (Appreance)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar5_skin"
+                                name="apgar5_skin"
+                                myid="apgar5_skin"
+                            >
+                                <!---->
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar5_grimace">
+                                <span class="tw-field-label">
+                                    Refleks (Grimace)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar5_grimace"
+                                name="apgar5_grimace"
+                                myid="apgar5_grimace"
+                            >
+                                <!---->
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label
+                                class="tw-field-title"
+                                for="apgar5_respiration"
+                            >
+                                <span class="tw-field-label">
+                                    Pernapasan (Respiration)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar5_respiration"
+                                name="apgar5_respiration"
+                                myid="apgar5_respiration"
+                            >
+                                <!---->
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar5_pulse">
+                                <span class="tw-field-label">
+                                    Denyut Jantung (Pulse)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar5_pulse"
+                                name="apgar5_pulse"
+                                myid="apgar5_pulse"
+                            >
+                                <!---->
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar5_activity">
+                                <span class="tw-field-label">
+                                    Tonus Otot (Activity)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar5_activity"
+                                name="apgar5_activity"
+                                myid="apgar5_activity"
+                            >
+                                <!---->
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        slot="form-field"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                    >
+                        <label class="tw-field-title" for="apgar5_score">
+                            <span class="tw-field-label">APGAR Skor</span>
+                        </label>
+
+                        <div class="tw:grid tw:gap-5 tw:w-full">
+                            <input
+                                id="apgar5_score"
+                                name="apgar5_score"
+                                myid="apgar5_score"
+                                type="number"
+                                min="0"
+                                max="10"
+                                placeholder="skor 0-10"
+                                inputmode="numeric"
+                                pattern="^(\d*)$"
+                            />
+
+                            <select
+                                id="apgar5_score_intrp"
+                                name="apgar5_score_intrp"
+                                myid="apgar5_score_intrp"
+                                class="readonly"
+                                placeholder="score interpretation"
+                            >
+                                <option selected value=""></option>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>APGAR Menit ke - 5</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-5">
+                    <!---->
+
+                    <div class="tw:col-span-3 tw:grid tw:gap-3 tw:grid-cols-3">
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar10_skin">
+                                <span class="tw-field-label">
+                                    Warna Kulit (Appreance)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar10_skin"
+                                name="apgar10_skin"
+                                myid="apgar10_skin"
+                            >
+                                <!---->
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar10_grimace">
+                                <span class="tw-field-label">
+                                    Refleks (Grimace)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar10_grimace"
+                                name="apgar10_grimace"
+                                myid="apgar10_grimace"
+                            >
+                                <!---->
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label
+                                class="tw-field-title"
+                                for="apgar10_respiration"
+                            >
+                                <span class="tw-field-label">
+                                    Pernapasan (Respiration)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar10_respiration"
+                                name="apgar10_respiration"
+                                myid="apgar10_respiration"
+                            >
+                                <!---->
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label class="tw-field-title" for="apgar10_pulse">
+                                <span class="tw-field-label">
+                                    Denyut Jantung (Pulse)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar10_pulse"
+                                name="apgar10_pulse"
+                                myid="apgar10_pulse"
+                            >
+                                <!---->
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field required">
+                            <label
+                                class="tw-field-title"
+                                for="apgar10_activity"
+                            >
+                                <span class="tw-field-label">
+                                    Tonus Otot (Activity)
+                                </span>
+                            </label>
+                            <select
+                                id="apgar10_activity"
+                                name="apgar10_activity"
+                                myid="apgar10_activity"
+                            >
+                                <!---->
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div
+                        slot="form-field"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                    >
+                        <label class="tw-field-title" for="apgar10_score">
+                            <span class="tw-field-label">APGAR Skor</span>
+                        </label>
+
+                        <div class="tw:grid tw:gap-5 tw:w-full">
+                            <input
+                                id="apgar10_score"
+                                name="apgar10_score"
+                                myid="apgar10_score"
+                                type="number"
+                                min="0"
+                                max="10"
+                                placeholder="skor 0-10"
+                                inputmode="numeric"
+                                pattern="^(\d*)$"
+                            />
+
+                            <select
+                                id="apgar10_score_intrp"
+                                name="apgar10_score_intrp"
+                                myid="apgar10_score_intrp"
+                                class="readonly"
+                                placeholder="score interpretation"
+                            >
+                                <option selected value=""></option>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!-- Tata Laksana -->
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Data Bayi & Tata Laksana Awal Pasca-Persalinan</span>
+                </div>
+
+                <fieldset class="tw:grid-cols-2">
+                    <!---->
+                    <div class="tw:grid tw:gap-3 tw:grid-cols-2">
+                        <div
+                            slot="form-field"
+                            class="tw-form-field tw:col-span-2"
+                        >
+                            <label class="tw-field-title" for="child_bb">
+                                <span class="tw-field-label">
+                                    Berat Badan Bayi Saat Lahir
+                                </span>
+                            </label>
+
+                            <div class="tw:grid tw:gap-3">
+                                <input
+                                    id="child_bb"
+                                    name="child_bb"
+                                    myid="child_bb"
+                                    type="number"
+                                    inputmode="numeric"
+                                    patter="^(\d*)$"
+                                    placeholder="gram (G)"
+                                />
+
+                                <select
+                                    id="child_bb_intrp"
+                                    name="child_bb_intrp"
+                                    myid="child_bb_intrp"
+                                    class="readonly"
+                                >
+                                    <option value=""></option>
+                                    {INC_BAYI_BERATBADAN}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div
+                            slot="form-field"
+                            class="tw-form-field tw:col-start-1"
+                        >
+                            <label class="tw-field-title" for="child_tb">
+                                <span class="tw-field-label">
+                                    Panjang Badan Bayi Saat Lahir
+                                </span>
+                                <!--<span class="tw-field-desc">Observation</span>-->
+                            </label>
+
+                            <input
+                                id="child_tb"
+                                name="child_tb"
+                                myid="child_tb"
+                                type="number"
+                                inputmode="numeric"
+                                patter="^(\d*)$"
+                                placeholder="centi meter (cm)"
+                            />
+                        </div>
+
+                        <div slot="form-field" class="tw-form-field">
+                            <label
+                                class="tw-field-title"
+                                for="child_birth_location"
+                            >
+                                <span class="tw-field-label">
+                                    Lokasi Kelahiran
+                                </span>
+                                <!--<span class="tw-field-desc">Observation</span>-->
+                            </label>
+
+                            <select
+                                id="child_birth_location"
+                                name="child_birth_location"
+                                myid="child_birth_location"
+                            >
+                                {INC_PERSALINAN_LOKASI}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tw:grid tw:grid-cols-2">
+                        <div
+                            class="tw:col-start-2 tw:flex tw:flex-col tw:gap-3"
+                        >
+                            <div
+                                slot="form-field"
+                                class="tw-form-field tw-checkbox"
+                            >
+                                <label class="tw-field-title" for="child_feed">
+                                    <input
+                                        id="child_feed"
+                                        name="child_feed"
+                                        myid="child_feed"
+                                        type="checkbox"
+                                    />
+                                    <div class="tw:flex tw:flex-col">
+                                        <span class="tw-field-label">
+                                            Inisiasi Menyusui Dini
+                                        </span>
+                                        <span class="tw-field-desc"
+                                            >Procedure</span
+                                        >
+                                    </div>
+                                </label>
+
+                                <!--<select
+                                    id="child_feed"
+                                    name="child_feed"
+                                    myid="child_feed"
+                                >
+                                    <option value="off">Tidak</option>
+                                    <option value="on">Ya</option>
+                                </select>-->
+                            </div>
+
+                            <div slot="form-field" class="tw-form-field">
+                                <label
+                                    class="tw-field-title"
+                                    for="child_feed_timespan"
+                                >
+                                    <span class="tw-field-label">
+                                        Lama Waktu Menyusui
+                                    </span>
+                                    <span class="tw-field-desc">Procedure</span>
+                                </label>
+
+                                <select
+                                    id="child_feed_timespan"
+                                    name="child_feed_timespan"
+                                    myid="child_feed_timespan"
+                                >
+                                    <option value="">Tidak Dilakukan</option>
+                                    {INC_LAMA_MENYUSUI}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
         </details>
     </form>
