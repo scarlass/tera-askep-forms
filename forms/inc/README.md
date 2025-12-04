@@ -40,5 +40,5 @@ lalu gabungkan 3 file yg tersebut kedalam 1 file:
 
 atau untuk mempermudah proses penggabungan file bisa menggunakan tools [tera-askep](https://github.com/scarlass/tera-askep):
 ```bash
-tera-askep sync antenatal
+tera-askep sync inc
 ```
