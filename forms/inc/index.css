@@ -177,7 +177,7 @@ input[readonly] {
     @apply tw:bg-green-500/20;
 }
 
-.tw-form-field select:not([aria-readonly="true"]),
+.tw-form-field select:not(select[aria-readonly="true"]),
 .tw-form-field input:not(:read-only) {
     @apply tw:ring-offset-primary
         tw:focus-visible:border-green-600

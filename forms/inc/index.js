@@ -207,9 +207,9 @@
 
             // prettier-ignore
             const index =
-                score < 4 ? 1 : // 0-3
-                score < 7 ? 2 : // 4-6
-                score < 10 ? 3 : 0 // 7-10
+                score < 4 ? 0 : // 0-3
+                score < 7 ? 1 : 2 // 4-6 : 7-10
+            // score < 10 ? 2 : 0 // 7-10
 
             // prettier-ignore
             const bg =
