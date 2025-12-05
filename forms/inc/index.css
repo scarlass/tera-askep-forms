@@ -159,3 +159,29 @@ select[aria-readonly="true"] {
     pointer-events: none;
     @apply tw:border-gray-500 tw:bg-gray-200 tw:select-none;
 }
+input:read-only,
+input[readonly] {
+    pointer-events: none;
+}
+
+.apgar-score {
+    @apply tw:pt-4 tw:px-5 tw:pb-6 tw:rounded-lg;
+}
+.apgar-score.danger {
+    @apply tw:bg-red-500/20;
+}
+.apgar-score.warn {
+    @apply tw:bg-amber-300/20;
+}
+.apgar-score.good {
+    @apply tw:bg-green-500/20;
+}
+
+.tw-form-field select:not([aria-readonly="true"]),
+.tw-form-field input:not(:read-only) {
+    @apply tw:ring-offset-primary
+        tw:focus-visible:border-green-600
+        tw:focus-visible:border-[2px]
+        tw:focus-visible:ring-primary/50
+        tw:focus-visible:ring-[3px];
+}

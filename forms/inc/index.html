@@ -10,15 +10,16 @@ askep_list settings:
 - askep_list.addt_ctx_fn = sub_inc_metadata
 - askep_list.addt_ctx_cls = SatuSehat
 
+setinggan nilai diatas bisa diomit dan silahkan sesuaikan secara mandiri bagaimana
+field-fieldnya dirender.
+
 pengambilan data/rendering tambahan bisa dilihat di class SatuSehat#sub_inc_metadata(), fungsi tersebut
-akan dipanggil otomatis saat dilakukan pengisian.
+akan dipanggil otomatis saat user melakukan pengisian.
 
 CSS digenerate menggunakan tailwind.
 
 Mungkin jika perlu, silahkan lihat code sourcenya di:
-- https://github.com/scarlass/tera-askep-forms/forms/inc
-
-
+- https://github.com/scarlass/tera-askep-forms/master/forms/inc
 -->
 
 <div class="tw:w-full tw:mx-auto tw:px-10 tw:py-8">
@@ -560,7 +561,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
 
                     <div
                         slot="form-field"
-                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5 apgar-score"
                     >
                         <label class="tw-field-title" for="apgar1_score">
                             <span class="tw-field-label">APGAR Skor</span>
@@ -571,9 +572,9 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar1_score"
                                 name="apgar1_score"
                                 myid="apgar1_score"
-                                type="number"
                                 min="0"
                                 max="10"
+                                readonly
                                 placeholder="skor 0-10"
                                 inputmode="numeric"
                                 pattern="^(\d*)$"
@@ -689,7 +690,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
 
                     <div
                         slot="form-field"
-                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5 apgar-score"
                     >
                         <label class="tw-field-title" for="apgar5_score">
                             <span class="tw-field-label">APGAR Skor</span>
@@ -700,12 +701,12 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar5_score"
                                 name="apgar5_score"
                                 myid="apgar5_score"
-                                type="number"
                                 min="0"
                                 max="10"
                                 placeholder="skor 0-10"
                                 inputmode="numeric"
                                 pattern="^(\d*)$"
+                                readonly
                             />
 
                             <select
@@ -725,7 +726,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
 
             <div class="tw-accordion-content">
                 <div class="tw-accordion-content-title">
-                    <span>APGAR Menit ke - 5</span>
+                    <span>APGAR Menit ke - 10</span>
                 </div>
 
                 <fieldset class="tw:grid-cols-5">
@@ -821,7 +822,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
 
                     <div
                         slot="form-field"
-                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5"
+                        class="tw-form-field required tw:col-start-4 tw:col-span-2 tw:lg:col-start-5 apgar-score"
                     >
                         <label class="tw-field-title" for="apgar10_score">
                             <span class="tw-field-label">APGAR Skor</span>
@@ -832,9 +833,9 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar10_score"
                                 name="apgar10_score"
                                 myid="apgar10_score"
-                                type="number"
                                 min="0"
                                 max="10"
+                                readonly
                                 placeholder="skor 0-10"
                                 inputmode="numeric"
                                 pattern="^(\d*)$"

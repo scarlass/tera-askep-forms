@@ -178,32 +178,87 @@
      * @param {1|5|10} minute
      */
     function syncApgarScore(root, minute) {
-        const prefix = `apgar${minute}_score`;
-
-        const score = root.elements[prefix];
+        const prefix = `apgar${minute}`;
 
         /** @type {HTMLSelectElement} */
-        const intrp = root.elements[prefix + "_intrp"];
+        const skin = root.elements[prefix + "_skin"];
+        const pulse = root.elements[prefix + "_pulse"];
+        const grimace = root.elements[prefix + "_grimace"];
+        const respiration = root.elements[prefix + "_respiration"];
+        const activity = root.elements[prefix + "_activity"];
+
+        /** @type {HTMLSelectElement} */
+        const total = root.elements[prefix + "_score"];
+        /** @type {HTMLSelectElement} */
+        const totalIntrp = root.elements[prefix + "_score_intrp"];
+
+        /** @type {HTMLSelectElement[]} */
+        const fields = [skin, pulse, grimace, respiration, activity];
 
         const proc = () => {
-            const v = Number(score.value);
-            if (Number.isNaN(v)) {
-                intrp.value = "";
-            } else {
-                const get = (n) => intrp.options.item(n).value;
+            let score = 0;
+            for (const slc of fields) {
+                const opt = slc.selectedOptions.item(0);
+                if (!opt) continue;
 
-                // prettier-ignore
-                const index =
-                    v < 4 ? 1 :
-                    v < 7 ? 2 :
-                    v < 10 ? 3 : 0
-
-                intrp.value = get(index);
+                console.log("apgar score (%s) - %d", minute, score);
+                score += Number(opt.getAttribute("data-score"));
             }
+
+            // prettier-ignore
+            const index =
+                score < 4 ? 1 : // 0-3
+                score < 7 ? 2 : // 4-6
+                score < 10 ? 3 : 0 // 7-10
+
+            // prettier-ignore
+            const bg =
+                score < 4 ? "danger" : // 0-3
+                score < 7 ? "warn" : // 4-6
+                "good" // 7-10
+
+            total.value = String(score);
+            totalIntrp.value = totalIntrp.options.item(index).value;
+
+            $(total.closest(".apgar-score"))
+                .removeClass("danger")
+                .removeClass("warn")
+                .removeClass("good")
+                .addClass(bg);
         };
 
-        score.addEventListener("input", proc);
+        // prettier-ignore
+        for (const slc of fields)
+            slc.addEventListener("change", proc);
+
         proc();
+
+        // const prefix = `apgar${minute}_score`;
+
+        // const score = root.elements[prefix];
+
+        // /** @type {HTMLSelectElement} */
+        // const intrp = root.elements[prefix + "_intrp"];
+
+        // const proc = () => {
+        //     const v = Number(score.value);
+        //     if (Number.isNaN(v)) {
+        //         intrp.value = "";
+        //     } else {
+        //         const get = (n) => intrp.options.item(n).value;
+
+        //         // prettier-ignore
+        //         const index =
+        //             v < 4 ? 1 :
+        //             v < 7 ? 2 :
+        //             v < 10 ? 3 : 0
+
+        //         intrp.value = get(index);
+        //     }
+        // };
+
+        // score.addEventListener("input", proc);
+        // proc();
     }
 
     return {
