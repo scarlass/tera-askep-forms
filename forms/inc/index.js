@@ -192,9 +192,6 @@
         /** @type {HTMLSelectElement} */
         const totalIntrp = root.elements[prefix + "_score_intrp"];
 
-        /** @type {HTMLSelectElement[]} */
-        const fields = [skin, pulse, grimace, respiration, activity];
-
         const proc = () => {
             let score = 0;
             for (const slc of fields) {
@@ -226,6 +223,9 @@
                 .removeClass("good")
                 .addClass(bg);
         };
+
+        /** @type {HTMLSelectElement[]} */
+        const fields = [skin, pulse, grimace, respiration, activity];
 
         // prettier-ignore
         for (const slc of fields)
@@ -261,14 +261,16 @@
         // proc();
     }
 
+    function datetimeSync(dateElm, timeElm, outElm) {}
+
     return {
         init(root) {
             initNumericOnly(root);
             initDatepickers(root);
             initTimepickers(root);
 
-            syncChildFeeding(root);
             syncChildBb(root);
+            syncChildFeeding(root);
 
             syncApgarScore(root, 1);
             syncApgarScore(root, 5);
@@ -322,12 +324,14 @@
                 const [datetimeElm, datetime] = extract();
 
                 const [date, month, year] = elm.value.split("-");
+                console.log(elm.valie, [date, month, year]);
+
                 datetime.setDate(date);
                 datetime.setMonth(month);
                 datetime.setFullYear(year);
 
-                datetimeElm.value = datetime.toString();
-                datetimeElm.dispatchEvent(ce);
+                // datetimeElm.value = datetime.toString();
+                // datetimeElm.dispatchEvent(ce);
             } else if (segment === "time") {
                 const [datetimeElm, datetime] = extract();
 
