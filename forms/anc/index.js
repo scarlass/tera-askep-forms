@@ -65,6 +65,40 @@
                 input.dispatchEvent(new Event("change"));
             }
         }
+
+        const caretUp = "fa-caret-up";
+        const caretDown = "fa-caret-down";
+        $("details.tw-accordion").each(function (i, el) {
+            const icon = $(el).find("summary i.fa");
+
+            if (el.open) {
+                if (!icon.hasClass(caretUp))
+                    icon.addClass(caretUp);
+                icon.removeClass(caretDown);
+            }
+            else {
+                icon.addClass(caretDown);
+                icon.removeClass(caretUp);
+            }
+
+            el.addEventListener("toggle", () => {
+                if (el.open) {
+                    icon.addClass(caretUp);
+                    icon.removeClass(caretDown)
+                }
+                else {
+                    icon.addClass(caretDown);
+                    icon.removeClass(caretUp);
+                }
+            })
+        });
+
+        AskepForm.addEventListener("save.draft", function (e) {
+            const { nodes, data } = e.detail;
+
+            console.log(e.detail);
+            alert("save draft!");
+        });
     }
 
     /**
@@ -80,6 +114,17 @@
         initTimepickers(root);
         initSelectors(root);
         initSelectDisplayInterpretation(root);
+        initGestationalAge(root, undefined, undefined, undefined, val => {
+            const trimester = root.elements["trimester"];
+            trimester.value = String(
+                val <= 14 ? 1 :
+                    val <= 27 ? 2 : 3);
+        });
+        initGestationalAge(root,
+            "usg_age",
+            "usg_age_from",
+            "usg_age_to",
+        );
 
         $(root)
             .find("input[inputmode=numeric]")
@@ -106,7 +151,6 @@
         hpht.addEventListener("change", (e) => {
             const current = e.currentTarget.value;
 
-            console.log(current);
             if (current) {
                 const date = new Date(Date.parse(current + "T00:00"));
 
@@ -195,26 +239,85 @@
 
     function initSelectDisplayInterpretation(root) {
         $(root)
-            .find("select[data-interpretation]")
+            .find("select[data-interpretation],select[data-system]")
             .each(function (i, /** @type {HTMLSelectElement} */ select) {
                 const fn = function () {
                     const opt = select.selectedOptions.item(0);
                     if (!opt) return;
 
-                    let intrp = $(opt).data("display");
-                    if (!intrp) intrp = opt.innerText;
+                    const display_view = select.form.elements[$(select).data("interpretation")];
+                    if (display_view) {
+                        let display = $(opt).data("display");
+                        if (!display) display = opt.innerText;
 
-                    const elemRef = $(select).data("interpretation");
-                    const elem = select.form.elements[elemRef];
-                    if (!elem) return;
+                        display_view.value = display;
+                        display_view.dispatchEvent(new Event("change"));
+                    }
 
-                    elem.value = intrp;
-                    elem.dispatchEvent(new Event("change"));
+                    const system_view = select.form.elements[$(select).data("system")];
+                    if (system_view) {
+                        let system = $(opt).data("system");
+                        if (system) {
+                            system_view.value = system;
+                            system_view.dispatchEvent(new Event("change"));
+                        }
+                    }
                 };
 
                 fn();
                 select.addEventListener("change", fn);
             });
+    }
+
+    /**
+     * @param {HTMLFormElement} root
+     * @param {string} [medianName]
+     * @param {string} [fromName]
+     * @param {string} [toName]
+     * @param {(value: number)=>void} [callback]
+     */
+    function initGestationalAge(root,
+        medianName = "gst_age",
+        fromName = "gst_age_from",
+        toName = "gst_age_to",
+        callback = () => { }
+    ) {
+        const median = root.elements[medianName];
+        if (!median.value)
+            median.value = "0";
+
+        // const trimester = root.elements["trimester"];
+        // if (!trimester.value)
+        //     trimester.value = "0";
+
+        const from = root.elements[fromName];
+        if (!from.value)
+            from.value = "0";
+
+        const to = root.elements[toName];
+        if (!to.value)
+            to.value = "0";
+
+        const exec = e => {
+            let fval = Number(from.value);
+            let tval = Number(to.value);
+
+            if (Number.isNaN(fval) || Number.isNaN(tval)) {
+                fval = Number.isNaN(fval) ? 0 : fval;
+                tval = Number.isNaN(tval) ? 0 : tval;
+            }
+
+            const val = (fval + tval) / 2;
+            median.value = String(val);
+
+            if (callback) callback(val);
+            // trimester.value = String(
+            //     val <= 14 ? 1 :
+            //         val <= 27 ? 2 : 3);
+        };
+
+        from.addEventListener("change", exec);
+        to.addEventListener("change", exec);
     }
 
     const integrateInit = {
@@ -378,6 +481,7 @@ $(document).ready(function () {
             SatusehatAntenatal.initElements(form);
         } catch (err) {
             console.error("initialization error", err);
+            alert(err.message);
         }
-    }, 1000);
+    }, 700);
 });

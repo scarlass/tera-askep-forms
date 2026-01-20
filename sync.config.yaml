@@ -45,6 +45,11 @@ target:
         html: "forms/{{ .target }}/index.html"
         script: "forms/{{ .target }}/index.js"
         stylesheet: "dist/forms/{{ .target }}/index.css"
+    imunisasi:
+        alid: 800
+        html: "forms/{{ .target }}/index.html"
+        script: "forms/{{ .target }}/index.js"
+        stylesheet: "dist/forms/{{ .target }}/index.css"
 
     # target name are case-insensitive
     # this entry only for example and will be count as non-exist at runtime

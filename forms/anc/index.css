@@ -32,53 +32,56 @@
 
 @layer components {
     .tw-accordion {
-        @apply tw:border-2 tw:border-primary
-        tw:shadow-md tw:mt-8 tw:rounded-lg;
+        @apply tw:border-2 tw:border-primary tw:shadow-md tw:mt-8 tw:rounded-lg;
     }
-    .tw-accordion > * {
+
+    .tw-accordion>* {
         @apply tw:py-2 tw:px-4;
     }
-    .tw-accordion > summary {
+
+    .tw-accordion>summary {
         @apply tw:text-2xl tw:font-semibold tw:text-primary-foreground tw:bg-primary tw:cursor-default;
+
         @variant focus {
             @apply tw:bg-primary-300;
         }
     }
+
     .tw-accordion .tw-accordion-content {
-        @apply tw:flex tw:flex-col tw:gap-4
-            /*tw:grid-cols-2 tw:lg:grid-cols-3*/
-            tw:px-10 tw:py-8
-            tw:transition-[max-height,opacity];
+        @apply tw:flex tw:flex-col tw:gap-4 tw:px-10 tw:py-8 tw:transition-all;
 
         max-height: 0;
         opacity: 0;
         transition-timing-function: ease;
         transition-duration: 0.3s;
     }
+
     .tw-accordion[open] .tw-accordion-content {
         max-height: fit-content;
         opacity: 1;
     }
-    .tw-accordion-content > fieldset {
-        @apply tw:grid! tw:w-full tw:grid-cols-2 tw:gap-4;
+
+    .tw-accordion-content>fieldset {
+        @apply tw:grid tw:!w-full tw:grid-cols-2 tw:gap-4;
     }
-    .tw-accordion-content > .tw-accordion-content-title {
-        @apply tw:text-lg
-            tw:font-bold
-            tw:col-span-2 tw:lg:col-span-3
-            tw:border-b;
+
+    .tw-accordion-content>.tw-accordion-content-title {
+        @apply tw:text-lg tw:font-bold tw:col-span-2 tw:lg:col-span-3 tw:border-b;
     }
 
     .tw-form-field {
         @apply tw:flex tw:flex-col tw:space-y-2;
     }
+
     .tw-form-field input:not(.datepicker):not(.timepicker),
     .tw-form-field select {
         @apply tw:p-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40 tw:disabled:border-gray-500 tw:disabled:bg-gray-200;
     }
+
     .tw-form-field input:focus-visible:not([readonly]) {
         @apply tw:bg-primary-100/80;
     }
+
     .tw-form-field input[readonly]:not(.input-date input) {
         @apply tw:border-gray-500 tw:bg-gray-200 tw:select-none;
     }
@@ -86,17 +89,21 @@
     .tw-form-field .input-date {
         @apply tw:flex tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40 tw:focus-within:bg-primary-100/80;
     }
-    .tw-form-field .input-date > input {
-        @apply tw:flex-1 tw:p-2 tw:focus:border-none;
+
+    .tw-form-field .input-date>input {
+        @apply tw:flex-1 tw:p-2 tw:border-none;
     }
-    .tw-form-field .input-date > span[role="flags"] {
+
+    .tw-form-field .input-date>span[role="flags"] {
         @apply tw:p-2 tw:text-center tw:flex tw:justify-center tw:content-center tw:bg-primary tw:text-primary-foreground;
     }
-    .tw-form-field .input-date > span[role="flags"].fa,
-    .tw-form-field .input-date > span[role="flags"].glyphicon {
+
+    .tw-form-field .input-date>span[role="flags"].fa,
+    .tw-form-field .input-date>span[role="flags"].glyphicon {
         @apply tw:px-3;
     }
-    .tw-form-field .input-date > span[role="flags"].glyphicon {
+
+    .tw-form-field .input-date>span[role="flags"].glyphicon {
         top: 0 !important;
     }
 
@@ -104,19 +111,23 @@
         @apply tw:py-1 tw:px-2 tw:border tw:border-primary tw:rounded-md tw:bg-primary-100/40;
     }
 
-    .tw-form-field > .tw-field-title {
-        @apply tw:flex! tw:flex-col;
+    .tw-form-field>.tw-field-title {
+        @apply tw:flex tw:!flex-col;
     }
+
     .tw-form-field .tw-field-label {
-        @apply tw:text-lg tw:font-semibold!;
+        @apply tw:text-lg tw:font-semibold;
     }
+
     .tw-form-field.required .tw-field-label::before {
         content: "*";
         @apply tw:text-red-700 tw:pr-0.5;
     }
+
     .tw-field-label.sm {
         @apply tw:text-sm;
     }
+
     .tw-form-field .tw-field-desc {
         @apply tw:inline-block tw:text-xs tw:text-gray-500;
     }
@@ -124,7 +135,8 @@
     .tw-form-field.tw-checkbox {
         @apply tw:transition-colors tw:hover:bg-primary-100/50 tw:px-3 tw:rounded-md;
     }
-    .tw-form-field.tw-checkbox > .tw-field-title {
+
+    .tw-form-field.tw-checkbox>.tw-field-title {
         @apply tw:flex-row tw:gap-2;
     }
 }
@@ -149,7 +161,10 @@
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }

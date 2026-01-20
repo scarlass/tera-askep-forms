@@ -147,9 +147,9 @@
                 // prettier-ignore
                 const index =
                     v >= 4000 ? 1 :
-                    v >= 2500 ? 2 :
-                    v >= 1500 ? 3 :
-                    v >= 1000 ? 4 : 5;
+                        v >= 2500 ? 2 :
+                            v >= 1500 ? 3 :
+                                v >= 1000 ? 4 : 5;
 
                 console.log(
                     "bb score => %d / %d",
@@ -205,14 +205,14 @@
             // prettier-ignore
             const index =
                 score < 4 ? 0 : // 0-3
-                score < 7 ? 1 : 2 // 4-6 : 7-10
+                    score < 7 ? 1 : 2 // 4-6 : 7-10
             // score < 10 ? 2 : 0 // 7-10
 
             // prettier-ignore
             const bg =
                 score < 4 ? "danger" : // 0-3
-                score < 7 ? "warn" : // 4-6
-                "good" // 7-10
+                    score < 7 ? "warn" : // 4-6
+                        "good" // 7-10
 
             total.value = String(score);
             totalIntrp.value = totalIntrp.options.item(index).value;
@@ -261,7 +261,7 @@
         // proc();
     }
 
-    function datetimeSync(dateElm, timeElm, outElm) {}
+    function datetimeSync(dateElm, timeElm, outElm) { }
 
     return {
         init(root) {
@@ -352,5 +352,12 @@
 
 $(document).ready(function () {
     const root = document.getElementById("inc-form");
-    setTimeout(() => SatusehatInc.init(root), 1000);
+    SatusehatInc.init(root)
+    // setTimeout(() => {
+    //     try {
+
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }, 1000);
 });

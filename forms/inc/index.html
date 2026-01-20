@@ -54,8 +54,6 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
             </div>
         </div>
 
-        <!---->
-
         <details class="tw-accordion" open>
             <summary>Data Persalinan</summary>
 
@@ -401,8 +399,8 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                             <div class="input-date">
                                 <input
                                     id="kala4_time"
-                                    name="kala4_date"
-                                    myid="kala4_date"
+                                    name="kala4_time"
+                                    myid="kala4_time"
                                     class="timepicker hasTimepicker"
                                     placeholder="--:--"
                                 />
@@ -416,7 +414,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                 </fieldset>
             </div>
 
-            <div class="tw-accordion-content">
+            <!--<div class="tw-accordion-content">
                 <div class="tw-accordion-content-title">
                     <span>Waktu Onset Kala Persalinan</span>
                 </div>
@@ -451,7 +449,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                         />
                     </div>
                 </fieldset>
-            </div>
+            </div>-->
         </details>
 
         <details class="tw-accordion" open>
@@ -563,6 +561,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar1_score"
                                 name="apgar1_score"
                                 myid="apgar1_score"
+                                class="tw:w-full"
                                 min="0"
                                 max="10"
                                 readonly
@@ -575,7 +574,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar1_score_intrp"
                                 name="apgar1_score_intrp"
                                 myid="apgar1_score_intrp"
-                                class="readonly"
+                                class="readonly tw:w-full"
                                 placeholder="score interpretation"
                             >
                                 {INC_APGAR_SCOREINTRP}
@@ -693,6 +692,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 myid="apgar5_score"
                                 min="0"
                                 max="10"
+                                class="tw:w-full"
                                 placeholder="skor 0-10"
                                 inputmode="numeric"
                                 pattern="^(\d*)$"
@@ -703,7 +703,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar5_score_intrp"
                                 name="apgar5_score_intrp"
                                 myid="apgar5_score_intrp"
-                                class="readonly"
+                                class="readonly tw:w-full"
                                 placeholder="score interpretation"
                             >
                                 {INC_APGAR_SCOREINTRP}
@@ -822,6 +822,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar10_score"
                                 name="apgar10_score"
                                 myid="apgar10_score"
+                                class="tw:w-full"
                                 min="0"
                                 max="10"
                                 readonly
@@ -834,7 +835,7 @@ Mungkin jika perlu, silahkan lihat code sourcenya di:
                                 id="apgar10_score_intrp"
                                 name="apgar10_score_intrp"
                                 myid="apgar10_score_intrp"
-                                class="readonly"
+                                class="readonly tw:w-full"
                                 placeholder="score interpretation"
                             >
                                 {INC_APGAR_SCOREINTRP}

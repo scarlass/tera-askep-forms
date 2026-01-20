@@ -9,7 +9,9 @@
         "anc:build": "npx @tailwindcss/cli --cwd ./forms/anc -o ../../dist/forms/anc/index.css -i index.css --minify",
         "anc:watch": "npm run anc:build -- -w",
         "inc:build": "npx @tailwindcss/cli --cwd ./forms/inc -o ../../dist/forms/inc/index.css -i index.css --minify",
-        "inc:watch": "npm run inc:build -- -w"
+        "inc:watch": "npm run inc:build -- -w",
+        "imunisasi:b": "npx @tailwindcss/cli --cwd ./forms/imunisasi -o ../../dist/forms/imunisasi/index.css -i index.css --minify",
+        "imunisasi:w": "npm run imunisasi:b -- -w"
     },
     "keywords": [],
     "author": "",
