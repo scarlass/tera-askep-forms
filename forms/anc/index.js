@@ -93,12 +93,12 @@
             })
         });
 
-        AskepForm.addEventListener("save.draft", function (e) {
-            const { nodes, data } = e.detail;
+        // AskepForm.addEventListener("save.draft", function (e) {
+        //     const { nodes, data } = e.detail;
 
-            console.log(e.detail);
-            alert("save draft!");
-        });
+        //     console.log(e.detail);
+        //     alert("save draft!");
+        // });
     }
 
     /**

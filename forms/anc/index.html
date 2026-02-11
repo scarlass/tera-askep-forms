@@ -264,7 +264,6 @@
                                 class="tw:border-none tw:text-center"
                                 id="gst_age_from"
                                 name="gst_age_from"
-                                myid="check_cara"
                                 type="text"
                                 inputmode="numeric"
                                 pattern="[0-9]"
@@ -460,69 +459,6 @@
 
             <div class="tw-accordion-content">
                 <div class="tw-accordion-content-title">
-                    <span>Makanan tambahan Ibu Hamil</span>
-                </div>
-
-                <!---->
-                <fieldset class="tw:grid-cols-3">
-                    <div slot="form-field" class="tw-form-field">
-                        <label class="tw-field-title" for="quest_q1s1">
-                            <span class="tw-field-label">
-                                Mendapatkan Tambahan MT, jika LILA &LT 23.5
-                            </span>
-                            <span class="tw-field-desc">
-                                QuestionnaireResponse (1.1)
-                            </span>
-                        </label>
-
-                        <select
-                            id="quest_q1s1"
-                            name="quest_q1s1"
-                            myid="check_cara"
-                            type="checkbox"
-                        >
-                            <option value=""></option>
-                            <option value="off">Tidak</option>
-                            <option value="on">Ya</option>
-                        </select>
-                    </div>
-
-                    <div slot="form-field" class="tw-form-field">
-                        <label class="tw-field-title" for="quest_q1s2">
-                            <span class="tw-field-label">
-                                Jenis Makanan Tambahan
-                            </span>
-                            <span class="tw-field-desc">
-                                QuestionnaireResponse (1.2)
-                            </span>
-                        </label>
-
-                        <input
-                            type="hidden"
-                            id="quest_q1s2_intrp"
-                            name="quest_q1s2_intrp"
-                            myid="check_cara"
-                        />
-                        <select
-                            id="quest_q1s2"
-                            name="quest_q1s2"
-                            myid="check_cara"
-                            data-interpretation="#quest_q1s2_intrp"
-                        >
-                            <option value="" selected></option>
-                            <option value="FO000001" data-display="MT Lokal">
-                                MT Lokal
-                            </option>
-                            <option value="FO000002" data-display="MT Pabrik">
-                                MT Pabrik
-                            </option>
-                        </select>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="tw-accordion-content">
-                <div class="tw-accordion-content-title">
                     <span>Pemantauan & Pendampingan</span>
                 </div>
 
@@ -622,8 +558,6 @@
                             name="risk_comp_pregnancy"
                             myid="check_cara"
                             type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]"
                             required
                         />
                     </div>
@@ -649,19 +583,9 @@
                             myid="check_cara"
                             data-interpretation="#risk_smoker_intrp"
                         >
-                            <option value="8392000" data-display="Non Smoker">
-                                Tidak Merokok
-                            </option>
-                            <option
-                                selected
-                                value="43381005"
-                                data-display="Passive Smoker"
-                            >
-                                Passive
-                            </option>
-                            <option value="77176002" data-display="Smoker">
-                                Aktif
-                            </option>
+                            <option value="8392000" data-display="Non Smoker" selected>Tidak Merokok</option>
+                            <option value="43381005" data-display="Passive Smoker">Passive</option>
+                            <option value="77176002" data-display="Smoker">Aktif</option>
                         </select>
                     </div>
 
@@ -686,19 +610,8 @@
                             myid="check_cara"
                             data-interpretation="#risk_alcoholic_intrp"
                         >
-                            <option
-                                selected
-                                value="105542008"
-                                data-display="Non - drinker"
-                            >
-                                Tidak
-                            </option>
-                            <option
-                                value="219006"
-                                data-display="Current drinker"
-                            >
-                                Ya
-                            </option>
+                            <option value="105542008" data-display="Non - drinker" selected>Tidak</option>
+                            <option value="219006" data-display="Current drinker">Ya</option>
                         </select>
                     </div>
                 </fieldset>
@@ -970,7 +883,7 @@
             </div>
         </details>
 
-        <details class="tw-accordion" open>
+        <!--<details class="tw-accordion" open>
             <summary>
                 <i class="fa fa-caret-up" style="margin-right: 1em"></i>
                 Faktor Resiko
@@ -978,16 +891,10 @@
 
 
             <div class="tw-accordion-content">
-                <!--<div class="tw-accordion-content-title">
-                    <span>Faktor Resiko</span>
-                </div>-->
-
                 <fieldset class="tw:grid-cols-3">
                 </fieldset>
             </div>
-
-
-        </details>
+        </details>-->
 
         <details class="tw-accordion" open>
             <summary>
@@ -997,7 +904,7 @@
 
             <div class="tw-accordion-content">
                 <div class="tw-accordion-content-title">
-                    <span>Tanda-Tanda Vital (TTV)</span>
+                    <span>Pemeriksaan Ibu</span>
                 </div>
                 <fieldset class="tw:grid-cols-2 tw:md:grid-cols-3 tw:lg:grid-cols-4">
                     <div slot="form-field" class="tw-form-field required">
@@ -1122,6 +1029,92 @@
                             </option>
                             <option value="N" data-display="Normal">
                                 Normal (&gt 23,5)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="ttv_fundus">
+                            <span class="tw-field-label">
+                                Tinggi Fundus
+                            </span>
+                            <span class="tw-field-desc">Observation</span>
+                        </label>
+
+
+                        <div class="input-date">
+                            <input
+                                id="ttv_fundus"
+                                name="ttv_fundus"
+                                myid="check_cara"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]"
+                                placeholder="tinggi fundus"
+                            />
+                            <span role="flags">cm</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tw-accordion-content">
+                <div class="tw-accordion-content-title">
+                    <span>Makanan tambahan Ibu Hamil</span>
+                </div>
+
+                <!---->
+                <fieldset class="tw:grid-cols-3">
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="quest_q1s1">
+                            <span class="tw-field-label">
+                                Mendapatkan Tambahan MT, jika LILA &LT 23.5
+                            </span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse (1.1)
+                            </span>
+                        </label>
+
+                        <select
+                            id="quest_q1s1"
+                            name="quest_q1s1"
+                            myid="check_cara"
+                            type="checkbox"
+                        >
+                            <option value=""></option>
+                            <option value="off">Tidak</option>
+                            <option value="on">Ya</option>
+                        </select>
+                    </div>
+
+                    <div slot="form-field" class="tw-form-field">
+                        <label class="tw-field-title" for="quest_q1s2">
+                            <span class="tw-field-label">
+                                Jenis Makanan Tambahan
+                            </span>
+                            <span class="tw-field-desc">
+                                QuestionnaireResponse (1.2)
+                            </span>
+                        </label>
+
+                        <input
+                            type="hidden"
+                            id="quest_q1s2_intrp"
+                            name="quest_q1s2_intrp"
+                            myid="check_cara"
+                        />
+                        <select
+                            id="quest_q1s2"
+                            name="quest_q1s2"
+                            myid="check_cara"
+                            data-interpretation="#quest_q1s2_intrp"
+                        >
+                            <option value="" selected></option>
+                            <option value="FO000001" data-display="MT Lokal">
+                                MT Lokal
+                            </option>
+                            <option value="FO000002" data-display="MT Pabrik">
+                                MT Pabrik
                             </option>
                         </select>
                     </div>
@@ -1552,10 +1545,7 @@
                                 type="text"
                             />
 
-                            <span
-                                role="flags"
-                                class="fa fa-calendar"
-                            ></span>
+                            <span role="flags" class="fa fa-calendar"></span>
                         </div>
                     </div>
 

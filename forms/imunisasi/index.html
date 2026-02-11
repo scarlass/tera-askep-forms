@@ -1,90 +1,290 @@
-<div class="tw:contents">
-    <input type="hidden" id="age" name="age" myid="age" />
+<script
+    type="application/javascript"
+    src="assets/js/jquery-3.3.1.min.js"
+></script>
+<script type="application/javascript" src="assets/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="assets/dash/styles/jquery-ui.css" />
 
-    <table
-        id="table-imunisasi"
-        class="tw:w-full tw:rounded-lg! tw:overflow-hidden"
-    >
-        <thead
-            class="tw:bg-primary tw:text-primary-foreground tw:**:[th]:py-2! tw:**:[th]:text-center!"
+<script
+    type="application/javascript"
+    src="assets/bootstrap/js/bootstrap.min.js"
+></script>
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+
+<script
+    type="application/javascript"
+    src="templates/v5/js/plugin/select2/select2.min.js"
+></script>
+<link
+    rel="stylesheet"
+    href="templates/v5/js/plugin/select2/css/select2.min.css"
+/>
+<link
+    rel="stylesheet"
+    href="templates/v5/js/plugin/select2/css/select2-theme-bootstrap.min.css"
+/>
+
+{{ .Stylesheet }}
+
+<style>
+    textarea,
+    .text-area {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    textarea.fit,
+    .text-area.fit {
+        resize: none;
+        height: fit-content;
+    }
+
+    .text-area:not(textarea, input, select) {
+        display: flex;
+        flex-wrap: wrap;
+        width: auto;
+        gap: 0.2rem;
+    }
+
+    .text-area:not(textarea, input, select) kbd {
+        height: fit-content;
+    }
+
+    .text-area:not(textarea, input, select).disabled {
+        background-color: #eee;
+        border-radius: 1px;
+        border-color: #ccc;
+    }
+
+    .text-area:not(textarea, input, select).disabled kbd {
+        opacity: 0.7;
+    }
+
+    /*.grid {
+        display: grid;
+    }
+
+    .grid-cols-12 {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .col-span-6 {
+        grid-column: span 6 / span 6;
+    }
+
+    .col-span-12 {
+        grid-column: span 12 / span 12;
+    }
+
+    .gap-1r {
+        gap: 1rem;
+    }
+
+    .flex {
+        display: flex;
+    }
+    .flex-1 {
+        flex: 1;
+    }
+
+    .w-full {
+        width: 100%;
+    }*/
+
+    .modal-body {
+      margin-left: auto;
+      margin-right: auto;
+      width: clamp(800px, 1vw, 100%);
+    }
+</style>
+
+<div class="tw:grid">
+
+    <div class="tw:bg-primary-700! tw:flex! tw:px-6! tw:py-4! tw:gap-3 tw:sticky tw:top-0 tw:left-0 tw:z-10">
+        <button id="form-delete" type="button" class="btn btn-danger" disabled>
+            Hapus
+        </button>
+        <span style="margin-left: auto"></span>
+        <button id="form-cancel" type="button" class="btn btn-default">
+            Batal
+        </button>
+        <button id="form-save" type="button" class="btn btn-default">
+            Simpan
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form
+            id="imunisasi-detail-form"
+            class="flex"
+            onsubmit="event.preventDefault()"
+            style="padding: 0 10rem"
         >
-            <tr>
-                <th rowspan="3" class="tw:border-r tw:border-white">Vaksin</th>
-                <th colspan="28" class="tw:border-b tw:border-white">Umur</th>
-            </tr>
+            <div class="tw:grid tw:flex-1 tw:w-full">
+                <fieldset class="form-group tw:gap-1">
+                    <label for="tanggal">
+                        Tanggal / Waktu Imunisasi
+                    </label>
+                    <div class="tw:grid tw:grid-cols-2 tw:gap-4">
+                        <input
+                            id="tanggal"
+                            type="date"
+                            name="praktik-tanggal"
+                            class="form-control datepicker"
+                        />
+                        <input
+                            id="waktu"
+                            type="time"
+                            name="praktik-waktu"
+                            class="form-control timepicker"
+                        />
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="desc"> Deskripsi </label>
+                    <textarea
+                        id="desc"
+                        name="deskripsi"
+                        class="form-control"
+                    ></textarea>
+                </fieldset>
 
-            <tr>
-                <th colspan="12" class="tw:border-r tw:border-b">Bulan</th>
-                <th colspan="16" class="tw:border-b">Tahun</th>
-            </tr>
+                <hr class="divider" />
 
-            <tr class="tw:*:[th]:not-last:border-r">
-                <!--Bulan-->
-                <th>LHR</th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>9</th>
-                <th>12</th>
-                <th>15</th>
-                <th>18</th>
-                <th>24</th>
+                <fieldset class="form-group">
+                    <label for="vaksin"> Vaksin yang digunakan </label>
+                    <select
+                        id="vaksin"
+                        name="vaksin"
+                        class="form-control combobox"
+                    ></select>
+                    <input id="vaksin-exp" type="hidden" name="vaksin-exp" />
+                </fieldset>
 
-                <!--Tahun-->
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-                <th>10</th>
-                <th>11</th>
-                <th>12</th>
-                <th>13</th>
-                <th>14</th>
-                <th>15</th>
-                <th>16</th>
-                <th>17</th>
-                <th>18</th>
-            </tr>
-        </thead>
-        <tbody class="tw:**:[th,td]:text-center! tw:**:[th]:border!">
-            <!---->
-            <tr>
-                <th>Hepatitis B</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+                <div class="tw:grid tw:grid-cols-12 tw:gap-4" style="float: left">
+                    <fieldset class="form-group tw:col-span-6">
+                        <label for="vaksin-dosis"> Dosis Vaksin </label>
+                        <input
+                            id="vaksin-dosis"
+                            type="number"
+                            name="vaksin-dosis"
+                            class="form-control"
+                        />
+                    </fieldset>
+                    <fieldset class="form-group tw:col-span-6">
+                        <label for="vaksin-dosis-unit"> Satuan Dosis </label>
+                        <select
+                            id="vaksin-dosis-unit"
+                            name="vaksin-dosis-unit"
+                            class="form-control combobox"
+                            data-options="dosis"
+                        ></select>
+                    </fieldset>
+                </div>
+
+                <fieldset class="form-group" style="display: none;">
+                    <label class="control-label" for="perawat">
+                        Perawat yg menangani
+                    </label>
+
+                    <select
+                        id="perawat"
+                        name="perawat"
+                        class="form-control combobox"
+                    ></select>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label for="program"> Tipe Program Imunisasi </label>
+
+                    <select
+                        id="program"
+                        name="program"
+                        class="form-control combobox"
+                    ></select>
+                </fieldset>
+
+                <hr class="divider" />
+
+                <fieldset class="form-group" data-field="kipi">
+                    <label
+                        for="kipi-check"
+                        style="
+                            display: inline-flex;
+                            gap: 1rem;
+                            vertical-align: middle;
+                        "
+                    >
+                        <span class="control-label">Status Gejala KIPI</span>
+                        <input
+                            id="kipi-check"
+                            type="checkbox"
+                            name="kipi-check"
+                        />
+                    </label>
+
+                    <select
+                        id="kipi-kode"
+                        name="kipi-kode"
+                        class="form-control combobox"
+                        data-options="kipi"
+                    ></select>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label for="diagnosa"> ICD 10 </label>
+                    <textarea
+                        id="diagnosa"
+                        class="form-control fit"
+                        value="{ICD10}"
+                        readonly
+                        style="display: none"
+                    >{ICD10}</textarea>
+
+                    <div
+                        id="diagnosa-view"
+                        class="form-control text-area fit disabled"
+                    >
+                        {ICD10}
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="tw:flex tw:flex-col tw:px-4!">
+        <h4 class="tw:text-xl tw:font-extrabold! tw:tracking-wide! tw:uppercase">
+            Riwayat Imunisasi
+        </h4>
+
+        <table id="imunisasi-history" class="table tw:flex-1">
+            <thead class="tw:bg-primary-700! tw:text-primary-foreground!">
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal Imunisasi</th>
+                    <th>Keterangan</th>
+                    <th>Vaksin Digunakan</th>
+                    <th>Dosis Vaksin</th>
+                    <th>Satuan Dosis</th>
+                    <th>Tipe Program</th>
+                    <th>Status KIPI</th>
+                </tr>
+            </thead>
+            <tbody class="tw:*:odd:transition-colors tw:*:odd:bg-primary-100/30! tw:*:hover:bg-primary-100/75!">
+                <!-- BEGIN DYNAMIC BLOCK: row -->
+                <!--<tr>
+                    <td>{NO}</td>
+                    <td>{TANGGAL}</td>
+                    <td>{KETERANGAN}</td>
+                    <td>{VAKSIN}</td>
+                    <td>{DOSIS_VAKSIN}</td>
+                    <td>{SATUAN_VAKSIN}</td>
+                    <td>{PROGRAM}</td>
+                    <td>{KIPI}</td>
+                </tr>-->
+                <!-- END DYNAMIC BLOCK: row -->
+            </tbody>
+        </table>
+    </div>
 </div>

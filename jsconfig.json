@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {},
+    "include": [
+        "forms/**/*.js",
+        "declaration.d.ts"
+    ]
+}

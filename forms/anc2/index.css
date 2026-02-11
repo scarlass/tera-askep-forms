@@ -1,0 +1,245 @@
+@import "tailwindcss" prefix(tw);
+@source "./index.html";
+@source "./index.js";
+
+/*@layer bootstrap, theme*/
+
+:root {
+    --primary-100: #d6e4ef;
+    --primary-200: #adc8e0;
+    --primary-300: #84add0;
+    --primary-400: #5b91c1;
+    --primary: #3276b1;
+    --primary-600: #2d6a9f;
+    --primary-700: #285e8e;
+    --primary-800: #23537c;
+    --primary-900: #1e476a;
+    --primary-foreground: #ffffff;
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+}
+
+@theme {
+    --color-primary-100: var(--primary-100);
+    --color-primary-200: var(--primary-200);
+    --color-primary-300: var(--primary-300);
+    --color-primary-400: var(--primary-400);
+    --color-primary: var(--primary);
+    --color-primary-600: var(--primary-600);
+    --color-primary-700: var(--primary-700);
+    --color-primary-800: var(--primary-800);
+    --color-primary-900: var(--primary-900);
+    --color-primary-foreground: var(--primary-foreground);
+}
+
+.anc {
+    @apply tw:px-8 tw:w-full;
+
+    /*main,
+    fieldset,
+    input {
+        all: unset;
+    }*/
+
+    main {
+        @apply tw:w-full tw:mt-6 tw:mb-10 tw:gap-8 tw:grid tw:grid-cols-1 tw:place-items-center;
+    }
+
+    .reset {
+        all: unset;
+        box-sizing: border-box;
+    }
+
+    .metadata {
+        @apply tw:border tw:border-primary;
+
+        .section {
+            &:first-child>* {
+                @apply tw:pt-1.5;
+            }
+
+            &:last-child>* {
+                @apply tw:pb-1.5;
+            }
+
+            th,
+            td {
+                @apply tw:uppercase;
+            }
+
+            th {
+                @apply tw:pl-3 tw:min-w-28 tw:text-primary;
+            }
+
+            td {
+                @apply tw:pr-3 tw:text-left;
+            }
+        }
+    }
+
+    .accordion {
+        width: clamp(620px, 65%, 1vw);
+        /*@apply tw:w-full;*/
+        @apply tw:border tw:border-primary tw:rounded-lg;
+
+        .accordion-title {
+            @apply tw:w-full tw:inline-block tw:px-6 tw:cursor-pointer tw:text-primary-foreground tw:bg-primary;
+        }
+
+        .accordion-content {
+            /*@apply tw:grid tw:grid-cols-3;*/
+            @apply tw:gap-4 tw:p-7;
+            @apply tw:grid;
+
+            & .accordion-title {
+                @apply tw:block tw:cursor-auto tw:bg-transparent tw:text-black tw:py-2 tw:px-1;
+                @apply tw:font-semibold tw:text-lg;
+                @apply tw:border-double tw:border-primary tw:border-b;
+
+                &:not(.plain)::before {
+                    content: "#";
+                    /*@apply tw:text-red-600;*/
+                    @apply tw:text-primary-400;
+                }
+
+                .accordion-desc {
+                    @apply tw:text-xs tw:text-gray-500 tw:block;
+                }
+            }
+
+        }
+    }
+
+    .form-subforms {
+        @apply tw:grid tw:grid-cols-2 tw:gap-5;
+    }
+
+    .form-subfields {
+        @apply tw:p-3 tw:pb-4 tw:border tw:border-primary tw:rounded-xl;
+
+        .subfield-title {
+            @apply tw:flex tw:justify-between tw:mb-3;
+
+            >label {
+                @apply tw:inline-block tw:font-semibold tw:text-xl;
+
+                /*&:before {
+                    content: '';
+                    @apply tw:text-red-600;
+                }*/
+            }
+
+            .subfield-action {
+                @apply tw:flex tw:justify-center tw:align-middle tw:content-center tw:bg-primary tw:rounded-xl tw:text-primary-foreground tw:size-10 tw:p-2;
+            }
+        }
+    }
+
+    .form-field {
+        @apply tw:grid tw:w-full;
+
+        .field-title {
+            @apply tw:inline-block tw:font-semibold tw:text-lg;
+
+            .field-desc {
+                @apply tw:text-xs tw:text-gray-500 tw:block;
+            }
+        }
+
+
+        &.required,
+        &:has(input[required], select[required], textarea[required]) {
+            .field-title::before {
+                content: '*';
+                @apply tw:text-red-600;
+            }
+        }
+
+        /*&:has(input[type=checkbox], input[type="radio"]) {*/
+        &.field-checkbox {
+            @apply tw:flex tw:rounded-lg tw:transition-colors tw:hover:bg-primary/10;
+
+            .field-title {
+                @apply tw:flex tw:flex-1 tw:gap-3 tw:px-3 tw:text-balance tw:align-middle;
+            }
+        }
+
+        & .form-field.field-checkbox {
+            @apply tw:px-3;
+        }
+
+        &:has(*:disabled) {
+            .field-title {
+                @apply tw:text-gray-400;
+
+                .field-desc {
+                    @apply tw:text-gray-300;
+                }
+            }
+        }
+
+        .field-control {
+            @apply tw:grid tw:gap-3;
+        }
+
+        .field-input {
+            @apply tw:flex tw:items-center tw:rounded-md tw:h-fit;
+            @apply tw:outline-1 tw:-outline-offset-1 tw:outline-primary;
+            @apply tw:has-focus-within:outline-2 tw:has-focus-within:-outline-offset-2;
+            @apply tw:overflow-hidden;
+            /*@apply tw:has-[input:focus-within]:outline-indigo-500;*/
+
+            >* {
+                @apply tw:p-3 tw:text-xl;
+            }
+
+            input,
+            textarea,
+            select {
+                @apply tw:block tw:min-w-0 tw:grow tw:focus:outline-none tw:px-4;
+            }
+
+            input[readonly],
+            textarea[readonly],
+            select[aria-readonly=true] {
+                @apply tw:bg-gray-200 tw:select-none;
+            }
+
+            input:disabled,
+            textarea:disabled,
+            select:disabled {
+                @apply tw:bg-gray-200 tw:select-none tw:cursor-not-allowed;
+            }
+
+            &.bordered {
+
+                input:not(:last-child),
+                select:not(:last-child),
+                textarea:not(:last-child) {
+                    @apply tw:border-r tw:border-primary;
+                }
+            }
+
+            .input-label {
+                @apply tw:bg-primary tw:shrink-0 tw:text-xl tw:text-primary-foreground tw:select-none;
+                @apply tw:font-semibold;
+            }
+        }
+    }
+
+}
+
+.sr-only {
+    display: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+select.plain {
+    appearance: none;
+    -webkit-appearance: none;
+    /* for Safari, Chrome, Opera */
+    -moz-appearance: none;
+    /* for Firefox */
+}

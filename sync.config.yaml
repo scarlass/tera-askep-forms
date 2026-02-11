@@ -45,6 +45,12 @@ target:
         html: "forms/{{ .target }}/index.html"
         script: "forms/{{ .target }}/index.js"
         stylesheet: "dist/forms/{{ .target }}/index.css"
+    anc2:
+        alid: 842
+        html: "forms/{{ .target }}/index.html"
+        script:
+            - "forms/{{ .target }}/functionality.js"
+        stylesheet: "dist/forms/{{ .target }}/index.css"
     imunisasi:
         alid: 800
         html: "forms/{{ .target }}/index.html"

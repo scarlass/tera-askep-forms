@@ -1,0 +1,1608 @@
+<script>
+/**
+ *
+ */
+</script>
+
+{{ .Stylesheet }}
+{{ .Script }}
+
+<form id="anc-form" class="anc tw:size-full">
+    <header class="tw:flex! tw:flex-row! tw:justify-between tw:align-middle">
+        <h3 class="tw:font-semibold!">Form Antenatal Care (ANC)</h3>
+        <table class="metadata tw:border tw:border-primary">
+            <tr class="section">
+                <th>Nama</th>
+                <td>{NAME_REAL}</td>
+            </tr>
+            <tr class="section">
+                <th>No. RM</th>
+                <td>{NO_RM}</td>
+            </tr>
+        </table>
+    </header>
+
+    <main>
+        <!-- Data Kunjungan -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Data Kunjungan</h6>
+            </summary>
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="form-field">
+                    <label class="field-title" for="eoc_visite">
+                        Kunjungan Ke-
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="eoc_visite"
+                            name="eoc_visite"
+                            myid="check_cara"
+                            type="rel"
+                            inputmode="numeric"
+                            placeholder="ke-..."
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="eoc_visit_date">
+                        Tanggal &amp; Waktu Kunjungan
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input type="hidden" id="eoc_visit_at" name="eoc_visit_at" myid="check_cara" required />
+                        <input
+                            id="eoc_visit_date"
+                            name="eoc_visit_date"
+                            type="date"
+                        />
+                        <div class="input-label">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input
+                            id="eoc_visit_time"
+                            name="eoc_visit_time"
+                            type="time"
+                        />
+                        <div class="input-label">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="gst_age_from">
+                        Usia Kehamilan
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="gst_age" name="gst_age" myid="check_cara" type="hidden" required
+                        data-median-start="gst_age_from"
+                        data-median-end="gst_age_to"
+                    />
+                    <div class="field-input">
+
+                        <input
+                            id="gst_age_from"
+                            name="gst_age_from"
+                            type="text"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            placeholder="from"
+                            data-range-median="gst_age"
+                        />
+                        <div class="input-label">&Gt;</div>
+                        <input
+                            id="gst_age_to"
+                            name="gst_age_to"
+                            type="text"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            placeholder="to"
+                            data-range-median="gst_age"
+                        />
+                    </div>
+                </div>
+                <div class="form-field required">
+                    <label class="field-title" for="eoc_trimester">
+                        Trimester
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="eoc_trimester"
+                            name="eoc_trimester"
+                            myid="check_cara"
+                            placeholder="trimester ke..."
+                            readonly
+                        />
+                    </div>
+                </div>
+
+                <div class="form-field  field-checkbox tw:col-start-1 tw:col-span-2">
+                    <label class="field-title">
+                        <input
+                            id="eoc_ended"
+                            name="eoc_ended"
+                            type="checkbox"
+                            myid="check_cara"
+                        />
+                        <div>
+                            Tutup Episode Kehamilan
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </details>
+
+        <!-- Status Obstetri -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Kondisi Pasien / Status Obstetri</h6>
+            </summary>
+
+            <div class="accordion-content tw:lg:grid-cols-4">
+                <div class="form-field">
+                    <label class="field-title" for="obs_gravida">
+                        Gravida
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="obs_gravida"
+                            name="obs_gravida"
+                            myid="check_cara"
+                            placeholder="gravida"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="obs_partus">
+                        Partus
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="obs_partus"
+                            name="obs_partus"
+                            myid="check_cara"
+                            placeholder="partus"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="obs_abortus">
+                        Abortus
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="obs_abortus"
+                            name="obs_abortus"
+                            myid="check_cara"
+                            placeholder="abortus"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1 tw:col-span-2">
+                    <label class="field-title" for="eoc_hpht">
+                        Tanggal Hari Pertama Haid Terakhir (HPHT)
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="eoc_hpht"
+                            name="eoc_hpht"
+                            type="date"
+                            myid="check_cara"
+                            required
+                        />
+                        <div class="input-label">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="eoc_hpl">
+                        Tanggal Perikaraan Lahir (HPL)
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="eoc_hpl"
+                            name="eoc_hpl"
+                            type="date"
+                            myid="check_cara"
+                            readonly
+                        />
+                        <div class="input-label">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="form-field">
+                    <label class="field-title" for="pre_weight">
+                        Berat Badan Sebelum Hamil
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="pre_weight"
+                            name="pre_weight"
+                            myid="check_cara"
+                            class="datepicker"
+                        />
+                        <div class="input-label">
+                            Kg
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pre_height">
+                        Tinggi Badan
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="pre_height"
+                            name="pre_height"
+                            myid="check_cara"
+                            class="datepicker"
+                        />
+                        <div class="input-label">
+                            CM
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pre_imt">
+                        IMT (Indeks Massa Tubuh) Sebelum Hamil
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="pre_imt"
+                            name="pre_imt"
+                            myid="check_cara"
+                            class="datepicker"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pre_weight_gain">
+                        Target Kenaikkan Berat Badan
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="pre_weight_gain"
+                            name="pre_weight_gain"
+                            myid="check_cara"
+                            class="datepicker"
+                        />
+                        <div class="input-label">
+                            Kg
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="obs_pregnancy_range">
+                        Jarak Kehamilan dengan Kehamilan Sebelumnya
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="obs_pregnancy_range"
+                            name="obs_pregnancy_range"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                        <span class="input-label">Bulan</span>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Riwayat Penyakit &amp; Resiko -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Riwayat Penyakit &amp; Resiko</h6>
+            </summary>
+
+            <!-- TODO -->
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="risk_smoker">
+                        Merokok
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input
+                        id="risk_smoker_disp"
+                        name="risk_smoker_disp"
+                        myid="check_cara"
+                        type="hidden"
+                    />
+                    <div class="field-input">
+                        <select
+                            id="risk_smoker"
+                            name="risk_smoker"
+                            myid="check_cara"
+                            data-display="risk_smoker_disp"
+                        >
+                            <option value="8392000" data-display="Non Smoker" selected>Tidak Merokok</option>
+                            <option value="43381005" data-display="Passive Smoker">Passive</option>
+                            <option value="77176002" data-display="Smoker">Aktif</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="risk_alcoholic">
+                        Konsumsi Alkohol
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input
+                        id="risk_alcoholic_disp"
+                        name="risk_alcoholic_disp"
+                        myid="check_cara"
+                        type="hidden"
+                    />
+                    <div class="field-input">
+                        <select
+                            id="risk_alcoholic"
+                            name="risk_alcoholic"
+                            myid="check_cara"
+                            data-display="risk_alcoholic_disp"
+                        >
+                            <option value="105542008" data-display="Non - drinker" selected>Tidak</option>
+                            <option value="219006" data-display="Current drinker">Ya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title">
+                        Komplikasi/Penyulit Kehamilan
+                        <span class="field-desc">Condition</span>
+                    </label>
+
+                    <!--<textarea
+                        id="risk_comp_pregnancy"
+                        name="risk_comp_pregnancy"
+                        myid="check_cara"
+                        style="display: none !important;"
+                    ></textarea>-->
+                    <div id="risk_comp_pregnancy" class="field-input-list">
+                        TODO
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="risk_comp_pregnancy">
+                        Riwayat Penyakit Keluarga
+                        <span class="field-desc">Condition</span>
+                    </label>
+
+                    <!--<textarea
+                        id="risk_comp_pregnancy"
+                        name="risk_comp_pregnancy"
+                        myid="check_cara"
+                        type="text"
+                        required
+                    ></textarea>-->
+                    <div id="risk_comp_heretary" class="field-input-list">
+                        TODO
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Pemeriksaan Ibu -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Pemeriksaan Ibu</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-4">
+                <div class="form-field">
+                    <label class="field-title">
+                        Golongan Darah / Rhesus
+                    </label>
+
+                    <div class="field-input bordered">
+                        <!--<div class="input-label">Gol. Darah</div>-->
+                        <select
+                            id="ttv_bt"
+                            name="ttv_bt"
+                            myid="check_cara"
+                        >
+                            <option value="o" selected>O</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="ab">AB</option>
+                        </select>
+
+                        <!--<div class="input-label">Rhesus</div>-->
+                        <select
+                            id="ttv_bt_rhesus"
+                            name="ttv_bt_rhesus"
+                            myid="check_cara"
+                            class="tw:grow-0! tw:bg-primary tw:text-primary-foreground!"
+                        >
+                            <option value="+" selected>positif (+)</option>
+                            <option value="-">negatif (-)</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="accordion-content tw:grid-cols-4">
+                <div class="accordion-title tw:col-span-4">
+                    Pemeriksaan Ibu
+                </div>
+
+                <p class="tw:text-gray-500 tw:text-lg tw:col-span-4">
+                    <!--<span class="tw:text-red-600">*</span>-->
+                    Dimohon untuk mengisi data TTV terlebih dahulu pada halaman SOAP, jika input dibawah belum terisi,
+                    terkecuali untuk input <code>Tinggi Fundus</code>
+                </p>
+
+                <div class="form-field tw:col-start-1 tw:col-span-2">
+                    <label class="field-title" for="ttv_bp_systolic">
+                        Tekanan Darah (Sistolik / Diastolik)
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+
+                    <div class="field-control  tw:grid-cols-2">
+                        <div class="field-input">
+                            <input
+                                id="ttv_bp_systolic"
+                                name="ttv_bp_systolic"
+                                myid="check_cara"
+                                placeholder="systolic"
+                                inputmode="numeric"
+                                required
+                                readonly
+                            />
+                        </div>
+                        <div class="field-input">
+                            <input
+                                id="ttv_bp_diastolic"
+                                name="ttv_bp_diastolic"
+                                myid="check_cara"
+                                placeholder="diastolic"
+                                inputmode="numeric"
+                                required
+                                readonly
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="ttv_temp">
+                        Suhu
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <!--<div class="input-label">Ke-</div>-->
+                        <input
+                            id="ttv_temp"
+                            name="ttv_temp"
+                            myid="check_cara"
+                            placeholder="temperature"
+                            inputmode="numeric"
+                            required
+                            readonly
+                        />
+                        <div class="input-label">
+                            &deg;C
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="ttv_pulse">
+                        Nadi
+                        <span class="field-desc">Observation</span>
+                    </label>
+                    <div class="field-input">
+                        <input
+                            id="ttv_pulse"
+                            name="ttv_pulse"
+                            myid="check_cara"
+                            placeholder="nadi"
+                            inputmode="numeric"
+                            required
+                            readonly
+                        />
+                        <div class="input-label">
+                            bpm
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="ttv_weight">
+                        Berat Badan
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="ttv_weight"
+                            name="ttv_weight"
+                            myid="check_cara"
+                            placeholder="berat badan"
+                            inputmode="numeric"
+                            required
+                            readonly
+                        />
+                        <div class="input-label">Kg</div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="ttv_height">
+                        Tinggi Badan
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="ttv_height"
+                            name="ttv_height"
+                            myid="check_cara"
+                            placeholder="tinggi badan"
+                            inputmode="numeric"
+                            readonly
+                            required
+                        />
+                        <div class="input-label">Cm</div>
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="ttv_bmi">
+                        Indeks Massa Tubuh (IMT)
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="ttv_bmi"
+                            name="ttv_bmi"
+                            myid="check_cara"
+                            placeholder="IMT"
+                            readonly
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-4">
+                    <label class="field-title" for="ttv_bb_increase">
+                        Target Kenaikan BB
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">'
+                        <input id="ttv_bb_increase_disp" name="ttv_bb_increase_disp" myid="check_cara" type="hidden" />
+                        <select
+                            id="ttv_bb_increase"
+                            name="ttv_bb_increase"
+                            myid="check_cara"
+                            aria-readonly="true"
+                            data-display="ttv_bb_increase_disp"
+                            required
+                        >
+                            <option value=""></option>
+                            <option value="OV000008" data-display="5-9 kg">IMT Sebelum Hamil &gt;= 30 (Obesitas)</option>
+                            <option value="OV000009" data-display="7-11 kg">IMT Sebelum Hamil 25,0 - 29,9 (Gemuk)</option>
+                            <option value="OV000010" data-display="11.5-16 kg">IMT Sebelum Hamil 18,5 - 24,9 (Normal)</option>
+                            <option value="OV000011" data-display="12.5-18 kg">IMT Sebelum Hamil &lt 18 (Kurus)</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-field tw:col-start-1 tw:col-span-2">
+                    <label class="field-title" for="ttv_fundus">
+                        Tinggi Fundus
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="ttv_fundus"
+                            name="ttv_fundus"
+                            myid="check_cara"
+                            placeholder="tinggi fundus"
+                            inputmode="numeric"
+                            required
+                        />
+                        <div class="input-label">Cm</div>
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="ttv_lila">
+                        LILA
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <!--<div class="field-control tw:grid-cols-2">-->
+                    <div class="field-input">
+                        <input
+                            id="ttv_lila"
+                            name="ttv_lila"
+                            myid="check_cara"
+                            placeholder="lila"
+                            inputmode="numeric"
+                            readonly
+                            required
+                        />
+                        <div class="input-label">Cm</div>
+                        <select
+                            id="ttv_lila_intrp"
+                            name="ttv_lila_intrp"
+                            myid="check_cara"
+                            aria-readonly="true"
+                            tabindex="-1"
+                        >
+                            <option value="" selected></option>
+                            <option
+                                value="OI000018"
+                                data-display="Kurang Energi Kronis (KEK)"
+                            >
+                                Kurang Energi Kronis (&lt 23 cm)
+                            </option>
+                            <option
+                                value="OI000035"
+                                data-display="LiLA 23 - <23,5 cm"
+                            >
+                                Risiko Kurang Energi Kronis (&lt 23,5 cm)
+                            </option>
+                            <option value="N" data-display="Normal">
+                                Normal (&gt 23,5)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-content">
+                <div class="accordion-title">
+                    Makanan Tambahan (MT)
+                </div>
+                <fieldset name="fs_mt" class="tw:contents">
+                    <div class="form-field  field-checkbox">
+                        <label class="field-title" for="qs_q1s1">
+                            <input
+                                id="qs_q1s1"
+                                name="quesioner[q1][s2]"
+                                myid="check_cara"
+                                type="checkbox"
+                            />
+                            <div>
+                                Mendapatkan Tambahan MT <span class="tw:text-gray-500">(LILA &lt; 23,5 Cm)</span>
+                                <span class="field-desc">
+                                    Observation
+                                </span>
+                            </div>
+                        </label>
+
+                        <!--<div class="field-input">
+                            <select
+                                id="qs_q1s1"
+                                name="qs_q1s1"
+                                myid="check_cara"
+                            >
+                                <option value="off" selected>Tidak</option>
+                                <option value="on">Ya</option>
+                            </select>
+                        </div>-->
+                    </div>
+
+                    <div class="form-field">
+                        <label class="field-title" for="qs_q1s2">
+                            Jenis Makanan Tambahan
+                            <span class="field-desc">
+                                Observation
+                            </span>
+                        </label>
+
+                        <div class="field-input">
+                            <select
+                                id="qs_q1s2"
+                                name="quesioner[q1][s2]"
+                                myid="check_cara"
+                            >
+                                <option value="FO000001" data-display="MT Lokal">
+                                    MT Lokal
+                                </option>
+                                <option value="FO000002" data-display="MT Pabrik">
+                                    MT Pabrik
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    Pemeriksaan Fisik
+                </div>
+
+                <div class="form-field">
+                    <label class="field-title" for="pc_konjungtiva">
+                        Konjungtiva
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <input id="pc_konjungtiva_disp" name="pc_konjungtiva_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_konjungtiva"
+                            name="pc_konjungtiva"
+                            myid="check_cara"
+                            data-display="pc_konjungtiva_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_sklera">
+                        Sklera
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <select
+                            id="pc_sklera"
+                            name="pc_sklera"
+                            myid="check_cara"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_neck">
+                        Leher
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input
+                        id="pc_neck_disp"
+                        name="pc_neck_disp"
+                        myid="check_cara"
+                        type="hidden"
+                    />
+                    <div class="field-input">
+                        <select
+                            id="pc_neck"
+                            name="pc_neck"
+                            myid="check_cara"
+                            data-display="pc_neck_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_mouth">
+                        Gigi &amp; Mulut
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pc_mouth_disp" name="pc_mouth_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_mouth"
+                            name="pc_mouth"
+                            myid="check_cara"
+                            data-display="pc_mouth_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_tht">
+                        THT
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pc_tht_disp" name="pc_tht_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_tht"
+                            name="pc_tht"
+                            myid="check_cara"
+                            data-display="pc_tht_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_heart">
+                        Dada (Jantung)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pc_heart_disp" name="pc_heart_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_heart"
+                            name="pc_heart"
+                            myid="check_cara"
+                            data-display="pc_heart_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_stomach">
+                        Perut
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pc_stomach_disp" name="pc_stomach_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_stomach"
+                            name="pc_stomach"
+                            myid="check_cara"
+                            data-display="pc_stomach_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="pc_legs">
+                        Tungkai (Kaki)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pc_legs_disp" name="pc_legs_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="pc_legs"
+                            name="pc_legs"
+                            myid="check_cara"
+                            data-display="pc_legs_disp"
+                        >
+                            <option value="N" data-display="Normal" selected>[N] Normal</option>
+                            <option value="A" data-display="Abnormal">[A] Tidak Normal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Pemeriksaan Janin -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Pemeriksaan Janin</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <!--<div class="accordion-title tw:col-span-2">
+                    Pemeriksaan Janin
+                </div>-->
+
+                <pre id="fetus-values-raw" class="tw:col-span-2 tw:hidden!"></pre>
+                <div class="form-field required">
+                    <label class="field-title" for="fetus_count">
+                        Jumlah Janin
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="fetus_count"
+                            name="fetus_count"
+                            myid="check_cara"
+                            type="text"
+                            inputmode="numeric"
+                            readonly
+                            min="0"
+                        />
+                        <button
+                            type="button"
+                            id="add-fetus"
+                            class="input-label tw:w-24!"
+                            title="Tambah Jumlah Janin"
+                        >
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                            <span class="sr-only">Tambah Janin</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="fetus-additional-form" class="form-subforms tw:col-span-2"></div>
+            </div>
+        </details>
+
+        <!-- Pemeriksaan USG -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <!--<h6>Pelayanan Kehamilan</h6>-->
+                <h6>Pemeriksaan USG</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <!--<div class="accordion-title tw:col-span-2"> Pemeriksaan USG</div>-->
+
+                <div class="form-field">
+                    <label class="field-title" for="usg_gs">
+                        Gestational Age (GS)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_gs"
+                            name="usg_gs"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_crl">
+                        Crown Lump Length (CRL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_crl"
+                            name="usg_crl"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_djj">
+                        Denyut Jantung Janin (DJJ)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_djj"
+                            name="usg_djj"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="usg_age_from">
+                        Usia Kehamilan (USG)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="usg_age" name="usg_age" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <input
+                            id="usg_age_from"
+                            name="usg_age_from"
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="from"
+                            required
+                            data-range-median="usg_age"
+                        />
+                        <div class="input-label">&Gt;</div>
+                        <input
+                            id="usg_age_to"
+                            name="usg_age_to"
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="to"
+                            required
+                            data-range-median="usg_age"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_hpl">
+                        Hari Perkiraan Lahir (USG)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_hpl"
+                            name="usg_hpl"
+                            myid="check_cara"
+                            class="datepicker"
+                            type="date"
+                            required
+                        />
+                        <div class="input-label">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_position">
+                        Letak Janin
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="usg_posistion_disp" name="usg_pos_disp" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="usg_position"
+                            name="usg_position"
+                            myid="check_cara"
+                            required
+                        >
+                            <option value="398236008" data-display="Intrauterine">Intrauteri</option>
+                            <option value="298109001" data-display="Ectopic">Ekstrauteri</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="field-title" for="usg_bpd">
+                        Biparietal Diameter (BPD)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_bpd"
+                            name="usg_bpd"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_hc">
+                        Head Circumference (HC)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_hc"
+                            name="usg_hc"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_fl">
+                        Femur Length (FL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_fl"
+                            name="usg_fl"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_ac">
+                        Abdominal Circumference (AC)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_ac"
+                            name="usg_ac"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_weigth">
+                        Berat Janin (USG)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_weight"
+                            name="usg_weight"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </details>
+
+        <!-- Pemantauan & Pendampingan -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Pemantauan &amp; Pendampingan</h6>
+            </summary>
+
+            <div class="accordion-content tw:gap-1!">
+                <!--<div class="accordion-title tw:mb-3">
+                    Pemantauan &amp; Pendampingan
+                </div>-->
+
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q2s1"
+                            name="quesioneir[q2][s1]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Terlalu muda (kehamilan di bawah 21 tahun)
+                            <span class="field-desc">QuestionnaireResponse (2.1)</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q2s2"
+                            name="quesioneir[q2][s2]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Terlalu rapat jarak kelahiran (&lt; 2 tahun)
+                            <span class="field-desc">QuestionnaireResponse (2.2)</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q2s1"
+                            name="quesioneir[q2][s3]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Terlalu tua (kehamilan di atas 35 tahun)
+                            <span class="field-desc">QuestionnaireResponse (2.3)</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q2s1"
+                            name="quesioneir[q2][s3]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Terlalu sering melahirkan (anak &gt 3)
+                            <span class="field-desc">QuestionnaireResponse (2.4)</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </details>
+
+        <!-- Pemeriksaan 10T -->
+        <details class="accordion" open>
+            <summary class="accordion-title">
+                <h6>Pemeriksaan 10T</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <!--<div class="accordion-title tw:col-span-2"> </div>-->
+
+                <div class="form-field">
+                    <label class="field-title" for="10t_hiv_disp">
+                        Skrining PPIA HIV
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_hiv_disp" name="10t_hiv_disp" type="hidden" myid="check_cara" />
+                    <!--<div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_hiv_outside">
+                            <input type="checkbox" id="10t_hiv_outside" name="10t_hiv_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>-->
+                    <div class="field-input">
+                        <select
+                            id="10t_hiv"
+                            name="10t_hiv"
+                            myid="check_cara"
+                            required
+                            data-display="10t_hiv_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_rpr">
+                        Skrining PPIA HIV (RPR)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_rpr_disp" name="10t_rpr_disp" type="hidden" myid="check_cara" />
+                    <!--<div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_rpr_outside">
+                            <input type="checkbox" id="10t_rpr_outside" name="10t_rpr_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>-->
+                    <div class="field-input">
+                        <select
+                            id="10t_rpr"
+                            name="10t_rpr"
+                            myid="check_cara"
+                            required
+                            data-display="10t_rpr_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_vdrl">
+                        Skrining PPIA Sifilis (VDRL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_vdrl_disp" name="10t_vdrl_disp" type="hidden" myid="check_cara" />
+                    <!--<div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_vdrl_outside">
+                            <input type="checkbox" id="10t_vdrl_outside" name="10t_vdrl_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>-->
+                    <div class="field-input">
+                        <select
+                            id="10t_vdrl"
+                            name="10t_vdrl"
+                            myid="check_cara"
+                            required
+                            data-display="10t_vdrl_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_hepatb">
+                        Skrining PPIA Hepatitis B
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_hepatb_disp" name="10t_hepatb_disp" type="hidden" myid="check_cara" />
+                    <!--<div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_hepatb_outside">
+                            <input type="checkbox" id="10t_hepatb_outside" name="10t_hepatb_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>-->
+                    <div class="field-input">
+                        <select
+                            id="10t_hepatb"
+                            name="10t_hepatb"
+                            myid="check_cara"
+                            required
+                            data-display="10t_hepatb_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1 tw:col-span-2">
+                    <label class="field-title" for="10t_hemoglobin">
+                        Hemoglobin
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="10t_hemoglobin"
+                            name="10t_hemoglobin"
+                            myid="check_cara"
+                            class="datepicker"
+                            required
+                        />
+                        <div class="input-label">g/dL</div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_bs">
+                        Gula Darah
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="10t_bs"
+                            name="10t_bs"
+                            myid="check_cara"
+                            class="datepicker"
+                            required
+                        />
+                        <div class="input-label">mg/dL</div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_urine">
+                        Protein Urin
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <select
+                            id="10t_urine"
+                            name="10t_urine"
+                            myid="check_cara"
+                            required
+                        >
+                            <option value="0" selected>Negatif (0)</option>
+                            <option value="30">+</option>
+                            <option value="100">++</option>
+                            <option value="300">+++</option>
+                            <option value="1000">++++</option>
+                        </select>
+                        <!--<div class="input-label">mg/dL</div>-->
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Konseling / Edukasi -->
+        <details class="accordion">
+            <summary class="accordion-title">
+                <h6>Konseling / Edukasi</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-3">
+                <div class="accordion-title tw:col-span-3 tw:mb-3">
+                    Lainnya
+                </div>
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q3s1"
+                            name="quesioneir[q3][s1]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Disabilitas
+                            <span class="field-desc">QuestionnaireResponse (3.1)</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-field  field-checkbox">
+                    <label class="field-title">
+                        <input
+                            id="qs_q3s2"
+                            name="quesioneir[q3][s2]"
+                            myid="check_cara"
+                            type="checkbox"
+                        />
+                        <div>
+                            Mengikuti kelas Ibu Hamil ?
+                            <span class="field-desc">QuestionnaireResponse (3.2)</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="accordion-content tw:grid-cols-2 tw:gap-1!">
+                <div class="accordion-title tw:col-span-2 tw:mb-3">
+                    Diberikan Edukasi ?
+                    <span class="accordion-desc">Procedure</span>
+                </div>
+
+                <div class="form-field  field-checkbox tw:col-span-2">
+                    <label class="field-title">
+                        <input
+                            id="consul-1"
+                            name="consul[]"
+                            myid="check_cara"
+                            type="checkbox"
+                            value="409073007"
+                        />
+                        Tidak diberikan konseling / edukasi
+                    </label>
+                </div>
+                <fieldset name="educations" class="tw:contents">
+                    <div class="form-field  field-checkbox">
+                        <label class="field-title" for="consul-2">
+                            <input
+                                id="consul-2"
+                                name="consul[]"
+                                myid="check_cara"
+                                type="checkbox"
+                                value="61310001"
+                            />
+                            Edukasi Gizi
+                        </label>
+                    </div>
+                    <div class="form-field  field-checkbox">
+                        <label class="field-title">
+                            <input
+                                id="consul-3"
+                                name="consul[]"
+                                myid="check_cara"
+                                type="checkbox"
+                                value="ED000009"
+                            />
+                            Edukasi IMD &amp; ASI Eksklusif
+                        </label>
+                    </div>
+                    <div class="form-field  field-checkbox">
+                        <label class="field-title">
+                            <input
+                                type="checkbox"
+                                id="consul-4"
+                                name="consul[]"
+                                myid="check_cara"
+                                value="ED000010"
+                            />
+                            Edukasi PHBS
+                        </label>
+                    </div>
+                    <div class="form-field  field-checkbox">
+                        <label class="field-title">
+                            <input
+                                type="checkbox"
+                                id="consul-5"
+                                name="consul[]"
+                                myid="check_cara"
+                                value="ED000011"
+                            />
+                            Edukasi KB pasca salin
+                        </label>
+                    </div>
+                    <div class="form-field  field- field-checkbox">
+                        <label class="field-title">
+                            <input
+                                type="checkbox"
+                                id="consul-6"
+                                name="consul[]"
+                                myid="check_cara"
+                                value="ED000012"
+                            />
+                            Edukasi lainnya
+                        </label>
+                    </div>
+
+                    <div class="form-field  field- field-checkbox tw:col-span-2">
+                        <label class="field-title">
+                            <input
+                                id="consul-7"
+                                name="consul[]"
+                                myid="check_cara"
+                                type="checkbox"
+                                value="ED000008"
+                            />
+                            Edukasi tanda Bahaya Kehamilan, Bersalin, &amp; Nifas
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+        </details>
+    </main>
+</form>

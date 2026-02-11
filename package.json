@@ -6,8 +6,10 @@
     "scripts": {
         "form": "node ./scripts",
         "watch": "vite build -w",
-        "anc:build": "npx @tailwindcss/cli --cwd ./forms/anc -o ../../dist/forms/anc/index.css -i index.css --minify",
-        "anc:watch": "npm run anc:build -- -w",
+        "anc:b": "npx @tailwindcss/cli --cwd ./forms/anc -o ../../dist/forms/anc/index.css -i index.css --minify",
+        "anc:w": "npm run anc:b -- -w",
+        "anc2:b": "npx @tailwindcss/cli --cwd ./forms/anc2 -o ../../dist/forms/anc2/index.css -i index.css --minify",
+        "anc2:w": "npm run anc2:b -- -w",
         "inc:build": "npx @tailwindcss/cli --cwd ./forms/inc -o ../../dist/forms/inc/index.css -i index.css --minify",
         "inc:watch": "npm run inc:build -- -w",
         "imunisasi:b": "npx @tailwindcss/cli --cwd ./forms/imunisasi -o ../../dist/forms/imunisasi/index.css -i index.css --minify",
@@ -26,5 +28,8 @@
         "vite": "^7.2.0",
         "vite-plugin-singlefile": "^2.3.0",
         "yaml": "^2.8.1"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.5.33"
     }
 }
