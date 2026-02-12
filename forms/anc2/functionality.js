@@ -292,26 +292,6 @@ const AntenatalCare = window.AntenatalCare = (() => {
         return isUnresolved(tmpl, name) ? defal : JSON.parse(tmpl);
     };
 
-    // const nestedObject = {
-    //     quisioner: {
-    //         q1: {
-    //             s1: "on",
-    //             s2: "off"
-    //         },
-    //         q2: {
-    //             s1: "on",
-    //             s3: "off"
-    //         }
-    //     }
-    // }
-
-    // const targetObject = {
-    //     "quisioner[q1][s1]": "on",
-    //     "quisioner[q1][s2]": "off",
-    //     "quisioner[q2][s1]": "on",
-    //     "quisioner[q2][s3]": "off",
-    // }
-
     function flattenToInlineKeys(obj, parentKey = "", out = {}) {
         for (const [key, value] of Object.entries(obj)) {
             const nextKey = parentKey
@@ -344,7 +324,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
     const PREFILL_FETUS = resolve(`{ANC_PREFILL_FETUS}`, "ANC_PREFILL_FETUS", []);
 
     const FILLED = resolve(`{MYJSON}`, "MYJSON");
-    console.log({ PREFILL, FILLED });
+    console.log({ PREFILL, PREFILL_FETUS, FILLED });
 
     /**
      *
@@ -680,7 +660,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
     }
 
     function prefills(root) {
-        if (Object.keys(FILLED) < 1)
+        if (Object.keys(FILLED).length > 0)
             return;
 
         const set = (name, value) => {
@@ -688,6 +668,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
             if (!(elm = root.elements[name])) return;
 
             try {
+                console.log("set %s =", name, value);
                 elm.value = value;
                 elm.dispatchEvent(new Event("change"));
             } catch (error) {
@@ -739,6 +720,6 @@ $(document).ready(function () {
     const root = document.getElementById("anc-form");
     setTimeout(() => {
         AntenatalCare.init(root);
-        // $(root).find("details").prop("open", true);
+        $(root).find("details").prop("open", true);
     }, 100);
 });

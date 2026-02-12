@@ -1,7 +1,10 @@
 <script>
-/**
- *
- */
+    /**
+    * Antenatal Care - Tera Form Builder
+    *
+    * Diperlukan tambahan context pada data table askep_list
+    *
+    */
 </script>
 
 {{ .Stylesheet }}
@@ -42,8 +45,8 @@
                         <input
                             id="eoc_visite"
                             name="eoc_visite"
+                            type="text"
                             myid="check_cara"
-                            type="rel"
                             inputmode="numeric"
                             placeholder="ke-..."
                             required
@@ -125,6 +128,7 @@
                             id="eoc_trimester"
                             name="eoc_trimester"
                             myid="check_cara"
+                            type="text"
                             placeholder="trimester ke..."
                             readonly
                         />
@@ -258,84 +262,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!--<div class="form-field">
-                    <label class="field-title" for="pre_weight">
-                        Berat Badan Sebelum Hamil
-                        <span class="field-desc">
-                            Observation
-                        </span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="pre_weight"
-                            name="pre_weight"
-                            myid="check_cara"
-                            class="datepicker"
-                        />
-                        <div class="input-label">
-                            Kg
-                        </div>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="pre_height">
-                        Tinggi Badan
-                        <span class="field-desc">
-                            Observation
-                        </span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="pre_height"
-                            name="pre_height"
-                            myid="check_cara"
-                            class="datepicker"
-                        />
-                        <div class="input-label">
-                            CM
-                        </div>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="pre_imt">
-                        IMT (Indeks Massa Tubuh) Sebelum Hamil
-                        <span class="field-desc">
-                            Observation
-                        </span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="pre_imt"
-                            name="pre_imt"
-                            myid="check_cara"
-                            class="datepicker"
-                        />
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="pre_weight_gain">
-                        Target Kenaikkan Berat Badan
-                        <span class="field-desc">
-                            Observation
-                        </span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="pre_weight_gain"
-                            name="pre_weight_gain"
-                            myid="check_cara"
-                            class="datepicker"
-                        />
-                        <div class="input-label">
-                            Kg
-                        </div>
-                    </div>
-                </div>-->
 
                 <div class="form-field tw:col-span-2">
                     <label class="field-title" for="obs_pregnancy_range">
@@ -1016,54 +942,6 @@
                 <!--<div class="accordion-title tw:col-span-2"> Pemeriksaan USG</div>-->
 
                 <div class="form-field">
-                    <label class="field-title" for="usg_gs">
-                        Gestational Age (GS)
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="usg_gs"
-                            name="usg_gs"
-                            myid="check_cara"
-                            inputmode="numeric"
-                            required
-                        />
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="usg_crl">
-                        Crown Lump Length (CRL)
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="usg_crl"
-                            name="usg_crl"
-                            myid="check_cara"
-                            inputmode="numeric"
-                            required
-                        />
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="usg_djj">
-                        Denyut Jantung Janin (DJJ)
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <div class="field-input">
-                        <input
-                            id="usg_djj"
-                            name="usg_djj"
-                            myid="check_cara"
-                            inputmode="numeric"
-                        />
-                    </div>
-                </div>
-
-                <div class="form-field tw:col-start-1">
                     <label class="field-title" for="usg_age_from">
                         Usia Kehamilan (USG)
                         <span class="field-desc">Observation</span>
@@ -1132,6 +1010,52 @@
                     </div>
                 </div>
 
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="usg_gs">
+                        Gestational Sac (GS)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_gs"
+                            name="usg_gs"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_crl">
+                        Crown Lump Length (CRL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_crl"
+                            name="usg_crl"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="usg_djj">
+                        Denyut Jantung Janin (DJJ)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="usg_djj"
+                            name="usg_djj"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+
                 <div class="form-field">
                     <label class="field-title" for="usg_bpd">
                         Biparietal Diameter (BPD)
@@ -1144,7 +1068,6 @@
                             name="usg_bpd"
                             myid="check_cara"
                             inputmode="numeric"
-                            required
                         />
                     </div>
                 </div>
@@ -1160,7 +1083,6 @@
                             name="usg_hc"
                             myid="check_cara"
                             inputmode="numeric"
-                            required
                         />
                     </div>
                 </div>
@@ -1176,7 +1098,6 @@
                             name="usg_fl"
                             myid="check_cara"
                             inputmode="numeric"
-                            required
                         />
                     </div>
                 </div>
@@ -1192,13 +1113,12 @@
                             name="usg_ac"
                             myid="check_cara"
                             inputmode="numeric"
-                            required
                         />
                     </div>
                 </div>
                 <div class="form-field">
                     <label class="field-title" for="usg_weigth">
-                        Berat Janin (USG)
+                        Berat Janin
                         <span class="field-desc">Observation</span>
                     </label>
 
@@ -1291,127 +1211,8 @@
                 <h6>Pemeriksaan 10T</h6>
             </summary>
 
-            <div class="accordion-content tw:grid-cols-2">
-                <!--<div class="accordion-title tw:col-span-2"> </div>-->
-
+            <div class="accordion-content tw:grid-cols-3">
                 <div class="form-field">
-                    <label class="field-title" for="10t_hiv_disp">
-                        Skrining PPIA HIV
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <input id="10t_hiv_disp" name="10t_hiv_disp" type="hidden" myid="check_cara" />
-                    <!--<div class="form-field  field-checkbox">
-                        <label class="fiel-title" for="10t_hiv_outside">
-                            <input type="checkbox" id="10t_hiv_outside" name="10t_hiv_outside" myid="check_cara" />
-                            <span class="tw:text-gray-500">
-                                Dilakukan diluar Rumah Sakit ?
-                            </span>
-                        </label>
-                    </div>-->
-                    <div class="field-input">
-                        <select
-                            id="10t_hiv"
-                            name="10t_hiv"
-                            myid="check_cara"
-                            required
-                            data-display="10t_hiv_disp"
-                        >
-                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
-                            <option value="11214006" data-display="Reactive">Reactive</option>
-                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="10t_rpr">
-                        Skrining PPIA HIV (RPR)
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <input id="10t_rpr_disp" name="10t_rpr_disp" type="hidden" myid="check_cara" />
-                    <!--<div class="form-field  field-checkbox">
-                        <label class="fiel-title" for="10t_rpr_outside">
-                            <input type="checkbox" id="10t_rpr_outside" name="10t_rpr_outside" myid="check_cara" />
-                            <span class="tw:text-gray-500">
-                                Dilakukan diluar Rumah Sakit ?
-                            </span>
-                        </label>
-                    </div>-->
-                    <div class="field-input">
-                        <select
-                            id="10t_rpr"
-                            name="10t_rpr"
-                            myid="check_cara"
-                            required
-                            data-display="10t_rpr_disp"
-                        >
-                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
-                            <option value="11214006" data-display="Reactive">Reactive</option>
-                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="10t_vdrl">
-                        Skrining PPIA Sifilis (VDRL)
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <input id="10t_vdrl_disp" name="10t_vdrl_disp" type="hidden" myid="check_cara" />
-                    <!--<div class="form-field  field-checkbox">
-                        <label class="fiel-title" for="10t_vdrl_outside">
-                            <input type="checkbox" id="10t_vdrl_outside" name="10t_vdrl_outside" myid="check_cara" />
-                            <span class="tw:text-gray-500">
-                                Dilakukan diluar Rumah Sakit ?
-                            </span>
-                        </label>
-                    </div>-->
-                    <div class="field-input">
-                        <select
-                            id="10t_vdrl"
-                            name="10t_vdrl"
-                            myid="check_cara"
-                            required
-                            data-display="10t_vdrl_disp"
-                        >
-                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
-                            <option value="11214006" data-display="Reactive">Reactive</option>
-                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <label class="field-title" for="10t_hepatb">
-                        Skrining PPIA Hepatitis B
-                        <span class="field-desc">Observation</span>
-                    </label>
-
-                    <input id="10t_hepatb_disp" name="10t_hepatb_disp" type="hidden" myid="check_cara" />
-                    <!--<div class="form-field  field-checkbox">
-                        <label class="fiel-title" for="10t_hepatb_outside">
-                            <input type="checkbox" id="10t_hepatb_outside" name="10t_hepatb_outside" myid="check_cara" />
-                            <span class="tw:text-gray-500">
-                                Dilakukan diluar Rumah Sakit ?
-                            </span>
-                        </label>
-                    </div>-->
-                    <div class="field-input">
-                        <select
-                            id="10t_hepatb"
-                            name="10t_hepatb"
-                            myid="check_cara"
-                            required
-                            data-display="10t_hepatb_disp"
-                        >
-                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
-                            <option value="11214006" data-display="Reactive">Reactive</option>
-                            <option value="0" data-display="Reactive">Dilakukan Diluar</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-field tw:col-start-1 tw:col-span-2">
                     <label class="field-title" for="10t_hemoglobin">
                         Hemoglobin
                         <span class="field-desc">Observation</span>
@@ -1465,6 +1266,128 @@
                             <option value="1000">++++</option>
                         </select>
                         <!--<div class="input-label">mg/dL</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    Skrining
+                </div>
+
+                <div class="form-field">
+                    <label class="field-title" for="10t_hiv_disp">
+                        Skrining PPIA HIV
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_hiv_disp" name="10t_hiv_disp" type="hidden" myid="check_cara" />
+                    <div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_hiv_outside">
+                            <input type="checkbox" id="10t_hiv_outside" name="10t_hiv_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field-input">
+                        <select
+                            id="10t_hiv"
+                            name="10t_hiv"
+                            myid="check_cara"
+                            required
+                            data-display="10t_hiv_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <!--<option value="0" data-display="Reactive">Dilakukan Diluar</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_rpr">
+                        Skrining PPIA HIV (RPR)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_rpr_disp" name="10t_rpr_disp" type="hidden" myid="check_cara" />
+                    <div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_rpr_outside">
+                            <input type="checkbox" id="10t_rpr_outside" name="10t_rpr_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field-input">
+                        <select
+                            id="10t_rpr"
+                            name="10t_rpr"
+                            myid="check_cara"
+                            required
+                            data-display="10t_rpr_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <!--<option value="0" data-display="Reactive">Dilakukan Diluar</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_vdrl">
+                        Skrining PPIA Sifilis (VDRL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_vdrl_disp" name="10t_vdrl_disp" type="hidden" myid="check_cara" />
+                    <div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_vdrl_outside">
+                            <input type="checkbox" id="10t_vdrl_outside" name="10t_vdrl_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field-input">
+                        <select
+                            id="10t_vdrl"
+                            name="10t_vdrl"
+                            myid="check_cara"
+                            required
+                            data-display="10t_vdrl_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <!--<option value="0" data-display="Reactive">Dilakukan Diluar</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="10t_hepatb">
+                        Skrining PPIA Hepatitis B
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="10t_hepatb_disp" name="10t_hepatb_disp" type="hidden" myid="check_cara" />
+                    <div class="form-field  field-checkbox">
+                        <label class="fiel-title" for="10t_hepatb_outside">
+                            <input type="checkbox" id="10t_hepatb_outside" name="10t_hepatb_outside" myid="check_cara" />
+                            <span class="tw:text-gray-500">
+                                Dilakukan diluar Rumah Sakit ?
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field-input">
+                        <select
+                            id="10t_hepatb"
+                            name="10t_hepatb"
+                            myid="check_cara"
+                            required
+                            data-display="10t_hepatb_disp"
+                        >
+                            <option value="131194007" data-display="Non-Reactive" selected>Non-Reactive</option>
+                            <option value="11214006" data-display="Reactive">Reactive</option>
+                            <!--<option value="0" data-display="Reactive">Dilakukan Diluar</option>-->
+                        </select>
                     </div>
                 </div>
             </div>
