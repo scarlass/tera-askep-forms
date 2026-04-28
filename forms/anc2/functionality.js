@@ -1,15 +1,3 @@
-/**
- * @typedef FetusElements
- * @property {HTMLElement} root
- * @property {HTMLButtonElement} closer
- * @property {HTMLInputElement} ref
- * @property {HTMLInputElement} pulse
- * @property {HTMLSelectElement} pap_head
- * @property {HTMLInputElement} pap_head_disp
- * @property {HTMLSelectElement} position
- * @property {HTMLInputElement} position_disp
- */
-
 const AntenatalCare = window.AntenatalCare = (() => {
     class FetusForm extends EventTarget {
         #index = 0;
@@ -41,21 +29,36 @@ const AntenatalCare = window.AntenatalCare = (() => {
             return this.#index;
         }
 
+
         set value(v) {
             // this.#value = v;
-            if (!isDefined(v)) {
-
-            } else {
-                for (const k in v) {
-                    this.elements[k].value = v[k];
-                    this.elements[k].dispatchEvent(new Event("change"));
-                }
-            }
+            if (isDefined(v))
+                this.#apply_values(v);
         }
+        /** @type {FetusData} */
         get value() {
             if (!this.elements.root) return {};
             const { root, closer, ...inputs } = this.elements;
-            return Object.fromEntries(Object.keys(inputs).map(k => [k, inputs[k].value]));
+
+            const result = {};
+            for (const elm of Object.values(inputs)) {
+                let parts = elm.name
+                    .replace(`fetus_values[${this.#index}]`, '')
+                    .replace(/\]/g, '')
+                    .split("[").filter(e => !!e);
+
+                let cursor = result;
+                for (let i = 0; i < parts.length; i++) {
+                    if (i === parts.length - 1)
+                        cursor[parts[i]] = elm.value;
+                    else {
+                        cursor[parts[i]] ??= {};
+                        cursor = cursor[parts[i]];
+                    }
+                }
+            }
+
+            return result;
         }
 
         remove() {
@@ -87,6 +90,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
             $(elements.root).find("input,select").each((_, elm) => {
                 const key = elm.id.replace(`${this.#base}-`, '');
                 elements[key] = elm;
+                // elements[elm.name] = elm;
             })
 
             this.#functionalities(elements);
@@ -120,13 +124,37 @@ const AntenatalCare = window.AntenatalCare = (() => {
             }
         }
 
+        #apply_values(source, parentKey = "") {
+            for (const k in source) {
+                const key = [parentKey, k].filter(e => !!e).join("_");
+                // const key = parentKey ? `${parentKey}[${k}]` : k;
+
+                console.log(key, k);
+                const value = source[k];
+                if (jQuery.isPlainObject(value)) {
+                    this.#apply_values(value, key);
+                } else if (this.elements[k]) {
+                    console.log(k, key, this.elements[k]);
+                    this.elements[k].value = value;
+                    this.elements[k].dispatchEvent(new Event("change"));
+                } else if (this.elements[key]) {
+                    console.log(k, key, this.elements[key]);
+                    this.elements[key].value = value;
+                    this.elements[key].dispatchEvent(new Event("change"));
+                }
+            }
+        }
+
         /**
          *
          * @param {FetusElements} elements
          */
         #functionalities(elements) {
             initAttrDataDisplay(elements.pap_head, elements.root);
-            initAttrDataDisplay(elements.position, elements.root);
+            initAttrDataDisplay(elements.presentation, elements.root);
+            initAttrDataMedian(elements.usg_age, elements.root);
+            $("select[data-display]", elements.root)
+                .each((i, e) => initAttrDataDisplay(e, elements.root));
 
             const lst = (e) => {
                 const { name, value } = e.target;
@@ -139,32 +167,60 @@ const AntenatalCare = window.AntenatalCare = (() => {
         }
 
         #template() {
-            const ids = {
-                ref: `${this.#base}-ref`,
-                pulse: `${this.#base}-pulse`,
-                pap_head: `${this.#base}-pap_head`,
-                position: `${this.#base}-position`,
+            const field_names = (...args) => {
+                const id = args.join("_")
+                const name = args.map(e => `[${e}]`).join("");
+
+                return {
+                    id: this.#base + `-${id}`,
+                    name: `fetus_values[${this.#index}]${name}`
+                }
             };
 
-            return $(`<div id="${this.#base}-form" class="form-subfields">
-                <input id="${ids.ref}" name="fetus_values[${this.#index}][ref]" myid="check_cara" type="hidden" value="${this.#base}" />
-                <div class="subfield-title">
+            const names = {
+                ref: field_names('ref'),
+                pulse: field_names('pulse'),
+                pap_head: field_names('pap_head'),
+                pap_head_disp: field_names('pap_head_disp'),
+                presentation: field_names('presentation'),
+                presentation_disp: field_names('presentation_disp'),
+                weight: field_names(`weight`),
+
+                gs: field_names('usg', `gs`),
+                crl: field_names('usg', `crl`),
+                djj: field_names('usg', `djj`),
+                bpd: field_names('usg', 'bpd'),
+                hc: field_names('usg', `hc`),
+                fl: field_names('usg', `fl`),
+                ac: field_names('usg', `ac`),
+                age: field_names('usg', 'age'),
+                age_from: field_names('usg', 'age_from'),
+                age_to: field_names('usg', 'age_to'),
+                hpl: field_names('usg', 'hpl'),
+                position: field_names('usg', 'position'),
+                position_disp: field_names('usg', 'position_disp')
+            };
+
+            return $(`<div id="${this.#base}-form" class="form-subfields tw:grid-cols-2">
+                <input id="${names.ref.id}" name="${names.ref.name}" myid="check_cara" type="hidden" value="${this.#base}" />
+                <div class="subfield-title tw:col-span-2">
                     <label>Data Klinis Janin ${this.#index + 1}</label>
-                    <button type="button" class="subfield-action">
+                    <button type="button" class="subfield-action" title="Hapus Data Klinis Janin ${this.#index + 1}">
                         <i class="glyphicon glyphicon-minus-sign"></i>
                     </button>
                 </div>
 
+                <div class="accordion-title tw:col-span-2"> Janin</div>
                 <div class="form-field">
-                    <label class="field-title" for="${ids.pulse}">
+                    <label class="field-title" for="${names.pulse.id}">
                         Denyut Jantung Janin
                         <span class="field-desc">Observation</span>
                     </label>
 
                     <div class="field-input">
                         <input
-                            id="${ids.pulse}"
-                            name="fetus_values[${this.#index}][pulse]"
+                            id="${names.pulse.id}"
+                            name="${names.pulse.name}"
                             myid="check_cara"
                             type="number"
                             inputmode="numeric"
@@ -174,23 +230,23 @@ const AntenatalCare = window.AntenatalCare = (() => {
                     </div>
                 </div>
                 <div class="form-field">
-                    <label class="field-title" for="${ids.pap_head}">
+                    <label class="field-title" for="${names.pap_head.id}">
                         Kepala Terhadap PAP
                         <span class="field-desc">Observation</span>
                     </label>
 
                     <input
-                        id="${ids.pap_head}_disp"
-                        name="fetus_values[${this.#index}][pap_head_disp]"
+                        id="${names.pap_head_disp.id}"
+                        name="${names.pap_head_disp.name}"
                         myid="check_cara"
                         type="hidden"
                     />
                     <div class="field-input">
                         <select
-                            id="${ids.pap_head}"
-                            name="fetus_values[${this.#index}][pap_head]"
+                            id="${names.pap_head.id}"
+                            name="${names.pap_head.name}"
                             myid="check_cara"
-                            data-display="${ids.pap_head}_disp"
+                            data-display="${names.pap_head_disp.id}"
                             required
                         >
                             <option value="249112006" data-display="Head engaged">
@@ -203,23 +259,23 @@ const AntenatalCare = window.AntenatalCare = (() => {
                     </div>
                 </div>
                 <div class="form-field">
-                    <label class="field-title" for="${ids.position}">
-                        Presentasi/Posisi Janin
+                    <label class="field-title" for="${names.presentation.id}">
+                        Presentasi
                         <span class="field-desc">Observation</span>
                     </label>
 
                     <input
-                        id="${ids.position}_disp"
-                        name="fetus_values[${this.#index}][position_disp]"
+                        id="${names.presentation_disp.id}"
+                        name="${names.presentation_disp.name}"
                         myid="check_cara"
                         type="hidden"
                     />
                     <div class="field-input">
                         <select
-                            id="${ids.position}"
-                            name="fetus_values[${this.#index}][position]"
+                            id="${names.presentation.id}"
+                            name="${names.presentation.name}"
                             myid="check_cara"
-                            data-display="${ids.position}_disp"
+                            data-display="${names.presentation_disp.id}"
                             required
                         >
                             <option value="1209182005" data-display="Cephalic fetal presentation">
@@ -234,7 +290,213 @@ const AntenatalCare = window.AntenatalCare = (() => {
                         </select>
                     </div>
                 </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.weight.id}">
+                        Taksiran Berat Janin
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.weight.id}"
+                            name="${names.weight.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                            required
+                        />
+                        <div class="input-label">gr</div>
+                    </div>
+                </div>
+
+                <div class="accordion-title tw:col-span-2"> USG</div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.age_from.id}">
+                        Usia Kehamilan (USG)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="${names.age.id}" name="${names.age.name}" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <input
+                            id="${names.age_from.id}"
+                            name="${names.age_from.name}"
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="from"
+                            required
+                            data-range-median="${names.age.id}"
+                        />
+                        <div class="input-label">&Gt;</div>
+                        <input
+                            id="${names.age_to.id}"
+                            name="${names.age_to.name}"
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="to"
+                            required
+                            data-range-median="${names.age.id}"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.hpl.id}">
+                        Hari Perkiraan Lahir (USG)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.hpl.id}"
+                            name="${names.hpl.name}"
+                            myid="check_cara"
+                            class="datepicker"
+                            type="date"
+                            required
+                        />
+                        <div class="input-label">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="${names.gs.id}">
+                        Gestational Sac (GS)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.gs.id}"
+                            name="${names.gs.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.crl.id}">
+                        Crown Lump Length (CRL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.crl.id}"
+                            name="${names.crl.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.djj.id}">
+                        Denyut Jantung Janin (DJJ)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.djj.id}"
+                            name="${names.djj.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.bpd.id}">
+                        Biparietal Diameter (BPD)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.bpd.id}"
+                            name="${names.bpd.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.hc.id}">
+                        Head Circumference (HC)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.hc.id}"
+                            name="${names.hc.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.fl.id}">
+                        Femur Length (FL)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.fl.id}"
+                            name="${names.fl.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.ac.id}">
+                        Abdominal Circumference (AC)
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input
+                            id="${names.ac.id}"
+                            name="${names.ac.name}"
+                            myid="check_cara"
+                            inputmode="numeric"
+                        />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="${names.position.id}">
+                        Letak Janin USG
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="${names.position_disp.id}" name="${names.position_disp.name}" myid="check_cara" type="hidden" />
+                    <div class="field-input">
+                        <select
+                            id="${names.position.id}"
+                            name="${names.position.name}"
+                            myid="check_cara"
+                            data-display="${names.position_disp.id}"
+                        >
+                            <option value="398236008" data-display="Intrauterine">Intrauteri</option>
+                            <option value="298109001" data-display="Ectopic">Ekstrauteri</option>
+                        </select>
+                    </div>
+                </div>
             </div>`);
+        }
+    }
+    class ImunizationForm extends EventTarget {
+        #t = 0
+
+        set t(t) {
+            this.#t = t;
+        }
+        get t() {
+            return this.#t;
+        }
+
+        render(parent) {
         }
     }
 
@@ -292,6 +554,28 @@ const AntenatalCare = window.AntenatalCare = (() => {
         return isUnresolved(tmpl, name) ? defal : JSON.parse(tmpl);
     };
 
+    /**
+     * converting nested object to input name
+     * ```js
+     * //example
+     * const source = {
+     *      hpl: '2025-01-01'
+     *      usg: {
+     *          crl: "1"
+     *      }
+     * }
+     *
+     * const output = {
+     *      hpl: '2025-01-01',
+     *      "usg[crl]": "1"
+     * }
+     * ```
+     *
+     * @param {object} obj
+     * @param {string} [parentKey]
+     * @param {object} [out]
+     * @returns
+     */
     function flattenToInlineKeys(obj, parentKey = "", out = {}) {
         for (const [key, value] of Object.entries(obj)) {
             const nextKey = parentKey
@@ -320,11 +604,25 @@ const AntenatalCare = window.AntenatalCare = (() => {
         return out
     }
 
+    function elm_changed(e) {
+        e?.dispatchEvent?.(new Event("change"));
+    }
+
     const PREFILL = resolve(`{ANC_PREFILL}`, "ANC_PREFILL");
     const PREFILL_FETUS = resolve(`{ANC_PREFILL_FETUS}`, "ANC_PREFILL_FETUS", []);
 
+    /** @type {AntenatalComplication[][]} */
+    const COMPLICATIONS = resolve(`{ANC_ICD_COMPLICATIONS}`, 'ANC_ICD_COMPLICATIONS', [])
+        .reduce((p, c) => {
+            for (tr of c.trimester) {
+                p[tr - 1] ??= [];
+                p[tr - 1].push(c);
+            }
+            return p;
+        }, []);
+
     const FILLED = resolve(`{MYJSON}`, "MYJSON");
-    console.log({ PREFILL, PREFILL_FETUS, FILLED });
+    console.log({ PREFILL, PREFILL_FETUS, COMPLICATIONS, FILLED });
 
     /**
      *
@@ -378,12 +676,13 @@ const AntenatalCare = window.AntenatalCare = (() => {
     /**
      *
      * @param  {HTMLInputElement} target
+     * @param  {HTMLElement|JQuery} root
      */
-    function initAttrDataMedian(target) {
+    function initAttrDataMedian(target, root = document) {
         // if (target.dataset.medianStart && target.dataset.medianEnd) {
         //     const { medianStart, medianEnd } = target.dataset;
         // } else {
-        const $inputs = $(`input[data-range-median=${target.id}]`);
+        const $inputs = $(`input[data-range-median="${target.id}"]`, root);
         const fn = () => {
             /** @type {HTMLInputElement[]} */
             const arr = $inputs.toArray();
@@ -456,6 +755,16 @@ const AntenatalCare = window.AntenatalCare = (() => {
      * @param {HTMLFormElement} root
      */
     function initEocTrimester(root) {
+        let complication_options = [];
+        const complication = root.elements.risk_comp_pregnancy;
+        const complication_config = () => ({
+            width: "100%",
+            data: complication_options,
+            // dropdownParent: $("#risk_comp_pregnancy-dropdown")
+        });
+
+        $(complication).select2(complication_config());
+
         const trimester = root.elements.eoc_trimester;
         const [from, to, median] = [
             root.elements.gst_age_from,
@@ -478,12 +787,32 @@ const AntenatalCare = window.AntenatalCare = (() => {
             else trimester_ret = 3;
 
             trimester.value = String(trimester_ret);
+            elm_changed(trimester);
+            // trimester.dispatchEvent(new )
         }
+
+        trimester.addEventListener("change", function () {
+            const target = +trimester.value;
+            if (Number.isNaN(target))
+                complication_options = [];
+            else
+                complication_options = COMPLICATIONS[target - 1];
+
+            console.log("trimester changed", target, complication_options);
+
+            const $comp = $(complication);
+
+            $comp.val("");
+            $comp.html("");
+            $comp.select2(complication_config());
+        });
 
         for (const e of ["change", "input"]) {
             from.addEventListener(e, lst);
             to.addEventListener(e, lst);
         }
+
+        elm_changed(trimester);
     }
 
     /**
@@ -503,20 +832,20 @@ const AntenatalCare = window.AntenatalCare = (() => {
         const forms = [];
 
         /** @type {HTMLElement} */
-        const container = $(root).find("#fetus-additional-form").get(0);
+        const container = $("#fetus-additional-form", root).get(0);
 
         /** @type {HTMLButtonElement} */
-        const addbtn = $(root).find("#add-fetus").get(0);
+        const addbtn = $("#add-fetus", root).get(0);
 
         /** @type {HTMLInputElement} */
-        const countinp = $(root).find("#fetus_count").get(0);
+        const countinp = $("#fetus_count", root).get(0);
         const updateCounter = () => {
             countinp.value = String(forms.length);
             countinp.dispatchEvent(new Event("change"));
         };
         countinp.addEventListener("change", () => updatePreview());
 
-        const $preview = $(root).find("#fetus-values-raw");
+        const $preview = $("#fetus-values-raw", root);
         const updatePreview = () => $preview.text(jmarshall(forms.map(e => e.value), 4));
 
         const create_form = (index, base = randomString()) => {
@@ -545,6 +874,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
 
         for (let i = 0; i < values.length; i++) {
             const raw = values[i];
+            console.log(i + 1, raw);
             // const value = flatten[i];
 
             const form = create_form(i, raw.ref);
@@ -659,6 +989,28 @@ const AntenatalCare = window.AntenatalCare = (() => {
         // }
     }
 
+    /**
+     * @param {HTMLFormElement} root
+     */
+    function initImmunization(root) {
+        const recorder = root.elements.imunisasi_record;
+        const outside = root.elements.imunisasi_origin_code;
+        const [t0, ...tothers] = [...root.elements["imunisasi[dosis]"]];
+
+        $(t0).on("change", e => {
+            outside.checked = false;
+            if (outside.disabled = t0.checked)
+                recorder.disabled = true;
+        });
+        $(tothers).on("change", (e) => {
+            const elm = e.target;
+
+            outside.disabled = !elm.checked;
+            recorder.disabled = elm.checked && !outside.checked;
+        });
+        $(outside).on("input", e => $(tothers.filter(e => e.checked)).trigger("change"));
+    }
+
     function prefills(root) {
         if (Object.keys(FILLED).length > 0)
             return;
@@ -668,7 +1020,7 @@ const AntenatalCare = window.AntenatalCare = (() => {
             if (!(elm = root.elements[name])) return;
 
             try {
-                console.log("set %s =", name, value);
+                // console.log("set %s =", name, value);
                 elm.value = value;
                 elm.dispatchEvent(new Event("change"));
             } catch (error) {
@@ -684,6 +1036,8 @@ const AntenatalCare = window.AntenatalCare = (() => {
             fetus_values,
             ...others
         } = PREFILL;
+
+
 
         set("eoc_visite", (eoc_ended ? 0 : eoc_visite) + 1);
         set("eoc_hpht", eoc_hpht);
@@ -707,8 +1061,9 @@ const AntenatalCare = window.AntenatalCare = (() => {
             initQuisioneir(root);
             initImt(root);
             initLila(root);
+            initImmunization(root);
 
-            initAttrDataMedian(root.elements.usg_age);
+            // initAttrDataMedian(root.elements.usg_age);
             initAttrDataMedian(root.elements.gst_age);
 
             prefills(root);
@@ -716,10 +1071,20 @@ const AntenatalCare = window.AntenatalCare = (() => {
     };
 })();
 
+let open_all = true
 $(document).ready(function () {
     const root = document.getElementById("anc-form");
+
     setTimeout(() => {
         AntenatalCare.init(root);
-        $(root).find("details").prop("open", true);
+
+        console.log("Open All sections ?", open_all, root);
+        open_all && $(root).find("details")
+            .prop("open", true)
+            .find("summary")
+            .prop("tabindex", "-1");
+
+        // AntenatalCare.init(root);
+        $(root).on("focusin", e => console.log(e.target));
     }, 100);
 });

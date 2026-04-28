@@ -1,0 +1,564 @@
+{{ .Stylesheet }}
+{{ .Script }}
+<form id="inc-form" class="anc tw:size-full">
+    <header class="tw:flex! tw:flex-row! tw:justify-between tw:align-middle">
+        <h3 class="tw:font-semibold!">Form Intranatal Care (INC)</h3>
+        <table class="metadata tw:border tw:border-primary">
+            <tr class="section">
+                <th>Nama</th>
+                <td>{NAME_REAL}</td>
+            </tr>
+            <tr class="section">
+                <th>No. RM</th>
+                <td>{NO_RM}</td>
+            </tr>
+        </table>
+    </header>
+
+    <main id="anc-form-content">
+        <details class="accordion" open>
+            <summary class="accordion-title">
+                <h6>Data Persalinan</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-4">
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="labor_dt_date">
+                        Usia Kehamilan
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <input id="pregnancy_age" name="pregnancy_age" myid="check_cara" type="hidden" required />
+                    <div class="field-input">
+                        <input id="pregnancy_age_from" name="pregnancy_age_from" myid="check_cara" type="text"
+                            inputmode="numeric" placeholder="from" data-range-median="pregnancy_age" />
+                        <div class="input-label">&Gt;</div>
+                        <input id="pregnancy_age_to" name="pregnancy_age_to" myid="check_cara" type="text"
+                            inputmode="numeric" placeholder="to" data-range-median="pregnancy_age" />
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="gst_age_from">
+                        Tanggal &amp; Jam Persalinan
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input id="labor_dt" name="labor_dt" myid="check_cara" type="datetime-local" />
+                    </div>
+                </div>
+
+                <div class="form-field tw:col-start-1">
+                    <label class="field-title" for="gravida">
+                        Gravida
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input id="gravida" name="gravida" type="text" myid="check_cara" inputmode="numeric"
+                            placeholder="gravida" required value="{INC_GRAVIDA}" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="partus">
+                        Partus
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input id="partus" name="partus" type="text" myid="check_cara" inputmode="numeric"
+                            placeholder="partus" required value="{INC_PARTUS}" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="abortus">
+                        Abortus
+                        <span class="field-desc">
+                            Observation
+                        </span>
+                    </label>
+
+                    <div class="field-input">
+                        <input id="abortus" name="abortus" type="text" myid="check_cara" inputmode="numeric"
+                            placeholder="abortus" required value="{INC_ABORTUS}" />
+                    </div>
+                </div>
+            </div>
+        </details>
+
+
+        <details class="accordion" open>
+            <summary class="accordion-title">
+                <h6>Data Pelayanan Persalinan (Ibu)</h6>
+            </summary>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <!--<div class="accordion-title tw:col-span-2">
+                    Data Ibu
+                </div>-->
+
+                <div class="form-field">
+                    <label class="field-title" for="labor_condition">
+                        Keadaan Ibu
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <select id="labor_condition" name="labor_condition" myid="check_cara">
+                            {INC_KEADAAN_IBU}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="labor_helper">
+                        Penolong Persalinan
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <select id="labor_helper" name="labor_helper" myid="check_cara">
+                            {INC_PERSALINAN_PENOLONG}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="labor_procedure">
+                        Cara Persalinan
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <select id="labor_procedure" name="labor_procedure" myid="check_cara">
+                            {INC_PERSALINAN_PROSEDUR}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    Times Onset of Labor Stages
+                </div>
+
+                <div class="form-field">
+                    <label class="field-title" for="kala1_dt">
+                        Kala I
+                        <span class="field-desc">Observation</span>
+                    </label>
+                    <div class="field-input">
+                        <input id="kala1_dt" name="kala1_dt" type="datetime-local" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="kala2_dt">
+                        Kala II
+                        <span class="field-desc">Observation</span>
+                    </label>
+                    <div class="field-input">
+                        <input id="kala2_dt" name="kala2_dt" type="datetime-local" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="kala3_dt">
+                        Kala III
+                        <span class="field-desc">Observation</span>
+                    </label>
+                    <div class="field-input">
+                        <input id="kala3_dt" name="kala3_dt" type="datetime-local" />
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="kala4_dt">
+                        Kala IV
+                        <span class="field-desc">Observation</span>
+                    </label>
+                    <div class="field-input">
+                        <input id="kala4_dt" name="kala4_dt" type="datetime-local" />
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion" open>
+            <summary class="accordion-title">
+                <h6>Data Pelayanan Persalinan (Bayi)</h6>
+            </summary>
+
+            <fieldset name="apgar-1" class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    APGAR menit Ke-1
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-appearance">
+                            Appearance (Warna Kulit)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-1-appearance" name="apgar[m1][appearance]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-pulse">
+                            Pulse (Denyut Jantung)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-1-pulse" name="apgar[m1][pulse]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-grimace">
+                            Grimace (Refleks Stimulus Taktil)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-1-grimace" name="apgar[m1][grimace]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-activity">
+                            Activity (Tonus Otot)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-1-activity" name="apgar[m1][activity]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-respiration">
+                            Respiration (Pernapasan)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-1-respiration" name="apgar[m1][respiration]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-1-score">
+                            Total Skor
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <input id="apgar-1-score" name="apgar[m1][score]" myid="check_cara" type="text"
+                                inputmode="number" readonly />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="field-input">
+                            <select id="apgar-1-score-intrp" name="apgar[m1][score_intrp]" myid="check_cara" readonly>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset name="apgar-5" class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    APGAR menit Ke-5
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-appearance">
+                            Appreance (Warna Kulit)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-5-appearance" name="apgar[m5][appearance]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-pulse">
+                            Pulse (Denyut Jantung)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-5-pulse" name="apgar[m5][pulse]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-grimace">
+                            Grimace (Refleks Stimulus Taktil)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-5-grimace" name="apgar[m5][grimace]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-activity">
+                            Activity (Tonus Otot)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-5-activity" name="apgar[m5][activity]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-respiration">
+                            Respiration (Pernapasan)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-5-respiration" name="apgar[m5][respiration]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-5-score">
+                            Total Skor
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <input id="apgar-5-score" name="apgar[m5][score]" myid="check_cara" type="text"
+                                inputmode="number" readonly />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="field-input">
+                            <select id="apgar-5-score-intrp" name="apgar[m5][score_intrp]" myid="check_cara" readonly>
+                                <option value="">-</option>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset name="apgar-10" class="accordion-content tw:grid-cols-2">
+                <div class="accordion-title tw:col-span-2">
+                    APGAR menit Ke-10
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-appearance">
+                            Appreance (Warna Kulit)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-10-appearance" name="apgar[m10][appearance]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_WARNAKULIT}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-pulse">
+                            Pulse (Denyut Jantung)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-10-pulse" name="apgar[m10][pulse]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_PULSE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-grimace">
+                            Grimace (Refleks Stimulus Taktil)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-10-grimace" name="apgar[m10][grimace]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_GRIMACE}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-activity">
+                            Activity (Tonus Otot)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-10-activity" name="apgar[m10][activity]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_ACTIVITY}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-respiration">
+                            Respiration (Pernapasan)
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <select id="apgar-10-respiration" name="apgar[m10][respiration]" myid="check_cara">
+                                <option value="">-</option>
+                                {INC_APGAR_RESPIRATION}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="tw:flex tw:flex-col tw:gap-3">
+                    <div class="form-field">
+                        <label class="field-title" for="apgar-10-score">
+                            Total Skor
+                            <span class="field-desc">Observation</span>
+                        </label>
+
+                        <div class="field-input">
+                            <input id="apgar-10-score" name="apgar[m10][score]" myid="check_cara" type="text"
+                                inputmode="number" readonly />
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="field-input">
+                            <select id="apgar-10-score-intrp" name="apgar[m10][score_intrp]" myid="check_cara" readonly>
+                                <option value="">-</option>
+                                {INC_APGAR_SCOREINTRP}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="accordion-content tw:grid-cols-2">
+                <div class="form-field">
+                    <label class="field-title" for="child_bb">
+                        Berat Badan Bayi saat Lahir
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="tw:grid tw:grid-cols-2 tw:gap-3">
+                        <div class="field-input">
+                            <input id="child_bb" name="child[bb]" myid="check_cara" type="text" inputmode="numeric" />
+                            <span class="input-label">gr</span>
+                        </div>
+
+                        <div class="field-input">
+                            <input type="hidden" id="child_bb_intrp_system" name="child[bb_intrp][system]" />
+                            <input type="hidden" id="child_bb_intrp_display" name="child[bb_intrp][display]" />
+                            <select id="child_bb_intrp_code" name="child[bb_intrp][code]">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="field-title" for="child_tb">
+                        Panjang Badan Bayi Saat Lahir
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <input id="child_tb" name="child[tb]" myid="check_cara" type="text" inputmode="numeric" />
+                        <span class="input-label">cm</span>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="field-title" for="child_birth_location">
+                        Lokasi Kelahiran
+                        <span class="field-desc">Observation</span>
+                    </label>
+
+                    <div class="field-input">
+                        <select id="child_birth_location" name="child[birth_location]" myid="check_cara">
+                            {INC_PERSALINAN_LOKASI}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-content">
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="child_feed">
+                        <!--<div>-->
+                        Inisiasi Menyusui Dini
+                        <span class="field-desc">Procedure</span>
+                        <!--</div>-->
+                    </label>
+
+                    <div class="tw:grid tw:grid-cols-3 tw:gap-3">
+                        <div class="form-field field-checkbox">
+                            <label class="field-title">
+                                <input id="child_feed_on" name="child[feed]" myid="check_cara" type="radio"
+                                    value="on" />
+                                Sudah
+                            </label>
+                        </div>
+                        <div class="form-field field-checkbox">
+                            <label class="field-title">
+                                <input id="child_feed_off" name="child[feed]" myid="check_cara" type="radio" value="off"
+                                    checked />
+                                Tidak dilakukan
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field tw:col-span-2">
+                    <label class="field-title" for="child_feed_timespan">
+                        <div>
+                            Lama Waktu Menyusui
+                            <span class="field-desc">Procedure</span>
+                        </div>
+                    </label>
+                    <div class="field-input">
+                        <select id="child_feed_timespan" name="child[feed_timespan]" myid="check_cara">
+                            <option value="">-- lama menyusui --</option>
+                            {INC_LAMA_MENYUSUI}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </details>
+    </main>
+</form>

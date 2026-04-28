@@ -1,0 +1,137 @@
+:root {
+    --type-opac: 25%;
+    --header: #077e45;
+    --primer: #7cb8c0;
+    --catch-up: #fedb35;
+    --booster: #d5e599;
+    --endemis: #f36d52;
+    --high-risk: #ffa06a;
+    /*--primer: #0d6efd;*/
+    /*--catch-up: #ffc107;*/
+    /*--booster: #198754;*/
+    /*--endemis: #dc3545;*/
+    /*--high-risk: #5e0980;*/
+}
+
+input[type=checkbox][data-readonly] {
+    pointer-events: none;
+    opacity: .5;
+}
+
+.ui-datepicker {
+    z-index: 1050 !important;
+}
+
+.table-bordered,
+.table-bordered thead,
+.table-bordered tbody,
+.table-bordered tr,
+.table-bordered td,
+.table-bordered th {
+    border-color: #000 !important;
+}
+
+.table td[data-namespace] {
+    padding: 0;
+}
+
+/*.table td[data-namespace] .btn {
+    background: unset !important;
+    box-shadow: unset;
+}*/
+
+/*.table td[data-namespace]:has(& input[data-namespace-filled=filled]:checked) button.btn i.fa.fa-check {
+    display: inline-block !important;
+}*/
+
+.btn.trigger {
+    background: unset !important;
+    box-shadow: unset;
+    min-height: 37px;
+    width: 37px;
+    padding: 0;
+    text-wrap: wrap;
+}
+
+.btn[data-filled=false] i.fa,
+.btn[data-filled=true] .description {
+    display: none !important;
+}
+
+.btn[data-filled=true] i.fa,
+.btn[data-filled=true] .description {
+    display: unset;
+    color: #5DBD37;
+}
+
+/*.btn[data-filled=true] i.fa {
+}*/
+/*.btn[data-filled=false] i.fa {
+    display: none !important;
+}*/
+.table th {
+    background: var(--header);
+    color: white
+}
+
+.table td:not(.table td[colspan="0"]) .btn.trigger {
+    width: 100%;
+}
+
+.table td[data-namespace] input[type="checkbox"]:disabled {
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.modal .modal-footer {
+    display: flex;
+}
+
+
+.legend {
+    /*display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));*/
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+    margin-top: 1.2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legend-color-code {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+    padding-left: 0.5em;
+}
+
+.legend-color-code .identifier {
+    display: inline-block;
+    border: 1px solid black;
+    height: 12px;
+    width: 20px;
+}
+
+[data-type="primer"] {
+    /*background: color-mix(in srgb, var(--primer) var(--type-opac), #ffffff);*/
+    background: var(--primer);
+}
+
+[data-type="catch-up"] {
+    /*background: color-mix(in srgb, var(--catch-up) var(--type-opac), #ffffff);*/
+    background: var(--catch-up);
+}
+
+[data-type="booster"] {
+    /*background: color-mix(in srgb, var(--booster) var(--type-opac), #ffffff);*/
+    background: var(--booster);
+}
+
+[data-type="endemis"] {
+    background: var(--endemis);
+}
+
+[data-type="high-risk"] {
+    background: var(--high-risk);
+}

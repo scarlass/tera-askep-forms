@@ -7,7 +7,6 @@ profile:
         # keeping profile structure/name when reading
         # use this only if u omit all settings key (ssh, database), just like current settings
         env: true
-
         # by default the application also search for matching env key in format:
         # PROFILE_<profile-name-uppercase>_<setting>_<field>
         #
@@ -40,6 +39,13 @@ target:
             - forms/{{ .target }}/index.js
         stylesheet:
             - dist/forms/{{ .target }}/index.css
+    inc2:
+        alid: 850
+        html: forms/{{ .target }}/index.html
+        script:
+            - forms/{{ .target }}/index.js
+        stylesheet:
+            - dist/forms/{{ .target }}/index.css
     anc:
         alid: 842
         html: "forms/{{ .target }}/index.html"
@@ -51,11 +57,21 @@ target:
         script:
             - "forms/{{ .target }}/functionality.js"
         stylesheet: "dist/forms/{{ .target }}/index.css"
-    imunisasi:
+    im-detail:
         alid: 800
-        html: "forms/{{ .target }}/index.html"
-        script: "forms/{{ .target }}/index.js"
-        stylesheet: "dist/forms/{{ .target }}/index.css"
+        html: "forms/imunisasi/detail/index.html"
+        script: "forms/imunisasi/detail/index.js"
+        stylesheet: "dist/forms/imunisasi/detail/index.css"
+    im-calendar:
+        alid: 800
+        html: "dist/forms/imunisasi/calendar/v1.html"
+        script: "forms/imunisasi/calendar/templates/v1.js"
+        stylesheet: "dist/forms/imunisasi/calendar/v1.css"
+    im-c2:
+        alid: 801
+        html: "dist/forms/imunisasi/calendar/v2.html"
+        script: "forms/imunisasi/calendar/templates/v2.js"
+        stylesheet: "forms/imunisasi/calendar/templates/v1.css"
 
     # target name are case-insensitive
     # this entry only for example and will be count as non-exist at runtime

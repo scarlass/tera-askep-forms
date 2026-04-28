@@ -1,0 +1,181 @@
+<!-- <script type="application/json" src="assets/js/jquery-ui.js"></script> -->
+<!-- <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script> -->
+
+<form id="imunisasi-schedule-form" style="display: contents;">
+    <input id="version" name="version" myid="check_cara" type="hidden" value="1" />
+
+    {{ .Stylesheet }}
+    <script>
+        window.__imunisasi ||= {fillable: {{FILLABLE}} };
+    </script>
+    {{ .Script }}
+
+    <h4 class="text-center" style="
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        line-height: 1.2;
+        font-size: 1.25rem;
+        color: rgb(24, 28, 50);
+        font-family: Poppins, Helvetica, &quot;sans-serif&quot;;
+    ">
+        Jadwal Imunisasi Anak Umur 0-18 Tahun
+    </h4>
+    <div style="text-align: center">
+        <span style="
+            color: rgb(24, 28, 50);
+            font-family: Poppins, Helvetica, &quot;sans-serif&quot;;
+            font-size: 13.975px;
+            font-weight: 600;
+        ">Rekomendasi Ikatan Dokter Anak Indonesia (IDAI) Tahun 2024</span>
+    </div>
+    <div style="text-align: left">
+        <span style="
+            color: rgb(24, 28, 50);
+            font-family: Poppins, Helvetica, &quot;sans-serif&quot;;
+            font-size: 13.975px;
+            font-weight: 600;
+        "><br /></span>
+    </div>
+
+    <table class="table table-bordered" style="width: 98%; margin: 0 auto;">
+        <style>
+            tbody td>input[type="checkbox"] {
+                border: none !important;
+                outline: none !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th {
+                vertical-align: middle;
+                text-align: center;
+            }
+        </style>
+        <thead>
+            <tr>
+                <th rowspan="3" style="text-align: center; vertical-align: middle; width: 100px">Vaksin</th>
+                <th colspan="30">Umur</th>
+            </tr>
+            <tr>
+                <th colspan="12">Bulan</th>
+                <th colspan="19">Tahun</th>
+            </tr>
+            <tr>
+                <!-- Bulan -->
+                <th width="45px">LHR</th>
+                <th width="45px">1</th>
+                <th width="45px">2</th>
+                <th width="45px">3</th>
+                <th width="45px">4</th>
+                <th width="45px">5</th>
+                <th width="45px">6</th>
+                <th width="45px">9</th>
+                <th width="45px">12</th>
+                <th width="45px">15</th>
+                <th width="45px">18</th>
+                <th width="45px">24</th>
+                <!-- -- width="45px" Tahun -->
+                <th width="45px">3</th>
+                <th width="45px">4</th>
+                <th width="45px">5</th>
+                <th width="45px">6</th>
+                <th width="45px">7</th>
+                <th width="45px">8</th>
+                <th width="45px">9</th>
+                <th width="45px">10</th>
+                <th width="45px">11</th>
+                <th width="45px">12</th>
+                <th width="45px">13</th>
+                <th width="45px">14</th>
+                <th width="45px">15</th>
+                <th width="45px">16</th>
+                <th width="45px">17</th>
+                <th width="45px">18</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ROWS}}
+        </tbody>
+    </table>
+
+
+    <div class="legend">
+        <div>
+            <label style="font-weight: 600;">Cara Membaca kolom usia:</label>
+            <p>
+                semisal <span
+                    style="display: inline-block; border: 1px solid black; width: 37px; text-align: center;">2</span>
+                berarti mulai usia 2 bulan (60 hari) sampai dengan 2 bulan 29 hari (89 hari)
+            </p>
+        </div>
+        <div class="legend-color-code">
+            <div>
+                <span class="identifier" data-type="primer"></span>
+                <span>Primer</span>
+            </div>
+            <div>
+                <span class="identifier" data-type="catch-up"></span>
+                <span>Catch Up</span>
+            </div>
+            <div>
+                <span class="identifier" data-type="booster"></span>
+                <span>Booster</span>
+            </div>
+            <div>
+                <span class="identifier" data-type="endemis"></span>
+                <span>Di daerah endermis</span>
+            </div>
+            <div>
+                <span class="identifier" data-type="high-risk"></span>
+                <span>Untuk anak dengan risiko tinggi</span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- <div id="modal-form" class="modal" role="dialog" tabindex="-1">
+    <form id="subform-namespace" class="modal-dialog" role="document" onsubmit="event.preventDefault()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    Tanggal Imunisasi
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group" data-field="tanggal">
+                    <label for="subform-tanggal">Tanggal</label>
+                    <input id="subform-tanggal" type="text" class="form-control datepicker" name="tanggal" readonly />
+                    <div id="subform-tanggal-inl" class="datepicker"></div>
+                </div>
+                <div class="form-group">
+                    <label for="subform-deskripsi">Deskripsi</label>
+                    <textarea id="subform-deskripsi" class="form-control" name="deskripsi" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="subform-btn-del" type="button" class="btn btn-danger">
+                    Hapus
+                </button>
+
+                <span style="display: inline-block; margin-left: auto"></span>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close
+                </button>
+                <button id="subform-btn-save" type="button" class="btn btn-primary">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </form>
+</div> -->

@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "form": "node ./scripts",
         "watch": "vite build -w",
@@ -12,8 +13,12 @@
         "anc2:w": "npm run anc2:b -- -w",
         "inc:build": "npx @tailwindcss/cli --cwd ./forms/inc -o ../../dist/forms/inc/index.css -i index.css --minify",
         "inc:watch": "npm run inc:build -- -w",
-        "imunisasi:b": "npx @tailwindcss/cli --cwd ./forms/imunisasi -o ../../dist/forms/imunisasi/index.css -i index.css --minify",
-        "imunisasi:w": "npm run imunisasi:b -- -w"
+        "inc2:b": "npx @tailwindcss/cli --cwd ./forms/inc2 -o ../../dist/forms/inc2/index.css -i index.css --minify",
+        "inc2:w": "npm run inc2:b -- -w",
+        "im-d:b": "npx @tailwindcss/cli --cwd ./forms/imunisasi/detail -o ../../../dist/forms/imunisasi/detail/index.css -i index.css --minify",
+        "im-d:w": "npm run im-d:b -- -w",
+        "im-c1:b": "npx @tailwindcss/cli --cwd ./forms/imunisasi/calendar -o ../../../dist/forms/imunisasi/calendar/v1.css -i templates/v1.css --minify",
+        "im-c1:w": "npm run im-c1:b -- -w"
     },
     "keywords": [],
     "author": "",
